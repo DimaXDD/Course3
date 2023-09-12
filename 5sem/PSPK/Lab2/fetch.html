@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02-05</title>
+</head>
+<body>
+    <h1>ФИО: </h1>
+    <h2 id="fio"></h2>
+    <script>
+        let input = document.getElementById("fio");
+        fetch('/api/name')
+                .then(response => response.text()) // обработка ответа от сервера, корвертация его в текст.
+                .then(responseText => { console.log(responseText); input.innerHTML = responseText });
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02-04</title>
+</head>
+<body>
+    <h1>ФИО: </h1>
+    <h2 id="fio"></h2>
+    <script>
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('GET', 'http://localhost:5000/api/name', true);
+        xhr.send();
+
+        let input = document.getElementById("fio");
+        if (xhr.readyState === 4 && xhr.status === 200) { // завершен и успешный (как я)
+            input.innerHTML = xhr.responseText;
+            console.log(xhr.responseText);
+        } else {
+            console.log("Ответ сервера: " + xhr.statusText);
+        }
+    </script>
+</body>
+</html>
