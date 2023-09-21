@@ -10,9 +10,7 @@ http.createServer(function(request, response){
                 response.writeHead(500, { "Content-Type": "text/plain" });
                 response.end("Internal Server Error");
             } else {
-                response.writeHead(200, {
-                    "Content-Type": "text/html; charset=utf-8",
-                });
+                response.writeHead(200, {"Content-Type": "text/html; charset=utf-8" });
                 response.end(data);
             }
         });
