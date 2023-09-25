@@ -1,0 +1,4 @@
+﻿  pch.cpp
+  SP02.cpp
+E:\3course\5sem\SP\Lab2\SP02_LIB\SP02.cpp(37): warning C4715: SP02::Init: значение возвращается не при всех путях выполнения
+  SP02_LIB.vcxproj -> E:\3course\5sem\SP\Lab2\Debug\SP02_LIB.lib
