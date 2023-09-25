@@ -9,6 +9,7 @@ using namespace std;
 
 HMODULE hmodule;
 
+// {02fe8a5e-281b-4e3a-8f87-6c544deda994}
 static const CLSID CLSID_CA =
 { 0x02fe8a5e, 0x281b, 0x4e3a, { 0x8f, 0x87, 0x6c, 0x54, 0x4d, 0xed, 0xa9, 0x94 } };
 
@@ -55,6 +56,7 @@ STDAPI DllCanUnloadNow()
     return S_OK;
 }
 
+// Объект класс IClassFactory
 STDAPI DllGetClassObject(const CLSID& clsid, const IID& iid, LPVOID* ppv) {
     HRESULT rc = E_UNEXPECTED;
     MathFactory* pF;

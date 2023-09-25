@@ -9,6 +9,7 @@ MathFactory::MathFactory() : m_lRef(1) {}
 MathFactory::~MathFactory() {};
 
 
+// Методы IUnknown
 STDMETHODIMP_(HRESULT __stdcall) MathFactory::QueryInterface(REFIID riid, LPVOID* ppv)
 {
     if (riid == IID_IUnknown)
@@ -43,6 +44,7 @@ STDMETHODIMP_(ULONG) MathFactory::Release() {
 }
 
 
+// Экземпляр класса
 STDMETHODIMP MathFactory::CreateInstance(LPUNKNOWN pUnkOuter, REFIID riid, LPVOID* ppvObj) {
 
     HRESULT hr = E_UNEXPECTED;
@@ -64,6 +66,8 @@ STDMETHODIMP MathFactory::CreateInstance(LPUNKNOWN pUnkOuter, REFIID riid, LPVOI
     return hr;
 }
 
+// lockServer(true) запрещает разрушение экземпляра фабрики классов
+// lockServer(false) разрешает
 STDMETHODIMP  MathFactory::LockServer(BOOL fLock) {
     if (fLock)
         InterlockedIncrement(&g_lLocks);
