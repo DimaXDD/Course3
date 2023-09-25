@@ -5,9 +5,8 @@
 ### Или  
 	`cd E:\3course\5sem\SP\Lab2\Debug\`
 	`regsvr32 SP02_COM.dll`
-Чтобы удалить из реестра:  
+### Чтобы удалить из реестра:  
 	regsvr32 /u "E:\3course\5sem\SP\Lab2\Debug\SP02_COM.dll"
-
 # 2 шаг
 ## Проверка в regedit
 ### Нажимаем на Win и пишем regedit  
