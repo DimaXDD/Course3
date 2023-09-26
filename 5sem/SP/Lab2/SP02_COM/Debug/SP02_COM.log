@@ -1,2 +1,7 @@
-﻿  dllmain.cpp
+﻿  pch.cpp
+  MathFactory.cpp
+  Registry.cpp
+  SP02.cpp
+  dllmain.cpp
+  Создание кода...
   SP02_COM.vcxproj -> E:\3course\5sem\SP\Lab2\Debug\SP02_COM.dll

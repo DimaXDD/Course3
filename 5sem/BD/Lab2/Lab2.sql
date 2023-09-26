@@ -1,5 +1,5 @@
 --1
--- файл будет находится по пути C:\WINDOWS.X64_193000_db_home\database
+-- С„Р°Р№Р» Р±СѓРґРµС‚ РЅР°С…РѕРґРёС‚СЃСЏ РїРѕ РїСѓС‚Рё C:\WINDOWS.X64_193000_db_home\database
 create tablespace TS_TDS
     datafile 'ts_TDS.dbf'
     size 7M
@@ -44,13 +44,13 @@ select * from DBA_SYS_PRIVS where GRANTEE = 'RL_TDSCORE';
 
 --6
 create profile PF_TDSCORE limit
-    failed_login_attempts 7 --число попыток входа в систему
-    sessions_per_user 3 -- кол-во сессий на пользователя
-    password_life_time 60 -- время жизни пароля
-    password_reuse_time 365 -- время до повторного использования пароля
-    password_lock_time 1 -- время блокировки пароля
-    connect_time 180 -- время подключения
-    idle_time 30; --время простоя
+    failed_login_attempts 7 --С‡РёСЃР»Рѕ РїРѕРїС‹С‚РѕРє РІС…РѕРґР° РІ СЃРёСЃС‚РµРјСѓ
+    sessions_per_user 3 -- РєРѕР»-РІРѕ СЃРµСЃСЃРёР№ РЅР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+    password_life_time 60 -- РІСЂРµРјСЏ Р¶РёР·РЅРё РїР°СЂРѕР»СЏ
+    password_reuse_time 365 -- РІСЂРµРјСЏ РґРѕ РїРѕРІС‚РѕСЂРЅРѕРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РїР°СЂРѕР»СЏ
+    password_lock_time 1 -- РІСЂРµРјСЏ Р±Р»РѕРєРёСЂРѕРІРєРё РїР°СЂРѕР»СЏ
+    connect_time 180 -- РІСЂРµРјСЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+    idle_time 30; --РІСЂРµРјСЏ РїСЂРѕСЃС‚РѕСЏ
     
 --7
 select * from DBA_PROFILES;
@@ -77,7 +77,7 @@ to C##TDSCORE;
 drop user C##TDSCORE;
 
 --9
--- на фотке)))
+-- РЅР° С„РѕС‚РєРµ)))
 
 
 --10
