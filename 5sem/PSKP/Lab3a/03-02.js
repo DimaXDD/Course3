@@ -31,11 +31,11 @@ http.createServer(function(request, response) {
         case '/':
         fs.readFile('03-03.html', 'utf-8', function(err, data) {
             if (err) {
-            response.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
-            response.end("Ошибка сервера");
+                response.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+                response.end("Ошибка сервера");
             } else {
-            response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-            response.end(data);
+                response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                response.end(data);
             }
         });
         break;
