@@ -16,4 +16,4 @@ int main()
 }
 
 // Найти процесс с помощью ps:		ps -p PID
-// Найти процесс с помощью /proc:	cd proc/PID; ls -l
+// Найти процесс с помощью /proc:	cd /proc/PID; ls -l
