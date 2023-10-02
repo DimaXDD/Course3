@@ -8,7 +8,6 @@ select * from V$INSTANCE;
 select * from v$option;
 
 --4
--- create TDS_PDB with admin TDS_PDB_ADMIN in DB Configuration Assistant
 -- Как создать? (Актуально для Oracle 19c)
 -- 1. Запускаем DB Configuration Assistant (находим в поиске Windows или
 -- CMD -> dbca
