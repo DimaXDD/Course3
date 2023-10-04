@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Lab15.2/out/artifacts/Lab15_2_war_exploded/WEB-INF/lib/javax.jms-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Lab15.2/out/artifacts/Lab15_2_war_exploded/WEB-INF/lib/imqjmsra.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

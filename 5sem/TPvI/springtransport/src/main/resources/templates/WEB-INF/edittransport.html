@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Edit Transport</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<h1>Edit Transport</h1>
+<br/><br/>
+
+<div class="container">
+    <form th:action="@{/updatetransport}" method="post">
+        <input type="hidden" name="name" th:value="${transportform.name}" />
+        <input type="hidden" name="description" th:value="${transportform.description}" />
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="newName" th:value="${transportform.name}" />
+        <br/><br/>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="newDescription" th:value="${transportform.description}" />
+        <br/><br/>
+        <button class="button-edit" type="submit">Update</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Transport List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<h1>Transport List</h1>
+<h2> <a  href="addtransport">Add new transport</a> </h2>
+<br/><br/>
+
+<div class="container">
+    <table class ="container" border="1">
+        <tr>
+            <th><h1>Title</h1></th>
+            <th><h1>Author</h1></th>
+            <th><h1>Action</h1></th> <!-- Добавленный столбец -->
+            <th><h1>Edit</h1></th> <!-- Добавленный столбец -->
+        </tr>
+        <tr th:each ="transport : ${transports}">
+            <td th:utext="${transport.name}">...</td>
+            <td th:utext="${transport.description}">...</td>
+            <td>
+                <form th:action="@{/deletetransport}" method="post">
+                    <input type="hidden" name="name" th:value="${transport.name}" />
+                    <input type="hidden" name="description" th:value="${transport.description}" />
+                    <button class="button-delete" type="submit">Delete</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/edittransport}" method="post">
+                    <input type="hidden" name="name" th:value="${transport.name}" />
+                    <input type="hidden" name="description" th:value="${transport.description}" />
+                    <button class="button-edit" type="submit">Edit</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
