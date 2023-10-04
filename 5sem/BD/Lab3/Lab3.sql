@@ -155,13 +155,16 @@ to C##TDS container = all;
 select * from dba_users where USERNAME like '%C##%';
 
 -- !!! Если можно создать две таблицы, значит они создаются в разных DB
+
 -- Создание коннекта ConnectToCDB_Lab3 как обычный коннект,
 -- просто подключение по логину и паролю, база
 -- только используем юзера C##TDS
 
--- Запускать в коннекте ConnectToPDB_Lab3 по аналогии с заданием 7,
+-- Создание коннекта ConnectToPDB_Lab3 по аналогии с заданием 7,
 -- только используем юзера C##TDS
 
+
+-- Запускать в коннекте ConnectToСDB_Lab3
 create table x (id int);
 drop table x;
 
