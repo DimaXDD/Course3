@@ -1,0 +1,101 @@
+BasePriority            : 8
+CurrentPriority         : 9
+Id                      : 14296
+IdealProcessor          :
+PriorityBoostEnabled    : True
+PriorityLevel           : Normal
+PrivilegedProcessorTime : 00:00:00.0156250
+StartAddress            : 140717886416528
+StartTime               : 05.10.2023 20:23:14
+ThreadState             : Wait
+TotalProcessorTime      : 00:00:00.0156250
+UserProcessorTime       : 00:00:00
+WaitReason              : ExecutionDelay
+ProcessorAffinity       :
+Site                    :
+Container               :
+
+BasePriority            : 8
+CurrentPriority         : 8
+Id                      : 10612
+IdealProcessor          :
+PriorityBoostEnabled    : True
+PriorityLevel           : Normal
+PrivilegedProcessorTime : 00:00:00
+StartAddress            : 140717886416528
+StartTime               : 05.10.2023 20:23:14
+ThreadState             : Wait
+TotalProcessorTime      : 00:00:00
+UserProcessorTime       : 00:00:00
+WaitReason              : EventPairLow
+ProcessorAffinity       :
+Site                    :
+Container               :
+
+BasePriority            : 8
+CurrentPriority         : 9
+Id                      : 8680
+IdealProcessor          :
+PriorityBoostEnabled    : True
+PriorityLevel           : Normal
+PrivilegedProcessorTime : 00:00:00
+StartAddress            : 140717886416528
+StartTime               : 05.10.2023 20:23:14
+ThreadState             : Wait
+TotalProcessorTime      : 00:00:00.0156250
+UserProcessorTime       : 00:00:00.0156250
+WaitReason              : EventPairLow
+ProcessorAffinity       :
+Site                    :
+Container               :
+
+BasePriority            : 8
+CurrentPriority         : 8
+Id                      : 12520
+IdealProcessor          :
+PriorityBoostEnabled    : True
+PriorityLevel           : Normal
+PrivilegedProcessorTime : 00:00:00
+StartAddress            : 140717886416528
+StartTime               : 05.10.2023 20:23:14
+ThreadState             : Wait
+TotalProcessorTime      : 00:00:00.0156250
+UserProcessorTime       : 00:00:00.0156250
+WaitReason              : EventPairLow
+ProcessorAffinity       :
+Site                    :
+Container               :
+
+BasePriority            : 8
+CurrentPriority         : 8
+Id                      : 11880
+IdealProcessor          :
+PriorityBoostEnabled    : True
+PriorityLevel           : Normal
+PrivilegedProcessorTime : 00:00:00
+StartAddress            : 140717886416528
+StartTime               : 05.10.2023 20:23:14
+ThreadState             : Wait
+TotalProcessorTime      : 00:00:00
+UserProcessorTime       : 00:00:00
+WaitReason              : ExecutionDelay
+ProcessorAffinity       :
+Site                    :
+Container               :
+
+BasePriority            : 8
+CurrentPriority         : 9
+Id                      : 11740
+IdealProcessor          :
+PriorityBoostEnabled    : True
+PriorityLevel           : Normal
+PrivilegedProcessorTime : 00:00:00
+StartAddress            : 140717886416528
+StartTime               : 05.10.2023 20:23:14
+ThreadState             : Wait
+TotalProcessorTime      : 00:00:00
+UserProcessorTime       : 00:00:00
+WaitReason              : ExecutionDelay
+ProcessorAffinity       :
+Site                    :
+Container               :
