@@ -14,14 +14,12 @@ function thirdJob(data) {
     });
 }
 
-thirdJob(5)
-    // первая функция-обработчик - запустится при вызове resolve
-    // вторая функция - запустится при вызове reject
+thirdJob("f")
   .then((result) => {
     console.log('Вывод результата (Promise):', result);
   })
   .catch((error) => {
-    console.error('Вывод ошибки (Promise):', error);
+    console.error('Вывод ошибки (Promise):', error.message);
   });
 
 
@@ -30,6 +28,6 @@ thirdJob(5)
     const result = await thirdJob(6);
     console.log('Вывод результата (async/await):', result);
   } catch (error) {
-    console.error('Вывод ошибки (async/await):', error);
+    console.error('Вывод ошибки (async/await):', error.message);
   }
 })();

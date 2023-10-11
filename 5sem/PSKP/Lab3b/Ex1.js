@@ -7,15 +7,15 @@ function firstJob() {
 }
 
 
-firstJob()
-    // первая функция-обработчик - запустится при вызове resolve
-    // вторая функция - запустится при вызове reject
-  .then((result) => {
-    console.log('Вывод результата (Promise):', result);
-  })
-  .catch((error) => {
-    console.error('Вывод ошибки (Promise):', error);
-  });
+// firstJob()
+//     // первая функция-обработчик - запустится при вызове resolve
+//     // вторая функция - запустится при вызове reject
+//   .then((result) => {
+//     console.log('Вывод результата (Promise):', result);
+//   })
+//   .catch((error) => {
+//     console.error('Вывод ошибки (Promise):', error);
+//   });
 
 
 (async () => {

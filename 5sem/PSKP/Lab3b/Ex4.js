@@ -33,27 +33,24 @@ function proceedToPayment(orderId) {
     });
 }
 
-// Вызов функций и обработка результатов с использованием обработчиков Promise
-createOrder('1234-5678-9012-3456')
-  .then((orderId) => {
-    console.log('Создан заказ:', orderId);
-    return proceedToPayment(orderId);
-  })
-  .then((paymentResult) => {
-    console.log('Result:', paymentResult);
-  })
-  .catch((error) => {
-    console.error('Error:', error.message);
-  });
-
-// // Использование async/await и try/catch
-// (async () => {
-//   try {
-//     const orderId = await createOrder('5678-1234-9012-3456');
-//     console.log('Создан заказ:', orderId);
-//     const paymentResult = await proceedToPayment(orderId);
+// createOrder('1234-5678-9012-3456')
+//   .then((orderId) => {
+//     return proceedToPayment(orderId);
+//   })
+//   .then((paymentResult) => {
 //     console.log('Result:', paymentResult);
-//   } catch (error) {
+//   })
+//   .catch((error) => {
 //     console.error('Error:', error.message);
-//   }
-// })();
+//   });
+
+// Использование async/await и try/catch
+(async () => {
+  try {
+    const orderId = await createOrder('5678-1234-9012-3456');
+    const paymentResult = await proceedToPayment(orderId);
+    console.log('Result:', paymentResult);
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+})();

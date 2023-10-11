@@ -68,8 +68,9 @@ select * from dba_roles where ROLE like '%RL%';
 drop role TDS_PDB_RL;
 
 -- profile
--- Если не создается профиль в PDB, то просто обновляйся ваш коннект, 
--- мне помогло)))
+-- Если не создается профиль в PDB, то
+-- 1) Просто обновляйся ваш коннект
+-- 2) alter session set "_ORACLE_SCRIPT" = false; мне помогло)))
 create profile TDS_PDB_PROFILE limit
   password_life_time 365
   sessions_per_user 3

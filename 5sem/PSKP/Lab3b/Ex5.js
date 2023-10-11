@@ -3,7 +3,7 @@ function square(number) {
         if (Number.isFinite(number)) {
             resolve(Math.pow(number, 2));
         } else {
-            reject(new Error('Ошибка: входное значение не является числом'));
+            reject(new Error('Входное значение не является числом'));
         }
     });
 }
@@ -13,7 +13,7 @@ function cube(number) {
         if (Number.isFinite(number)) {
             resolve(Math.pow(number, 3));
         } else {
-            reject(new Error('Ошибка: входное значение не является числом'));
+            reject(new Error('Входное значение не является числом'));
         }
     });
 }
@@ -23,7 +23,7 @@ function fourthPower(number) {
         if (Number.isFinite(number)) {
             resolve(Math.pow(number, 4));
         } else {
-            reject(new Error('Ошибка: входное значение не является числом'));
+            reject(new Error('Входное значение не является числом'));
         }
     });
 }
@@ -31,7 +31,7 @@ function fourthPower(number) {
 const inputNumber = 2;
 
 
-Promise.all([square(inputNumber), cube(inputNumber), fourthPower(inputNumber)])
+Promise.all([square(inputNumber), cube("inputNumber"), fourthPower(inputNumber)])
   .then((results) => {
     console.log('Результаты:', results);
   })

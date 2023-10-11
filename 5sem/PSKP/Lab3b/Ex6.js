@@ -4,7 +4,7 @@ function square(number) {
         if (Number.isFinite(number)) {
             resolve(Math.pow(number, 2));
         } else {
-            reject(new Error('Ошибка: входное значение не является числом'));
+            reject(new Error('Входное значение не является числом'));
         }
         }, 1000);
     });
@@ -16,7 +16,7 @@ function cube(number) {
         if (Number.isFinite(number)) {
             resolve(Math.pow(number, 3));
         } else {
-            reject(new Error('Ошибка: входное значение не является числом'));
+            reject(new Error('Входное значение не является числом'));
         }
         }, 2000);
     });
@@ -28,7 +28,7 @@ function fourthPower(number) {
         if (Number.isFinite(number)) {
             resolve(Math.pow(number, 4));
         } else {
-            reject(new Error('Ошибка: входное значение не является числом'));
+            reject(new Error('Входное значение не является числом'));
         }
         }, 500);
     });
@@ -43,9 +43,11 @@ const inputNumber = 2;
 //   })
 //   .catch((error) => {
 //     console.error('Ошибка:', error.message);
-//   });
+//   });   
 
-Promise.all([square(inputNumber), cube(inputNumber), fourthPower(inputNumber)])
+
+// Вернет square
+Promise.any([square(inputNumber), cube(inputNumber), fourthPower("inputNumber")])
 .then((results) => {
     console.log('Результаты:', results);
 })
