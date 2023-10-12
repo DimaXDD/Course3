@@ -1,14 +1,19 @@
---1
+-- 1. Получите список всех существующих PDB в рамках экземпляра ORA12W. 
+-- Определите их текущее состояние.
 select * from dba_pdbs;
 
---2
+-- 2. Выполните запрос к ORA12W, позволяющий получить перечень экземпляров.
 select * from V$INSTANCE;
 
---3
+-- 3. Выполните запрос к ORA12W, позволяющий получить перечень установленных 
+-- компонентов СУБД Oracle 12c и их версии и статус. 
 select * from v$option;
 
---4
--- create TDS_PDB with admin TDS_PDB_ADMIN in DB Configuration Assistant
+-- 4. Создайте собственный экземпляр PDB 
+-- (необходимо подключиться к серверу с серверного компьютера и 
+-- используйте Database Configuration Assistant) с именем XXX_PDB, где XXX – инициалы студента. 
+
+-- Создание TDS_PDB с админом TDS_PDB_ADMIN в DB Configuration Assistant
 -- Как создать? (Актуально для Oracle 19c)
 -- 1. Запускаем DB Configuration Assistant (находим в поиске Windows или
 -- CMD -> dbca
@@ -20,10 +25,13 @@ select * from v$option;
 -- 6. Вписываем имя нашей PDB и создаём админа PDB
 -- 7. Жмём некст и ждём)
 
---5
+-- 5. Получите список всех существующих PDB в рамках экземпляра ORA12W. 
+-- Убедитесь, что созданная PDB-база данных существует.
 select * from dba_pdbs;
 
---6
+-- 6. Подключитесь к XXX_PDB c помощью SQL Developer,
+-- создайте инфраструктурные объекты (табличные пространства, роль, профиль безопасности, пользователя с именем U1_XXX_PDB).
+
 alter session set container = TDS_PDB;
 alter pluggable database TDS_PDB open;
 alter session set "_ORACLE_SCRIPT" = true;
@@ -101,8 +109,9 @@ to U1_TDS_PDB;
 select * from dba_users where USERNAME like '%U1%';
 drop user U1_TDS_PDB;
 
--- 7
--- Нужно подключится к юзеру, которого создали
+-- 7. Подключитесь к пользователю U1_XXX_PDB, с помощью SQL Developer, 
+-- создайте таблицу XXX_table, добавьте в нее строки, выполните SELECT-запрос к таблице.
+
 -- Инструкция:
 -- 1. Connection -> New Connection
 -- 2.   Имя пишите любое
@@ -129,7 +138,11 @@ insert into TDS_PDB_TABLE values (3, 'Test3');
 select * from TDS_PDB_TABLE
 drop table  TDS_PDB_TABLE;
 
--- 8
+-- 8. С помощью представлений словаря базы данных определите, 
+-- все табличные пространства, все  файлы (перманентные и временные), 
+-- все роли (и выданные им привилегии), профили безопасности, 
+-- всех пользователей  базы данных XXX_PDB и  назначенные им роли.
+
 select * from dba_tablespaces where TABLESPACE_NAME like 'TDS%';
 select * from dba_data_files;
 select * from dba_roles where ROLE like 'TDS%';
@@ -137,7 +150,11 @@ select * from dba_sys_privs where GRANTEE like 'TDS%';
 select * from dba_profiles where PROFILE like 'TDS%';
 select * from dba_users where USERNAME like 'TDS%';
 
--- 9
+-- 9. Подключитесь  к CDB-базе данных, создайте общего пользователя с именем C##XXX, 
+-- назначьте ему привилегию, позволяющую подключится к базе данных XXX_PDB. 
+-- Создайте 2 подключения пользователя C##XXX в SQL Developer к CDB-базе данных 
+-- и  XXX_PDB – базе данных. Проверьте их работоспособность.
+  
 alter session set container = CDB$ROOT;
 SHOW CON_NAME;
 
@@ -173,7 +190,10 @@ drop table x;
 create table x (id int);
 drop table x;
 
--- 10
+-- 10. Назначьте привилегию, разрешающему подключение к XXX_PDB общему пользователю C##YYY, 
+-- созданному другим студентом. Убедитесь в работоспособности  этого пользователя в базе данных XXX_PDB. 
+
+
 -- Чтобы не ставить еще одну виртуалку с oracle, проще поставить DataGrip
 -- на свою основную Windows
 -- Инструкция:
@@ -184,7 +204,6 @@ drop table x;
 -- 4. В окне впишите параметры по такому же принципу, как на фото ex10.png 
 -- и нажмите Test Connection
 -- 5. Если ошибки не выдает, значит все хорошо и можно работать уже в DataGrip
-
 
 create user C##TDS2
     identified by 111;
@@ -200,10 +219,17 @@ to C##TDS2 container = all;
 
 select * from dba_users where USERNAME like '%C##%';
 
--- 11
+-- 11. Подключитесь к пользователю U1_XXX_PDB со своего компьютера, 
+-- а к пользователям C##XXX и C##YYY с другого (к XXX_PDB-базе данных). 
+-- На своем компьютере получите список всех текущих подключений к XXX_PDB (найдите в списке созданные вами подключения). 
+-- На своем компьютере получите список всех текущих подключений к СDB (найдите в списке созданные вами подключений).
+
 -- В файле Ex11(DataGrip).sql
 
--- 13
+-- 13. Удалите созданную базу данных XXX_DB. 
+-- Убедитесь, что все файлы PDB-базы данных удалены. 
+-- Удалите пользователя C##XXX. 
+-- Удалите в SQL Developer все подключения к XXX_PDB.
 show pdbs;
 alter pluggable database TDS_PDB open;
 drop pluggable database TDS_PDB including datafiles;
