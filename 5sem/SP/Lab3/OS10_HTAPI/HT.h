@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include "Element.h"
 
@@ -6,102 +6,102 @@
 
 namespace ht    // HT API
 {
-	// API HT - программный интерфейс для доступа к НТ-хранилищу 
-	//          НТ-хранилище предназначено для хранения данных в ОП в формате ключ/значение
-	//          Персистестеность (сохранность) данных обеспечивается с помощью snapshot-менханизма 
-	//          create - создать  и открыть HT-хранилище для использования   
-	//          open   - открыть HT-хранилище для использования
-	//          insert - создать элемент данных
-	//          remove - удалить элемент данных    
-	//          get    - читать  элемент данных
-	//          update - изменить элемент данных
-	//          snap   - выпонить snapshot
-	//          close  - выполнить snap и закрыть HT-хранилище для использования
-	//          getLastError - получить сообщение о последней ошибке
+	// API HT - РїСЂРѕРіСЂР°РјРјРЅС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РќРў-С…СЂР°РЅРёР»РёС‰Сѓ 
+	//          РќРў-С…СЂР°РЅРёР»РёС‰Рµ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРѕ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С… РІ РћРџ РІ С„РѕСЂРјР°С‚Рµ РєР»СЋС‡/Р·РЅР°С‡РµРЅРёРµ
+	//          РџРµСЂСЃРёСЃС‚РµСЃС‚РµРЅРѕСЃС‚СЊ (СЃРѕС…СЂР°РЅРЅРѕСЃС‚СЊ) РґР°РЅРЅС‹С… РѕР±РµСЃРїРµС‡РёРІР°РµС‚СЃСЏ СЃ РїРѕРјРѕС‰СЊСЋ snapshot-РјРµРЅС…Р°РЅРёР·РјР° 
+	//          create - СЃРѕР·РґР°С‚СЊ  Рё РѕС‚РєСЂС‹С‚СЊ HT-С…СЂР°РЅРёР»РёС‰Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ   
+	//          open   - РѕС‚РєСЂС‹С‚СЊ HT-С…СЂР°РЅРёР»РёС‰Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ
+	//          insert - СЃРѕР·РґР°С‚СЊ СЌР»РµРјРµРЅС‚ РґР°РЅРЅС‹С…
+	//          remove - СѓРґР°Р»РёС‚СЊ СЌР»РµРјРµРЅС‚ РґР°РЅРЅС‹С…    
+	//          get    - С‡РёС‚Р°С‚СЊ  СЌР»РµРјРµРЅС‚ РґР°РЅРЅС‹С…
+	//          update - РёР·РјРµРЅРёС‚СЊ СЌР»РµРјРµРЅС‚ РґР°РЅРЅС‹С…
+	//          snap   - РІС‹РїРѕРЅРёС‚СЊ snapshot
+	//          close  - РІС‹РїРѕР»РЅРёС‚СЊ snap Рё Р·Р°РєСЂС‹С‚СЊ HT-С…СЂР°РЅРёР»РёС‰Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ
+	//          getLastError - РїРѕР»СѓС‡РёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РїРѕСЃР»РµРґРЅРµР№ РѕС€РёР±РєРµ
 
 
-	struct HtHandle    // блок управления HT
+	struct HtHandle    // Р±Р»РѕРє СѓРїСЂР°РІР»РµРЅРёСЏ HT
 	{
 		HtHandle();
 		HtHandle(int capacity, int secSnapshotInterval, int maxKeyLength, int maxPayloadLength, const wchar_t* fileName);
-		int     capacity;               // емкость хранилища в количестве элементов 
-		int     secSnapshotInterval;    // переодичность сохранения в сек. 
-		int     maxKeyLength;           // максимальная длина ключа
-		int     maxPayloadLength;       // максимальная длина данных
-		wchar_t fileName[512];          // имя файла 
-		HANDLE  file;                   // File HANDLE != 0, если файл открыт
-		HANDLE  fileMapping;            // Mapping File HANDLE != 0, если mapping создан  
-		LPVOID  addr;                   // Addr != NULL, если mapview выполнен  
-		char    lastErrorMessage[512];  // сообщение об последней ошибке или 0x00  
-		time_t  lastSnaptime;           // дата последнего snap'a (time())
+		int     capacity;               // РµРјРєРѕСЃС‚СЊ С…СЂР°РЅРёР»РёС‰Р° РІ РєРѕР»РёС‡РµСЃС‚РІРµ СЌР»РµРјРµРЅС‚РѕРІ 
+		int     secSnapshotInterval;    // РїРµСЂРµРѕРґРёС‡РЅРѕСЃС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІ СЃРµРє. 
+		int     maxKeyLength;           // РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° РєР»СЋС‡Р°
+		int     maxPayloadLength;       // РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° РґР°РЅРЅС‹С…
+		wchar_t fileName[512];          // РёРјСЏ С„Р°Р№Р»Р° 
+		HANDLE  file;                   // File HANDLE != 0, РµСЃР»Рё С„Р°Р№Р» РѕС‚РєСЂС‹С‚
+		HANDLE  fileMapping;            // Mapping File HANDLE != 0, РµСЃР»Рё mapping СЃРѕР·РґР°РЅ  
+		LPVOID  addr;                   // Addr != NULL, РµСЃР»Рё mapview РІС‹РїРѕР»РЅРµРЅ  
+		char    lastErrorMessage[512];  // СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РїРѕСЃР»РµРґРЅРµР№ РѕС€РёР±РєРµ РёР»Рё 0x00  
+		time_t  lastSnaptime;           // РґР°С‚Р° РїРѕСЃР»РµРґРЅРµРіРѕ snap'a (time())
 
-		int count;						// текущее количество элементов в хэш-таблице
-		HANDLE snapshotTimer;			// таймер для snapshot
-		HANDLE mutex;					// mutex для синхронизации нескольких экземпляров HtHandle
+		int count;						// С‚РµРєСѓС‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ С…СЌС€-С‚Р°Р±Р»РёС†Рµ
+		HANDLE snapshotTimer;			// С‚Р°Р№РјРµСЂ РґР»СЏ snapshot
+		HANDLE mutex;					// mutex РґР»СЏ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё РЅРµСЃРєРѕР»СЊРєРёС… СЌРєР·РµРјРїР»СЏСЂРѕРІ HtHandle
 	};
 
-	HtHandle* create   //  создать HT             
+	HtHandle* create   //  СЃРѕР·РґР°С‚СЊ HT             
 	(
-		int	  capacity,					   // емкость хранилища
-		int   secSnapshotInterval,		   // переодичность сохранения в сек.
-		int   maxKeyLength,                // максимальный размер ключа
-		int   maxPayloadLength,            // максимальный размер данных
-		const wchar_t* fileName           // имя файла 
-	); 	// != NULL успешное завершение  
+		int	  capacity,					   // РµРјРєРѕСЃС‚СЊ С…СЂР°РЅРёР»РёС‰Р°
+		int   secSnapshotInterval,		   // РїРµСЂРµРѕРґРёС‡РЅРѕСЃС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІ СЃРµРє.
+		int   maxKeyLength,                // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РєР»СЋС‡Р°
+		int   maxPayloadLength,            // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РґР°РЅРЅС‹С…
+		const wchar_t* fileName           // РёРјСЏ С„Р°Р№Р»Р° 
+	); 	// != NULL СѓСЃРїРµС€РЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ  
 
-	HtHandle* open     //  открыть HT             
+	HtHandle* open     //  РѕС‚РєСЂС‹С‚СЊ HT             
 	(
-		const wchar_t* fileName,         // имя файла 
-		bool isMapFile = false				// true если открыть fileMapping; false если открыть файл; по умолчанию false
-	); 	// != NULL успешное завершение  
+		const wchar_t* fileName,         // РёРјСЏ С„Р°Р№Р»Р° 
+		bool isMapFile = false				// true РµСЃР»Рё РѕС‚РєСЂС‹С‚СЊ fileMapping; false РµСЃР»Рё РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»; РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ false
+	); 	// != NULL СѓСЃРїРµС€РЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ  
 
-	BOOL snap         // выполнить Snapshot
+	BOOL snap         // РІС‹РїРѕР»РЅРёС‚СЊ Snapshot
 	(
-		HtHandle* htHandle           // управление HT (File, FileMapping)
+		HtHandle* htHandle           // СѓРїСЂР°РІР»РµРЅРёРµ HT (File, FileMapping)
 	);
 
-	BOOL close        // snap и закрыть HT  и  очистить htHandle
+	BOOL close        // snap Рё Р·Р°РєСЂС‹С‚СЊ HT  Рё  РѕС‡РёСЃС‚РёС‚СЊ htHandle
 	(
-		const HtHandle* htHandle           // управление HT (File, FileMapping)
-	);	//  == TRUE успешное завершение   
+		const HtHandle* htHandle           // СѓРїСЂР°РІР»РµРЅРёРµ HT (File, FileMapping)
+	);	//  == TRUE СѓСЃРїРµС€РЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ   
 
 
-	BOOL insert      // добавить элемент в хранилище
+	BOOL insert      // РґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚ РІ С…СЂР°РЅРёР»РёС‰Рµ
 	(
-		HtHandle* htHandle,            // управление HT
-		const Element* element              // элемент
-	);	//  == TRUE успешное завершение 
+		HtHandle* htHandle,            // СѓРїСЂР°РІР»РµРЅРёРµ HT
+		const Element* element              // СЌР»РµРјРµРЅС‚
+	);	//  == TRUE СѓСЃРїРµС€РЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ 
 
 
-	BOOL removeOne      // удалить элемент в хранилище
+	BOOL removeOne      // СѓРґР°Р»РёС‚СЊ СЌР»РµРјРµРЅС‚ РІ С…СЂР°РЅРёР»РёС‰Рµ
 	(
-		HtHandle* htHandle,            // управление HT (ключ)
-		const Element* element              // элемент 
-	);	//  == TRUE успешное завершение 
+		HtHandle* htHandle,            // СѓРїСЂР°РІР»РµРЅРёРµ HT (РєР»СЋС‡)
+		const Element* element              // СЌР»РµРјРµРЅС‚ 
+	);	//  == TRUE СѓСЃРїРµС€РЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ 
 
-	Element* get     //  читать элемент в хранилище
+	Element* get     //  С‡РёС‚Р°С‚СЊ СЌР»РµРјРµРЅС‚ РІ С…СЂР°РЅРёР»РёС‰Рµ
 	(
-		HtHandle* htHandle,            // управление HT
-		const Element* element              // элемент 
-	); 	//  != NULL успешное завершение 
+		HtHandle* htHandle,            // СѓРїСЂР°РІР»РµРЅРёРµ HT
+		const Element* element              // СЌР»РµРјРµРЅС‚ 
+	); 	//  != NULL СѓСЃРїРµС€РЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ 
 
 
-	BOOL update     //  именить элемент в хранилище
+	BOOL update     //  РёРјРµРЅРёС‚СЊ СЌР»РµРјРµРЅС‚ РІ С…СЂР°РЅРёР»РёС‰Рµ
 	(
-		HtHandle* htHandle,            // управление HT
-		const Element* oldElement,          // старый элемент (ключ, размер ключа)
-		const void* newPayload,          // новые данные  
-		int             newPayloadLength     // размер новых данных
-	); 	//  != NULL успешное завершение 
+		HtHandle* htHandle,            // СѓРїСЂР°РІР»РµРЅРёРµ HT
+		const Element* oldElement,          // СЃС‚Р°СЂС‹Р№ СЌР»РµРјРµРЅС‚ (РєР»СЋС‡, СЂР°Р·РјРµСЂ РєР»СЋС‡Р°)
+		const void* newPayload,          // РЅРѕРІС‹Рµ РґР°РЅРЅС‹Рµ  
+		int             newPayloadLength     // СЂР°Р·РјРµСЂ РЅРѕРІС‹С… РґР°РЅРЅС‹С…
+	); 	//  != NULL СѓСЃРїРµС€РЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ 
 
-	const char* getLastError  // получить сообщение о последней ошибке
+	const char* getLastError  // РїРѕР»СѓС‡РёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РїРѕСЃР»РµРґРЅРµР№ РѕС€РёР±РєРµ
 	(
-		const HtHandle* htHandle                         // управление HT
+		const HtHandle* htHandle                         // СѓРїСЂР°РІР»РµРЅРёРµ HT
 	);
 
-	void print                               // распечатать элемент 
+	void print                               // СЂР°СЃРїРµС‡Р°С‚Р°С‚СЊ СЌР»РµРјРµРЅС‚ 
 	(
-		const Element* element              // элемент 
+		const Element* element              // СЌР»РµРјРµРЅС‚ 
 	);
 
 	int hashFunction(const char* key, int capacity);
@@ -120,11 +120,11 @@ namespace ht    // HT API
 	const char* writeLastError(HtHandle* const htHandle, const char* msg);
 
 	HtHandle* createHt(
-		int	  capacity,					// емкость хранилища
-		int   secSnapshotInterval,		// переодичность сохранения в сек.
-		int   maxKeyLength,             // максимальный размер ключа
-		int   maxPayloadLength,			// максимальный размер данных
-		const wchar_t* fileName);		// имя файла 
+		int	  capacity,					// РµРјРєРѕСЃС‚СЊ С…СЂР°РЅРёР»РёС‰Р°
+		int   secSnapshotInterval,		// РїРµСЂРµРѕРґРёС‡РЅРѕСЃС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІ СЃРµРє.
+		int   maxKeyLength,             // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РєР»СЋС‡Р°
+		int   maxPayloadLength,			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РґР°РЅРЅС‹С…
+		const wchar_t* fileName);		// РёРјСЏ С„Р°Р№Р»Р° 
 	HtHandle* openHtFromFile(const wchar_t* fileName);
 	HtHandle* openHtFromMapName(const wchar_t* fileName);
 	BOOL runSnapshotTimer(HtHandle* htHandle);

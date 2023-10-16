@@ -1,4 +1,4 @@
-#include "pch.h"
+п»ї#include "pch.h"
 
 #include "HT.h"
 
@@ -30,11 +30,11 @@ namespace ht
 	}
 
 	HtHandle* create(
-		int	  capacity,					// емкость хранилища
-		int   secSnapshotInterval,		// переодичность сохранения в сек.
-		int   maxKeyLength,             // максимальный размер ключа
-		int   maxPayloadLength,			// максимальный размер данных
-		const wchar_t* fileName)		// имя файла 
+		int	  capacity,					// РµРјРєРѕСЃС‚СЊ С…СЂР°РЅРёР»РёС‰Р°
+		int   secSnapshotInterval,		// РїРµСЂРµРѕРґРёС‡РЅРѕСЃС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІ СЃРµРє.
+		int   maxKeyLength,             // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РєР»СЋС‡Р°
+		int   maxPayloadLength,			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РґР°РЅРЅС‹С…
+		const wchar_t* fileName)		// РёРјСЏ С„Р°Р№Р»Р° 
 	{
 		HtHandle* htHandle = createHt(capacity, secSnapshotInterval, maxKeyLength, maxPayloadLength, fileName);
 		runSnapshotTimer(htHandle);
@@ -43,11 +43,11 @@ namespace ht
 	}
 
 	HtHandle* createHt(
-		int	  capacity,					// емкость хранилища
-		int   secSnapshotInterval,		// переодичность сохранения в сек.
-		int   maxKeyLength,             // максимальный размер ключа
-		int   maxPayloadLength,			// максимальный размер данных
-		const wchar_t* fileName)		// имя файла 
+		int	  capacity,					// РµРјРєРѕСЃС‚СЊ С…СЂР°РЅРёР»РёС‰Р°
+		int   secSnapshotInterval,		// РїРµСЂРµРѕРґРёС‡РЅРѕСЃС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІ СЃРµРє.
+		int   maxKeyLength,             // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РєР»СЋС‡Р°
+		int   maxPayloadLength,			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РґР°РЅРЅС‹С…
+		const wchar_t* fileName)		// РёРјСЏ С„Р°Р№Р»Р° 
 	{
 		HANDLE hf = CreateFile(
 			fileName,
@@ -101,8 +101,8 @@ namespace ht
 
 	HtHandle* open
 	(
-		const wchar_t* fileName,         // имя файла
-		bool isMapFile)					// true если открыть fileMapping; false если открыть файл; по умолчанию false
+		const wchar_t* fileName,         // РёРјСЏ С„Р°Р№Р»Р°
+		bool isMapFile)					// true РµСЃР»Рё РѕС‚РєСЂС‹С‚СЊ fileMapping; false РµСЃР»Рё РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»; РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ false
 	{
 		HtHandle* htHandle;
 		if (isMapFile)
@@ -199,10 +199,10 @@ namespace ht
 		return true;
 	}
 
-	Element* get     //  читать элемент из хранилища
+	Element* get     //  С‡РёС‚Р°С‚СЊ СЌР»РµРјРµРЅС‚ РёР· С…СЂР°РЅРёР»РёС‰Р°
 	(
-		HtHandle* htHandle,            // управление HT
-		const Element* element)              // элемент 
+		HtHandle* htHandle,            // СѓРїСЂР°РІР»РµРЅРёРµ HT
+		const Element* element)              // СЌР»РµРјРµРЅС‚ 
 	{
 		WaitForSingleObject(htHandle->mutex, INFINITE);
 		int index = findIndex(htHandle, element);
@@ -219,10 +219,10 @@ namespace ht
 		return foundElement;
 	}
 
-	BOOL insert		// добавить элемент в хранилище
+	BOOL insert		// РґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚ РІ С…СЂР°РЅРёР»РёС‰Рµ
 	(
-		HtHandle* htHandle,            // управление HT
-		const Element* element)              // элемент
+		HtHandle* htHandle,            // СѓРїСЂР°РІР»РµРЅРёРµ HT
+		const Element* element)              // СЌР»РµРјРµРЅС‚
 	{
 		if (htHandle->count >= htHandle->capacity)
 		{
@@ -242,12 +242,12 @@ namespace ht
 		return true;
 	}
 
-	BOOL update     //  именить элемент в хранилище
+	BOOL update     //  РёРјРµРЅРёС‚СЊ СЌР»РµРјРµРЅС‚ РІ С…СЂР°РЅРёР»РёС‰Рµ
 	(
-		HtHandle* htHandle,            // управление HT
-		const Element* oldElement,          // старый элемент (ключ, размер ключа)
-		const void* newPayload,          // новые данные  
-		int             newPayloadLength)     // размер новых данных
+		HtHandle* htHandle,            // СѓРїСЂР°РІР»РµРЅРёРµ HT
+		const Element* oldElement,          // СЃС‚Р°СЂС‹Р№ СЌР»РµРјРµРЅС‚ (РєР»СЋС‡, СЂР°Р·РјРµСЂ РєР»СЋС‡Р°)
+		const void* newPayload,          // РЅРѕРІС‹Рµ РґР°РЅРЅС‹Рµ  
+		int             newPayloadLength)     // СЂР°Р·РјРµСЂ РЅРѕРІС‹С… РґР°РЅРЅС‹С…
 	{
 		WaitForSingleObject(htHandle->mutex, INFINITE);
 		int index = findIndex(htHandle, oldElement);
@@ -265,10 +265,10 @@ namespace ht
 		return true;
 	}
 
-	BOOL removeOne      // удалить элемент в хранилище
+	BOOL removeOne      // СѓРґР°Р»РёС‚СЊ СЌР»РµРјРµРЅС‚ РІ С…СЂР°РЅРёР»РёС‰Рµ
 	(
-		HtHandle* htHandle,            // управление HT (ключ)
-		const Element* element)				 // элемент 
+		HtHandle* htHandle,            // СѓРїСЂР°РІР»РµРЅРёРµ HT (РєР»СЋС‡)
+		const Element* element)				 // СЌР»РµРјРµРЅС‚ 
 	{
 		WaitForSingleObject(htHandle->mutex, INFINITE);
 		int index = findIndex(htHandle, element);
@@ -286,9 +286,9 @@ namespace ht
 		return true;
 	}
 
-	BOOL snap         // выполнить Snapshot
+	BOOL snap         // РІС‹РїРѕР»РЅРёС‚СЊ Snapshot
 	(
-		HtHandle* htHandle)           // управление HT (File, FileMapping)
+		HtHandle* htHandle)           // СѓРїСЂР°РІР»РµРЅРёРµ HT (File, FileMapping)
 	{
 		WaitForSingleObject(htHandle->mutex, INFINITE);
 		if (!FlushViewOfFile(htHandle->addr, NULL)) {
@@ -301,9 +301,9 @@ namespace ht
 		return true;
 	}
 
-	void print                               // распечатать элемент 
+	void print                               // СЂР°СЃРїРµС‡Р°С‚Р°С‚СЊ СЌР»РµРјРµРЅС‚ 
 	(
-		const Element* element)              // элемент 
+		const Element* element)              // СЌР»РµРјРµРЅС‚ 
 	{
 		std::cout << "Element:" << std::endl;
 		std::cout << "{" << std::endl;
@@ -314,9 +314,9 @@ namespace ht
 		std::cout << "}" << std::endl;
 	}
 
-	BOOL close        // snap и закрыть HT  и  очистить htHandle
+	BOOL close        // snap Рё Р·Р°РєСЂС‹С‚СЊ HT  Рё  РѕС‡РёСЃС‚РёС‚СЊ htHandle
 	(
-		const HtHandle* htHandle)           // управление HT (File, FileMapping)
+		const HtHandle* htHandle)           // СѓРїСЂР°РІР»РµРЅРёРµ HT (File, FileMapping)
 	{
 		HANDLE hf = htHandle->file;
 		HANDLE hfm = htHandle->fileMapping;
@@ -348,8 +348,8 @@ namespace ht
 	}
 
 	int findFreeIndex(
-		const HtHandle* htHandle,           // управление HT
-		const Element* element)				// элемент
+		const HtHandle* htHandle,           // СѓРїСЂР°РІР»РµРЅРёРµ HT
+		const Element* element)				// СЌР»РµРјРµРЅС‚
 	{
 		int index = hashFunction((char*)element->key, htHandle->capacity);
 
@@ -374,8 +374,8 @@ namespace ht
 	}
 
 	int findIndex(
-		const HtHandle* htHandle,           // управление HT
-		const Element* element)				// элемент
+		const HtHandle* htHandle,           // СѓРїСЂР°РІР»РµРЅРёРµ HT
+		const Element* element)				// СЌР»РµРјРµРЅС‚
 	{
 		int index = hashFunction((char*)element->key, htHandle->capacity);
 
@@ -462,9 +462,9 @@ namespace ht
 		return htHandle->lastErrorMessage;
 	}
 
-	const char* getLastError  // получить сообщение о последней ошибке
+	const char* getLastError  // РїРѕР»СѓС‡РёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РїРѕСЃР»РµРґРЅРµР№ РѕС€РёР±РєРµ
 	(
-		const HtHandle* htHandle)				// управление HT
+		const HtHandle* htHandle)				// СѓРїСЂР°РІР»РµРЅРёРµ HT
 	{
 		return htHandle->lastErrorMessage;
 	}

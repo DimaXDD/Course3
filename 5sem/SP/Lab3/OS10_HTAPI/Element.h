@@ -1,20 +1,20 @@
-#pragma once
+п»ї#pragma once
 
 namespace ht
 {
-	struct Element   // элемент 
+	struct Element   // СЌР»РµРјРµРЅС‚ 
 	{
 		Element();
 		Element(const void* key, int keyLength);                                             // for get
 		Element(const void* key, int keyLength, const void* payload, int  payloadLength);    // for insert
 		Element(const Element* oldElement, const void* newPayload, int  newPayloadLength);   // for update
-		const void* key;                 // значение ключа 
-		int         keyLength;           // рахмер ключа
-		const void* payload;             // данные 
-		int         payloadLength;       // размер данных
+		const void* key;                 // Р·РЅР°С‡РµРЅРёРµ РєР»СЋС‡Р° 
+		int         keyLength;           // СЂР°С…РјРµСЂ РєР»СЋС‡Р°
+		const void* payload;             // РґР°РЅРЅС‹Рµ 
+		int         payloadLength;       // СЂР°Р·РјРµСЂ РґР°РЅРЅС‹С…
 	};
 
 	int getSizeElement(
-		int   maxKeyLength,                // максимальный размер ключа
-		int   maxPayloadLength);           // максимальный размер данных
+		int   maxKeyLength,                // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РєР»СЋС‡Р°
+		int   maxPayloadLength);           // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РґР°РЅРЅС‹С…
 }
