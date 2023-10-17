@@ -49,12 +49,12 @@ npm init
 ```
 ### 9) Установите пакет m05_XXX с помощью npm
 ```
-npm install m06_XXX
+npm install m05_XXX
 
 ```
 ### 10) Мне лень, поэтому дальше эти команды
 ```
-npm uninstall m06_XXX
-npm install -g m06_XXX
+npm uninstall m05_XXX
+npm install -g m05_XXX
 
 ```
