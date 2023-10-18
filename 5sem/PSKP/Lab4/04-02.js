@@ -18,7 +18,8 @@ db.on('GET', (req, res) => {
 })
 
 db.on('POST', (req, res) =>{
-    console.log("DB.POST"); 
+    console.log('DB.POST'); 
+
     //обычный insert
     req.on('data', data => {
         let r = JSON.parse(data);
@@ -39,23 +40,25 @@ db.on('POST', (req, res) =>{
     })
 })
 
-db.on('PUT', (req, resp)=>{
+db.on('PUT', (req, res)=>{
     console.log('DB.PUT');
+
     req.on('data', data => {
         let r = JSON.parse(data);
         db.update(r);
-        resp.setHeader('Content-Type', 'application/json');
-        resp.end(JSON.stringify(r));
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(r));
     })
 })
 
-db.on('DELETE', (req, resp)=>{
+db.on('DELETE', (req, res)=>{
     console.log('DB.DELETE');
+    
     req.on('data', data => {
         let r = JSON.parse(data);
         db.delete(r);
-        resp.setHeader('Content-Type', 'application/json');
-        resp.end(JSON.stringify(r));
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(r));
     })
 })
 
@@ -67,7 +70,7 @@ http.createServer(function(req, res) {
         })
     }
     else if (url.parse(req.url).pathname ==='/api/db') {
-        db.emit(req.method, req, res); //для генерации событий ; имя события - стркока
+        db.emit(req.method, req, res);
     }
      
 }).listen(5000, "127.0.0.1", function(){

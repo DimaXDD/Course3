@@ -4,7 +4,25 @@ class DB extends EventEmitter {
     
     constructor(){
         super();
-        this.db_data = [{ID:"1", FIO: "Trubach D.S.", BDay: "2004-01-10"}]
+        this.db_data = 
+        [
+            {
+                ID:"1",
+                FIO: "Trubach D.S.", 
+                BDay: "2004-01-10"
+            },
+            {
+                ID:"2",
+                FIO: "Artsykhovich P.A.", 
+                BDay: "2004-01-28"
+            },
+            {
+                ID:"3",
+                FIO: "Korenchuk A.V.", 
+                BDay: "2003-10-15"
+            },
+                        
+        ]
     }
 
     async select(obj){
