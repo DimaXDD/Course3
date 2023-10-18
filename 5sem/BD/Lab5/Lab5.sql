@@ -1,11 +1,11 @@
--- 1. Определите общий размер области SGA.
+-- 1. РћРїСЂРµРґРµР»РёС‚Рµ РѕР±С‰РёР№ СЂР°Р·РјРµСЂ РѕР±Р»Р°СЃС‚Рё SGA.
 select sum(value) from v$sga;
 
--- 2. Определите текущие размеры основных пулов SGA.
+-- 2. РћРїСЂРµРґРµР»РёС‚Рµ С‚РµРєСѓС‰РёРµ СЂР°Р·РјРµСЂС‹ РѕСЃРЅРѕРІРЅС‹С… РїСѓР»РѕРІ SGA.
 select * from v$sga;
 select sum(min_size), sum(max_size), sum(current_size) from v$sga_dynamic_components;
 
--- 3. Определите размеры гранулы для каждого пула.
+-- 3. РћРїСЂРµРґРµР»РёС‚Рµ СЂР°Р·РјРµСЂС‹ РіСЂР°РЅСѓР»С‹ РґР»СЏ РєР°Р¶РґРѕРіРѕ РїСѓР»Р°.
 select
     component,
     current_size,
@@ -16,19 +16,19 @@ select
     current_size/granule_size as Ratio
 from v$sga_dynamic_components;
 
--- 4. Определите объем доступной свободной памяти в SGA.
+-- 4. РћРїСЂРµРґРµР»РёС‚Рµ РѕР±СЉРµРј РґРѕСЃС‚СѓРїРЅРѕР№ СЃРІРѕР±РѕРґРЅРѕР№ РїР°РјСЏС‚Рё РІ SGA.
 select current_size from v$sga_dynamic_free_memory;
 
--- 5. Определите максимальный и целевой размер области SGA.
+-- 5. РћРїСЂРµРґРµР»РёС‚Рµ РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ Рё С†РµР»РµРІРѕР№ СЂР°Р·РјРµСЂ РѕР±Р»Р°СЃС‚Рё SGA.
 show parameter sga;
 
--- Либо --
+-- Р›РёР±Рѕ --
 select name, value
 from v$parameter
 where name like 'sga%'
    or name = 'memory_target';
 
--- 6. Определите размеры пулов КЕЕP, DEFAULT и RECYCLE буферного кэша.
+-- 6. РћРїСЂРµРґРµР»РёС‚Рµ СЂР°Р·РјРµСЂС‹ РїСѓР»РѕРІ РљР•Р•P, DEFAULT Рё RECYCLE Р±СѓС„РµСЂРЅРѕРіРѕ РєСЌС€Р°.
 select 
     component, 
     min_size,
@@ -37,8 +37,8 @@ select
 from v$sga_dynamic_components
 where component in ('KEEP buffer cache', 'DEFAULT buffer cache', 'RECYCLE buffer cache');
 
--- 7. Создайте таблицу, которая будет помещаться в пул КЕЕP.
--- Продемонстрируйте сегмент таблицы.
+-- 7. РЎРѕР·РґР°Р№С‚Рµ С‚Р°Р±Р»РёС†Сѓ, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РїРѕРјРµС‰Р°С‚СЊСЃСЏ РІ РїСѓР» РљР•Р•P.
+-- РџСЂРѕРґРµРјРѕРЅСЃС‚СЂРёСЂСѓР№С‚Рµ СЃРµРіРјРµРЅС‚ С‚Р°Р±Р»РёС†С‹.
 create table KEEP_TABLE (num int) storage (buffer_pool keep) tablespace users;
 insert into KEEP_TABLE values (1);
 insert into KEEP_TABLE values (25);
@@ -47,8 +47,8 @@ select * from KEEP_TABLE;
 select segment_name, segment_type, tablespace_name, buffer_pool
 from user_segments where segment_name like 'KEEP%';
 
--- 8. Создайте таблицу, которая будет кэшироваться в пуле DEFAULT. 
--- Продемонстрируйте сегмент таблицы.
+-- 8. РЎРѕР·РґР°Р№С‚Рµ С‚Р°Р±Р»РёС†Сѓ, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РєСЌС€РёСЂРѕРІР°С‚СЊСЃСЏ РІ РїСѓР»Рµ DEFAULT. 
+-- РџСЂРѕРґРµРјРѕРЅСЃС‚СЂРёСЂСѓР№С‚Рµ СЃРµРіРјРµРЅС‚ С‚Р°Р±Р»РёС†С‹.
 create table DEFAULT_TABLE (num int) storage (buffer_pool default) tablespace users;
 insert into DEFAULT_TABLE values (2);
 insert into DEFAULT_TABLE values (10);
@@ -60,10 +60,10 @@ from user_segments where segment_name like 'DEFAULT%';
 drop table KEEP_TABLE;
 drop table DEFAULT_TABLE;
 
--- 9. Найдите размер буфера журналов повтора.
+-- 9. РќР°Р№РґРёС‚Рµ СЂР°Р·РјРµСЂ Р±СѓС„РµСЂР° Р¶СѓСЂРЅР°Р»РѕРІ РїРѕРІС‚РѕСЂР°.
 show parameter log_buffer;
 
--- 10. Найдите размер свободной памяти в большом пуле.
+-- 10. РќР°Р№РґРёС‚Рµ СЂР°Р·РјРµСЂ СЃРІРѕР±РѕРґРЅРѕР№ РїР°РјСЏС‚Рё РІ Р±РѕР»СЊС€РѕРј РїСѓР»Рµ.
 select * from  v$sgastat where pool = 'large pool';
 
 select 
@@ -75,45 +75,45 @@ select
 from v$sga_dynamic_components
 where component = 'large pool';
 
--- 11. Определите режимы текущих соединений с инстансом (dedicated, shared).
+-- 11. РћРїСЂРµРґРµР»РёС‚Рµ СЂРµР¶РёРјС‹ С‚РµРєСѓС‰РёС… СЃРѕРµРґРёРЅРµРЅРёР№ СЃ РёРЅСЃС‚Р°РЅСЃРѕРј (dedicated, shared).
 select 
     username, 
     service_name, 
     server 
 from v$session where username is not null;
 
--- Либо --
+-- Р›РёР±Рѕ --
 select sid, serial#, username, server, program
 from v$session
 where type != 'BACKGROUND';
 
--- 12. Получите полный список работающих в настоящее время фоновых процессов.
+-- 12. РџРѕР»СѓС‡РёС‚Рµ РїРѕР»РЅС‹Р№ СЃРїРёСЃРѕРє СЂР°Р±РѕС‚Р°СЋС‰РёС… РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ С„РѕРЅРѕРІС‹С… РїСЂРѕС†РµСЃСЃРѕРІ.
 select count(*) from v$bgprocess;
 select name, description from v$bgprocess where paddr != hextoraw('00') order by name;
 
--- 13. Получите список работающих в настоящее время серверных процессов.
+-- 13. РџРѕР»СѓС‡РёС‚Рµ СЃРїРёСЃРѕРє СЂР°Р±РѕС‚Р°СЋС‰РёС… РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ СЃРµСЂРІРµСЂРЅС‹С… РїСЂРѕС†РµСЃСЃРѕРІ.
 select pname, program from v$process where background is null order by pname;
 
--- 14. Определите, сколько процессов DBWn работает в настоящий момент.
+-- 14. РћРїСЂРµРґРµР»РёС‚Рµ, СЃРєРѕР»СЊРєРѕ РїСЂРѕС†РµСЃСЃРѕРІ DBWn СЂР°Р±РѕС‚Р°РµС‚ РІ РЅР°СЃС‚РѕСЏС‰РёР№ РјРѕРјРµРЅС‚.
 select count(*) from v$bgprocess where name like 'DBW%';
 select * from v$bgprocess where name like 'DBW%';
 
--- 15. Определите сервисы (точки подключения экземпляра).
+-- 15. РћРїСЂРµРґРµР»РёС‚Рµ СЃРµСЂРІРёСЃС‹ (С‚РѕС‡РєРё РїРѕРґРєР»СЋС‡РµРЅРёСЏ СЌРєР·РµРјРїР»СЏСЂР°).
 select name, network_name, pdb from v$services;
 
--- 16. Получите известные вам параметры диспетчеров.
+-- 16. РџРѕР»СѓС‡РёС‚Рµ РёР·РІРµСЃС‚РЅС‹Рµ РІР°Рј РїР°СЂР°РјРµС‚СЂС‹ РґРёСЃРїРµС‚С‡РµСЂРѕРІ.
 show parameter dispatcher;
 
--- 17. Укажите в списке Windows-сервисов сервис, реализующий процесс LISTENER.
+-- 17. РЈРєР°Р¶РёС‚Рµ РІ СЃРїРёСЃРєРµ Windows-СЃРµСЂРІРёСЃРѕРІ СЃРµСЂРІРёСЃ, СЂРµР°Р»РёР·СѓСЋС‰РёР№ РїСЂРѕС†РµСЃСЃ LISTENER.
 -- OracleOraDB19Home1TNSListener
 
--- 18. Продемонстрируйте и поясните содержимое файла LISTENER.ORA.
--- Находится по пути C:\WINDOWS.X64_193000_db_home\network\admin\listener.ora
+-- 18. РџСЂРѕРґРµРјРѕРЅСЃС‚СЂРёСЂСѓР№С‚Рµ Рё РїРѕСЏСЃРЅРёС‚Рµ СЃРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р° LISTENER.ORA.
+-- РќР°С…РѕРґРёС‚СЃСЏ РїРѕ РїСѓС‚Рё C:\WINDOWS.X64_193000_db_home\network\admin\listener.ora
 
--- 19. Запустите утилиту lsnrctl и поясните ее основные команды.
--- В CMD пишем lsnrctl и поясняем))))
+-- 19. Р—Р°РїСѓСЃС‚РёС‚Рµ СѓС‚РёР»РёС‚Сѓ lsnrctl Рё РїРѕСЏСЃРЅРёС‚Рµ РµРµ РѕСЃРЅРѕРІРЅС‹Рµ РєРѕРјР°РЅРґС‹.
+-- Р’ CMD РїРёС€РµРј lsnrctl Рё РїРѕСЏСЃРЅСЏРµРј))))
 
--- 20. Получите список служб инстанса, обслуживаемых процессом LISTENER.
--- В CMD пишем lsnrctl и пишем services
+-- 20. РџРѕР»СѓС‡РёС‚Рµ СЃРїРёСЃРѕРє СЃР»СѓР¶Р± РёРЅСЃС‚Р°РЅСЃР°, РѕР±СЃР»СѓР¶РёРІР°РµРјС‹С… РїСЂРѕС†РµСЃСЃРѕРј LISTENER.
+-- Р’ CMD РїРёС€РµРј lsnrctl Рё РїРёС€РµРј services
 
 
