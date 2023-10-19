@@ -1,6 +1,6 @@
 {
-  "name": "m05_tds_v1",
-  "version": "1.0.0",
+  "name": "m05_tds",
+  "version": "1.0.1",
   "description": "",
   "main": "m05_TDS.js",
   "scripts": {

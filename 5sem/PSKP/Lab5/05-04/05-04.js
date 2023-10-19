@@ -1,4 +1,4 @@
-const emailModule = require('m05_tds_v1');
+const emailModule = require('m05_tds');
 
 async function main() {
     let from = 'dimatruba2004@yandex.ru';
