@@ -46,7 +46,7 @@ int main()
 
 	for (short i = 1; i <= 100; ++i)
 	{
-		if (i == 40)
+		if (i == 5)
 			TerminateThread(handleClild_T2, -1);
 		cout << i << ". PID = " << pid << "\t\t[PARENT]    TID = " << parentId << "\n";
 		Sleep(1000);

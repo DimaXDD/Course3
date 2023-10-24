@@ -14,7 +14,7 @@ DWORD WINAPI ChildThread_T1()
 	{
 		cout << i << ". PID = " << pid << "\t\t[CHILD-1]   TID = " << tid << "\n";
 		Sleep(1000);
-		if (i == 25)
+		if (i == 5)
 			Sleep(10000);
 	}
 	return 0;
@@ -29,7 +29,7 @@ DWORD WINAPI ChildThread_T2()
 	{
 		cout << i << ". PID = " << pid << "\t\t[CHILD-2]   TID = " << tid << "\n";
 		Sleep(1000);
-		if (i == 80)
+		if (i == 15)
 			Sleep(15000);
 	}
 	return 0;

@@ -48,7 +48,7 @@ int main()
 	{
 		switch (i)
 		{
-		case 20: SuspendThread(handleClild_T1); break;
+		case 2: SuspendThread(handleClild_T1); break;
 		case 60: ResumeThread(handleClild_T1);  break;
 		case 40: SuspendThread(handleClild_T2); break;
 		case 100: ResumeThread(handleClild_T2); break;
