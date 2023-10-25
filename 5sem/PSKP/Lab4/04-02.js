@@ -5,8 +5,6 @@ const url = require('url');
 
 let db = new data.DB();
 
-//слушатели событий
-
 db.on('GET', (req, res) => {
     console.log('DB.Get');
     
@@ -19,7 +17,6 @@ db.on('GET', (req, res) => {
 
 db.on('POST', (req, res) =>{
     console.log('DB.POST'); 
-
     //обычный insert
     req.on('data', data => {
         let r = JSON.parse(data);

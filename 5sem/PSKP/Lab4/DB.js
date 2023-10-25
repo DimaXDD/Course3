@@ -21,14 +21,20 @@ class DB extends EventEmitter {
                 FIO: "Korenchuk A.V.", 
                 BDay: "2003-10-15"
             },
+            {
+                ID:"4",
+                FIO: "Gaykov D.V.", 
+                BDay: "2004-01-30"
+            },
                         
         ]
     }
 
-    async select(obj){
+    async select(obj) {
         let elem;
-        if (obj != undefined && "ID" in obj)
+        if (obj != undefined && "ID" in obj) {
             elem = this.db_data.find(item => item.ID === obj.ID);
+        }
 
         if (elem != undefined) {
             let index = this.db_data.indexOf(elem);
@@ -42,11 +48,10 @@ class DB extends EventEmitter {
         }
     }
     async insert(obj) {
-
-        if(obj.BDay != undefined && new Date(obj.BDay) > new Date()) {
+        if (obj.BDay != undefined && new Date(obj.BDay) > new Date()) {
             console.log("Error: BDay is greater than today's date.")
         }
-        else{
+        else {
             let elem = this.db_data.find(item => item.ID === obj.ID)
             
             console.log(elem);
@@ -56,9 +61,9 @@ class DB extends EventEmitter {
             else
                 this.db_data.push({ID : obj.ID, FIO : obj.FIO, BDay: obj.BDay});
         }
-}
-    async update(obj){
+    }
 
+    async update(obj) {
         if(obj.BDay != undefined && new Date(obj.BDay) > new Date()) {
             console.log("Error: BDay is greater than today's date.")
         }

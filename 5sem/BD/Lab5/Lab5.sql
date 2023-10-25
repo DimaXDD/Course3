@@ -20,7 +20,9 @@ from v$sga_dynamic_components;
 select current_size from v$sga_dynamic_free_memory;
 
 -- 5. Определите максимальный и целевой размер области SGA.
-show parameter sga;
+select value from v$parameter where name = 'sga_target';
+select value from v$parameter where name = 'sga_max_size';
+show parameter sga; -- sqlplus
 
 -- Либо --
 select name, value
@@ -61,7 +63,7 @@ drop table KEEP_TABLE;
 drop table DEFAULT_TABLE;
 
 -- 9. Найдите размер буфера журналов повтора.
-show parameter log_buffer;
+show parameter log_buffer; -- sqlplus
 
 -- 10. Найдите размер свободной памяти в большом пуле.
 select * from  v$sgastat where pool = 'large pool';
@@ -102,18 +104,33 @@ select * from v$bgprocess where name like 'DBW%';
 select name, network_name, pdb from v$services;
 
 -- 16. Получите известные вам параметры диспетчеров.
-show parameter dispatcher;
+select * from v$dispatcher;
+show parameter dispatcher; -- sqlplus
 
 -- 17. Укажите в списке Windows-сервисов сервис, реализующий процесс LISTENER.
 -- OracleOraDB19Home1TNSListener
+select * from v$services;
+-- services.msc->%listener%
 
 -- 18. Продемонстрируйте и поясните содержимое файла LISTENER.ORA.
 -- Находится по пути C:\WINDOWS.X64_193000_db_home\network\admin\listener.ora
 
 -- 19. Запустите утилиту lsnrctl и поясните ее основные команды.
 -- В CMD пишем lsnrctl и поясняем))))
+--commands:
+    /*
+        1. start - Запускает слушатель баз данных Oracle.
+        2. servacls - Отображает список сервисов и их доступа для подключений через слушателя.
+        3. trace - Включает или отключает функцию трассировки для слушателя.
+        4. show - Отображает текущие настройки слушателя или информацию о подключенных клиентах.
+        5. stop - Останавливает слушатель баз данных Oracle.
+        6. version - Отображает версию слушателя.
+        7. quit или exit - Выходит из lsnrctl.
+        8. status - Отображает текущий статус слушателя.
+        9. reload - Перезагружает конфигурацию слушателя без его остановки.
+        10. services - Отображает список доступных сервисов, которые могут быть запущены через слушателя.
+        11. save_config - Сохраняет текущую конфигурацию слушателя в файл.
+    */
 
 -- 20. Получите список служб инстанса, обслуживаемых процессом LISTENER.
 -- В CMD пишем lsnrctl и пишем services
-
-
