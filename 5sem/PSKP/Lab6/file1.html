@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FormTask7</title>
+</head>
+<body>
+    <form action="/formparameter" method="post">
+        <label for="textParam">Text Parameter:</label>
+        <input type="text" id="textParam" name="textParam" required><br><br>
+      
+        <label for="numParam">Number Parameter:</label>
+        <input type="number" id="numParam" name="numParam" required><br><br>
+      
+        <label for="dateParam">Date Parameter:</label>
+        <input type="date" id="dateParam" name="dateParam" required><br><br>
+      
+        <label for="checkboxParam">Checkbox Parameter:</label>
+        <input type="checkbox" id="checkboxParam" name="checkboxParam" value="Yes"><br><br>
+      
+        <label for="radioParam1">Radio Parameter 1:</label>
+        <input type="radio" id="radioParam1" name="radioParam" value="Option 1"><br>
+      
+        <label for="radioParam2">Radio Parameter 2:</label>
+        <input type="radio" id="radioParam2" name="radioParam" value="Option 2"><br><br>
+      
+        <label for="textareaParam">Textarea Parameter:</label><br>
+        <textarea id="textareaParam" name="textareaParam" rows="4" cols="50" required></textarea><br><br>
+      
+        <input type="submit" name="submitButton" value="Submit Button 1">
+        <input type="submit" name="submitButton" value="Submit Button 2">
+      </form>
+</body>
+</html>
