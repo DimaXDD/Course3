@@ -1,0 +1,4 @@
+﻿  Test.cpp
+E:\3course\5sem\OS\Test\Test\Test.cpp(18,1): warning C4477: "printf": в строке форматирования "%x" требуется аргумент типа "unsigned int", но вариативный аргумент "2" имеет тип "LPVOID"
+E:\3course\5sem\OS\Test\Test\Test.cpp(18,1): warning C4477: "printf": в строке форматирования "%x" требуется аргумент типа "unsigned int", но вариативный аргумент "3" имеет тип "LPVOID"
+  Test.vcxproj -> E:\3course\5sem\OS\Test\Debug\Test.exe

@@ -3,7 +3,7 @@ const fs = require("fs");
 const xml2js = require('xml2js');
 const path = require('path');
 
-let keepAliveTimeout = "";
+let KeepAliveTimeout = 60; // Значение по умолчанию (в секундах)
 
 const getReq = (request, response) =>
 {
@@ -17,8 +17,7 @@ const getReq = (request, response) =>
 
             try {
                 const fileContent = fs.readFileSync(filePath);
-
-                response.writeHead(200, { 'Content-Type': 'text/plain' }); // Здесь устанавливаем правильный Content-Type
+                response.writeHead(200, { 'Content-Type': 'text/plain' });
                 response.end(fileContent);
             } catch (err) {
                 response.writeHead(404, { 'Content-Type': 'text/plain' });
@@ -27,25 +26,53 @@ const getReq = (request, response) =>
         }
     }
 
+    if(pathname.startsWith('/parameter'))
+    {
+        const [,_, xStr, yStr] = pathname.split('/'); // Разбираем x и y из пути
+
+        if (!isNaN(xStr) && !isNaN(yStr)) { // Проверяем, являются ли x и y числами
+            const x = Number.parseInt(xStr);
+            const y = Number.parseInt(yStr);
+
+            const sum = x + y;
+            const diff = x - y;
+            const prod = x * y;
+            const quot = x / y;
+
+            response.writeHead(200, { "Content-Type": "text/plain" });
+            response.end(`Sum: ${sum}, Dif: ${diff}, Mult: ${prod}, Quot: ${quot}`);
+        } else {
+            response.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8'});
+            response.end("Ошибка: введенные данные не являются числами!");
+        }
+    }
+
     
    switch (pathname)
     {
         case '/connection': {
-            const {set} = query;
+            const parsedUrl = url.parse(request.url, true);
 
-            if (!set) {
-                response.writeHead(200, { "Content-Type": "text/plain" });
-                response.end('Value: ' + keepAliveTimeout);
+            if (parsedUrl.query.set) {
+                const newKeepAliveTimeout = parseInt(parsedUrl.query.set);
+                if (!isNaN(newKeepAliveTimeout)) {
+                    KeepAliveTimeout = newKeepAliveTimeout;
+                    response.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+                    response.end(`Установлено новое значение параметра KeepAliveTimeout=${newKeepAliveTimeout}`);
+                } else {
+                    response.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
+                    response.end('Ошибка: Укажите корректное значение для параметра set');
+                }
             } else {
-                keepAliveTimeout = set;
-                response.writeHead(200, { "Content-Type": "text/plain" });
-                response.end("Update keepAliveTimeout! New value: " + keepAliveTimeout);
+                response.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+                response.end(`Текущее значение параметра KeepAliveTimeout: ${KeepAliveTimeout}`);
             }
+
             break;
         }
         case '/headers': {
             let h = (r) => {
-                let rc='';
+                let rc = '';
                 for (key in r.headers) {
                     rc += '<h3>' + key + ':'+ r.headers[key]+'</h3>';
                 }
@@ -99,17 +126,20 @@ const getReq = (request, response) =>
             break;
         }
         case '/socket':{    
+            const {headers} = request;
+            const ip = request.connection.remoteAddress;
+            const port = request.connection.remotePort;
+
             response.writeHead(200, { 'Content-Type': 'text/plain' });
             response.end(`
-                Server IP:      ${server.address().address}\n
-                Server PORT:    ${server.address().port}\n
-                Client IP:      ${req.connection.remoteAddress}\n
-                Client PORT:    ${req.connection.remotePort}\n
-            `);
+                Client IP: ${ip}, 
+                Client Port: ${port},
+                Server IP: ${headers.host.split(':')[0]},
+                Server Port: ${headers.host.split(':')[1]}`);
             break;
         }
         case '/resp-status': {
-            const { code, mess} = query;
+            const {code, mess} = query;
             if(!code || !mess || !Number.parseInt(code))
             {
                 response.writeHead(500, { "Content-Type": "text/plain" });
@@ -228,7 +258,7 @@ const postReq = (request, response) =>
 
                 // POSTMAN:
                 // {
-                //     "_comment": "Lab 6",
+                //     "_comment": "Lab6",
                 //     "x": 1,
                 //     "y": 2,
                 //     "s": "message",
@@ -278,7 +308,7 @@ const postReq = (request, response) =>
             });
 
             /*
-            * this is for postman:
+            * POSTMAN:
             *  <request id="28">
                  <x value = "1"/>
                  <x value = "2"/>
