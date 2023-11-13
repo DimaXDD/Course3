@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 {
 	try
 	{
-		ht::HtHandle* ht = ht::open(L"../storage/HTspace.ht", true);
+		ht::HtHandle* ht = ht::open(L"HTspace.ht", true);
 		if (ht)
 			cout << "-- open: success" << endl;
 		else

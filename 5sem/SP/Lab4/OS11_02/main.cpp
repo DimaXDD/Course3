@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 		auto insert = (BOOL(*)(ht::HtHandle*, const ht::Element*)) GetProcAddress(hmdll, "insert");
 		auto createInsertElement = (ht::Element * (*)(const void*, int, const void*, int)) GetProcAddress(hmdll, "createInsertElement");
 
-		ht::HtHandle* ht = open(L"../storage/HTspace.ht", true);
+		ht::HtHandle* ht = open(L"HTspace.ht", true);
 		if (ht)
 			cout << "-- open: success" << endl;
 		else
