@@ -1,11 +1,11 @@
 const http = require("http");
 const controller = require('./controller')
 
-http.createServer(function(request, response){
-     if (request.method === 'GET') {
-        controller.getReq(request, response);
-     } else if (request.method === 'POST') {
-        controller.postReq(request, response);
+http.createServer(function(req, res){
+     if (req.method === 'GET') {
+        controller.getReq(req, res);
+     } else if (req.method === 'POST') {
+        controller.postReq(req, res);
      }
      
 }).listen(5000, "127.0.0.1", function(){

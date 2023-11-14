@@ -5,9 +5,9 @@ const path = require('path');
 
 let KeepAliveTimeout = 60; // Значение по умолчанию (в секундах)
 
-const getReq = (request, response) =>
+const getReq = (req, res) =>
 {
-    const {pathname, query} = url.parse(request.url, true);
+    const {pathname, query} = url.parse(req.url, true);
 
     if (pathname.startsWith('/files')) {
         const [, , file] = pathname.split('/');
@@ -17,11 +17,11 @@ const getReq = (request, response) =>
 
             try {
                 const fileContent = fs.readFileSync(filePath);
-                response.writeHead(200, { 'Content-Type': 'text/plain' });
-                response.end(fileContent);
+                res.writeHead(200, { 'Content-Type': 'text/plain' });
+                res.end(fileContent);
             } catch (err) {
-                response.writeHead(404, { 'Content-Type': 'text/plain' });
-                response.end('Error 404: File Not Found');
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('Error 404: File Not Found');
             }
         }
     }
@@ -39,11 +39,11 @@ const getReq = (request, response) =>
             const prod = x * y;
             const quot = x / y;
 
-            response.writeHead(200, { "Content-Type": "text/plain" });
-            response.end(`Sum: ${sum}, Dif: ${diff}, Mult: ${prod}, Quot: ${quot}`);
+            res.writeHead(200, { "Content-Type": "text/plain" });
+            res.end(`Sum: ${sum}, Dif: ${diff}, Mult: ${prod}, Quot: ${quot}`);
         } else {
-            response.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8'});
-            response.end("Ошибка: введенные данные не являются числами!");
+            res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8'});
+            res.end("Ошибка: введенные данные не являются числами!");
         }
     }
 
@@ -51,21 +51,21 @@ const getReq = (request, response) =>
    switch (pathname)
     {
         case '/connection': {
-            const parsedUrl = url.parse(request.url, true);
+            const parsedUrl = url.parse(req.url, true);
 
             if (parsedUrl.query.set) {
                 const newKeepAliveTimeout = parseInt(parsedUrl.query.set);
                 if (!isNaN(newKeepAliveTimeout)) {
                     KeepAliveTimeout = newKeepAliveTimeout;
-                    response.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-                    response.end(`Установлено новое значение параметра KeepAliveTimeout=${newKeepAliveTimeout}`);
+                    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+                    res.end(`Установлено новое значение параметра KeepAliveTimeout=${newKeepAliveTimeout}`);
                 } else {
-                    response.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
-                    response.end('Ошибка: Укажите корректное значение для параметра set');
+                    res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
+                    res.end('Ошибка: Укажите корректное значение для параметра set');
                 }
             } else {
-                response.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-                response.end(`Текущее значение параметра KeepAliveTimeout: ${KeepAliveTimeout}`);
+                res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+                res.end(`Текущее значение параметра KeepAliveTimeout: ${KeepAliveTimeout}`);
             }
 
             break;
@@ -79,12 +79,12 @@ const getReq = (request, response) =>
                 return rc;
             }
 
-            response.writeHead(200, {'Content-Type' : 'text/html; charset=utf-8'});
-            response.end(
+            res.writeHead(200, {'Content-Type' : 'text/html; charset=utf-8'});
+            res.end(
                 '<!DOCTYPE html> <html>' +
                 '<head></head>' +
                 '<body>' +
-                '<h1>'+'Headers: '+'</h1>' + h(request) +
+                '<h1>'+'Headers: '+'</h1>' + h(req) +
                 '</body>'+
                 '</html>'
             )
@@ -103,8 +103,8 @@ const getReq = (request, response) =>
                 const div = yNum/xNum;
                 const div2 = xNum/yNum;
 
-                response.writeHead(200, {'Content-Type' : 'text/html; charset=utf-8'});
-                response.end(
+                res.writeHead(200, {'Content-Type' : 'text/html; charset=utf-8'});
+                res.end(
                     `<!DOCTYPE html>
                      <html>
                        <head></head>
@@ -120,18 +120,18 @@ const getReq = (request, response) =>
                      </html>`
                 );                  
             } else {
-                response.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8'});
-                response.end("Ошибка: введенные данные не являются числами!");
+                res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8'});
+                res.end("Ошибка: введенные данные не являются числами!");
             }
             break;
         }
         case '/socket':{    
-            const {headers} = request;
-            const ip = request.connection.remoteAddress;
-            const port = request.connection.remotePort;
+            const {headers} = req;
+            const ip = req.connection.remoteAddress;
+            const port = req.connection.remotePort;
 
-            response.writeHead(200, { 'Content-Type': 'text/plain' });
-            response.end(`
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end(`
                 Client IP: ${ip}, 
                 Client Port: ${port},
                 Server IP: ${headers.host.split(':')[0]},
@@ -142,105 +142,105 @@ const getReq = (request, response) =>
             const {code, mess} = query;
             if(!code || !mess || !Number.parseInt(code))
             {
-                response.writeHead(500, { "Content-Type": "text/plain" });
-                response.end('Error: one of parameter is not undefined');
+                res.writeHead(500, { "Content-Type": "text/plain" });
+                res.end('Error: one of parameter is not undefined');
             }
-            response.writeHead(Number.parseInt(code), mess, { "Content-Type": "text/plain" });
-            response.end('Status: ' + code + ' Comments: ' + mess);
+            res.writeHead(Number.parseInt(code), mess, { "Content-Type": "text/plain" });
+            res.end('Status: ' + code + ' Comments: ' + mess);
             break;
         }
         case '/formparameter': {
             fs.readFile('file1.html', (err, data) => {
                 if (err) {
-                    response.writeHead(500, {'Content-Type': 'text/plain'});
-                    response.end('Internal Server Error');
+                    res.writeHead(500, {'Content-Type': 'text/plain'});
+                    res.end('Internal Server Error');
                     return;
                 }
 
-                response.writeHead(200, {'Content-Type': 'text/html'});
-                response.end(data);
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.end(data);
             });
             break;
         }
         case '/files': {
             fs.readdir('./static', (err, files) => {
                 if (err) {
-                    response.writeHead(500, { 'Content-Type': 'text/plain' });
-                    response.end('Internal Server Error');
+                    res.writeHead(500, { 'Content-Type': 'text/plain' });
+                    res.end('Internal Server Error');
                     return;
                 }
 
                 const fileCount = files.length;
-                response.writeHead(200, { 'Content-Type': 'text/plain', 'X-static-files-count': fileCount.toString() });
-                response.end(`Number of files in static directory: ${fileCount}`);
+                res.writeHead(200, { 'Content-Type': 'text/plain', 'X-static-files-count': fileCount.toString() });
+                res.end(`Number of files in static directory: ${fileCount}`);
             });
             break;
         }
         case '/upload': {
             fs.readFile('file2.html', (err, data) => {
                 if (err) {
-                    response.writeHead(500, {'Content-Type': 'text/plain'});
-                    response.end('Internal Server Error');
+                    res.writeHead(500, {'Content-Type': 'text/plain'});
+                    res.end('Internal Server Error');
                     return;
                 }
 
-                response.writeHead(200, {'Content-Type': 'text/html'});
-                response.end(data);
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.end(data);
             });
             break;
         }
         default: {
             if (pathname.startsWith('/parameter')) {
-                response.end(request.url);
+                res.end(req.url);
             } else {
-                response.end();
+                res.end();
             }
         }
     }
 }
 
-const postReq = (request, response) =>
+const postReq = (req, res) =>
 {
-    const {pathname, query} = url.parse(request.url, true);
+    const {pathname, query} = url.parse(req.url, true);
 
     switch (pathname)
     {
         case '/formparameter': {
                 let body = '';
-                request.on('data', chunk => {
+                req.on('data', chunk => {
                     body += chunk.toString();
                 });
 
-                request.on('end', () => {
+                req.on('end', () => {
                     const formData = new URLSearchParams(body);
                     const values = {};
                     formData.forEach((value, key) => {
                         values[key] = value;
                     });
 
-                    response.writeHead(200, { 'Content-Type': 'text/plain' });
-                    response.end(JSON.stringify(values));
+                    res.writeHead(200, { 'Content-Type': 'text/plain' });
+                    res.end(JSON.stringify(values));
                 });
             break;
         }
         case '/json': {
             let data = '';
 
-            request.on('data', chunk => {
+            req.on('data', chunk => {
                 data += chunk;
             });
 
-            request.on('end', () => {
+            req.on('end', () => {
                 try {
-                    const requestData = JSON.parse(data);
-                    const comment = requestData._comment;
-                    const x = requestData.x;
-                    const y = requestData.y;
-                    const s = requestData.s;
-                    const o = requestData.o;
-                    const m = requestData.m;
+                    const reqData = JSON.parse(data);
+                    const comment = reqData._comment;
+                    const x = reqData.x;
+                    const y = reqData.y;
+                    const s = reqData.s;
+                    const o = reqData.o;
+                    const m = reqData.m;
 
-                    const responseBody = {
+                    const resBody = {
                         "__comment": "Ответ: " + comment,
                         "x: ": x,
                         "y:": y,
@@ -249,11 +249,11 @@ const postReq = (request, response) =>
                         "Length_m": m.length
                     };
 
-                    response.writeHead(200, { 'Content-Type': 'application/json' });
-                    response.end(JSON.stringify(responseBody));
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify(resBody));
                 } catch (error) {
-                    response.writeHead(400, { 'Content-Type': 'text/plain' });
-                    response.end('Bad Request');
+                    res.writeHead(400, { 'Content-Type': 'text/plain' });
+                    res.end('Bad req');
                 }
 
                 // POSTMAN:
@@ -271,61 +271,61 @@ const postReq = (request, response) =>
         case '/xml': {
             let data = '';
 
-            request.on('data', chunk => {
+            req.on('data', chunk => {
                 data += chunk;
             });
 
-            request.on('end', () => {
+            req.on('end', () => {
                 xml2js.parseString(data, (err, result) => {
                     if (err) {
-                        response.writeHead(400, { 'Content-Type': 'text/plain' });
-                        response.end('Bad Request');
+                        res.writeHead(400, { 'Content-Type': 'text/plain' });
+                        res.end('Bad req');
                         return;
                     }
 
-                    const request = result.request;
-                    const id = request.$.id;
-                    const xs = request.x.map(x => +x.$.value || 0);
-                    const ms = request.m.map(m => m.$.value);
+                    const req = result.req;
+                    const id = req.$.id;
+                    const xs = req.x.map(x => +x.$.value || 0);
+                    const ms = req.m.map(m => m.$.value);
 
                     const sumX = xs.reduce((acc, curr) => acc + curr, 0);
                     const concatM = ms.join('');
 
-                    const responseBody = {
-                        response: {
-                            $: { id: id, request: id },
+                    const resBody = {
+                        res: {
+                            $: { id: id, req: id },
                             sum: { $: { element: 'x', result: sumX.toString() } },
                             concat: { $: { element: 'm', result: concatM } }
                         }
                     };
 
                     const builder = new xml2js.Builder();
-                    const xml = builder.buildObject(responseBody);
+                    const xml = builder.buildObject(resBody);
 
-                    response.writeHead(200, { 'Content-Type': 'application/xml' });
-                    response.end(xml);
+                    res.writeHead(200, { 'Content-Type': 'application/xml' });
+                    res.end(xml);
                 });
             });
 
             /*
             * POSTMAN:
-            *  <request id="28">
+            *  <req id="28">
                  <x value = "1"/>
                  <x value = "2"/>
                  <m value = "na"/>
                  <m value = "me"/>
-               </request>
+               </req>
             * */
             break;
         }
         case '/upload': {
             let data = [];
-            request.on('data', chunk => {
+            req.on('data', chunk => {
                 data.push(chunk);
             });
 
-            request.on('end', () => {
-                const boundary = request.headers['content-type'].split('=')[1];
+            req.on('end', () => {
+                const boundary = req.headers['content-type'].split('=')[1];
                 const fileData = Buffer.concat(data).toString();
                 const fileStart = fileData.indexOf('filename="') + 10;
                 const fileEnd = fileData.indexOf('"', fileStart);
@@ -337,11 +337,11 @@ const postReq = (request, response) =>
 
                 fs.writeFile(filePath, fileData.slice(fileContentStart), (err) => {
                     if (err) {
-                        response.writeHead(500, {'Content-Type': 'text/plain'});
-                        response.end('Internal Server Error');
+                        res.writeHead(500, {'Content-Type': 'text/plain'});
+                        res.end('Internal Server Error');
                     } else {
-                        response.writeHead(200, {'Content-Type': 'text/plain'});
-                        response.end('File uploaded successfully!');
+                        res.writeHead(200, {'Content-Type': 'text/plain'});
+                        res.end('File uploaded successfully!');
                     }
                 });
             });
