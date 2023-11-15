@@ -8,7 +8,7 @@ let KeepAliveTimeout = 60; // Значение по умолчанию (в се�
 const getReq = (req, res) =>
 {
     const {pathname, query} = url.parse(req.url, true);
-
+    
     if (pathname.startsWith('/files')) {
         const [, , file] = pathname.split('/');
 
@@ -25,30 +25,11 @@ const getReq = (req, res) =>
             }
         }
     }
-
-    if(pathname.startsWith('/parameter'))
-    {
-        const [,_, xStr, yStr] = pathname.split('/'); // Разбираем x и y из пути
-
-        if (!isNaN(xStr) && !isNaN(yStr)) { // Проверяем, являются ли x и y числами
-            const x = Number.parseInt(xStr);
-            const y = Number.parseInt(yStr);
-
-            const sum = x + y;
-            const diff = x - y;
-            const prod = x * y;
-            const quot = x / y;
-
-            res.writeHead(200, { "Content-Type": "text/plain" });
-            res.end(`Sum: ${sum}, Dif: ${diff}, Mult: ${prod}, Quot: ${quot}`);
-        } else {
-            res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8'});
-            res.end("Ошибка: введенные данные не являются числами!");
-        }
-    }
+    let parsedUrl = url.parse(req.url, true).pathname.split('/'); 
 
     
-   switch (pathname)
+    console.log(`${pathname}`);  
+   switch ("/" + parsedUrl[1])
     {
         case '/connection': {
             const parsedUrl = url.parse(req.url, true);
@@ -91,38 +72,36 @@ const getReq = (req, res) =>
             break;
         }
         case '/parameter': {
-            const {x, y} = query;
-            if (isFinite(x) && isFinite(y)) {
-                const xNum = Number.parseInt(x);
-                const yNum = Number.parseInt(y);
+            //http://localhost:5000/parameter/6/2
+            //http://localhost:5000/parameter?x=6&y=2
+            res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
 
-                const sum = xNum + yNum;
-                const mul = xNum * yNum;
-                const dif = xNum - yNum;
-                const dif2 = yNum - xNum;
-                const div = yNum/xNum;
-                const div2 = xNum/yNum;
-
-                res.writeHead(200, {'Content-Type' : 'text/html; charset=utf-8'});
-                res.end(
-                    `<!DOCTYPE html>
-                     <html>
-                       <head></head>
-                       <body>
-                         <h2>x и y = ${xNum}, ${yNum}</h2>
-                         <h2>Сумма x + y = ${sum}</h2>
-                         <h2>Произведение x * y = ${mul}</h2>
-                         <h2>Разность x - y = ${dif}</h2>
-                         <h2>Разность y - x = ${dif2}</h2>
-                         <h2>Частное x / y = ${div2}</h2>
-                         <h2>Частное y / x = ${div}</h2>
-                       </body>
-                     </html>`
-                );                  
-            } else {
-                res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8'});
-                res.end("Ошибка: введенные данные не являются числами!");
+            let paramX = parseInt(url.parse(req.url, true).query.x);
+            let paramY = parseInt(url.parse(req.url, true).query.y);
+        
+            let splitedUrl = url.parse(req.url, true).pathname.split('/');
+            
+            if(splitedUrl.length >= 4){
+                paramX = parseInt(splitedUrl[2]);
+                paramY = parseInt(splitedUrl[3]);
+        
+                if(!isNaN(paramX) && !isNaN(paramY)){
+                    res.end(`sum: ${paramX + paramY}\ndiff: ${paramX - paramY}\nprod: ${paramX * paramY}\nquot: ${paramX / paramY}`);
+                }
+                else{
+                    res.end(`uri: ${req.url}`);
+                }
             }
+            else{
+                if(!isNaN(paramX) && !isNaN(paramY)){
+                    res.end(`sum: ${paramX + paramY}\ndiff: ${paramX - paramY}\nprod: ${paramX * paramY}\nquot: ${paramX / paramY}`);
+                }
+                else{
+                    res.end(`Error: Uncorrect x or y`);
+        
+                }
+            }
+            
             break;
         }
         case '/socket':{    
