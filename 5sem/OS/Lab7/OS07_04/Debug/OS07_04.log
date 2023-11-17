@@ -1,0 +1,3 @@
+﻿  OS07_04.cpp
+E:\3course\5sem\OS\Lab7\OS07_04\OS07_04.cpp(11,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  OS07_04.vcxproj -> E:\3course\5sem\OS\Lab7\Debug\OS07_04.exe
