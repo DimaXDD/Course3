@@ -1,3 +1,5 @@
+package test;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -6,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import page.NSVPage;
 
 public class NSVTest {
     private WebDriver driver;
@@ -27,8 +30,8 @@ public class NSVTest {
     }
     @Test
     public void callForm() throws InterruptedException {
-        nsvPage.callForm("Дмитрий", "111111111");
-        Assert.assertTrue(driver.findElement(By.xpath("//*[@id=\\'comp_5c11fd50eca000304bc4c3616bab9880\\']/div/div[2]/div")).isDisplayed());
+        nsvPage.callForm("Дмитрий", "291233211");
+        Assert.assertTrue(driver.findElement(By.xpath("//*[@id=\'comp_5c11fd50eca000304bc4c3616bab9880\']/div/div[2]/div")).isDisplayed());
     }
 
     @Test

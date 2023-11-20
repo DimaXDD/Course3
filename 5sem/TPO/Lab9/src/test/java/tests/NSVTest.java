@@ -1,20 +1,17 @@
-/*
+package tests;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.swing.plaf.TableHeaderUI;
-
-public class NSVTestOLD {
+public class NSVTest {
     private WebDriver driver;
 
     @BeforeMethod
@@ -48,7 +45,7 @@ public class NSVTestOLD {
         WebElement nameField = driver.findElement(By.xpath("//*[@id=\'comp_5c11fd50eca000304bc4c3616bab9880\']/div/form/div[1]/div[1]/input"));
         nameField.sendKeys("Дмитрий");
         WebElement phoneField = driver.findElement(By.xpath("//*[@id=\'comp_5c11fd50eca000304bc4c3616bab9880\']/div/form/div[1]/div[2]/input"));
-        phoneField.sendKeys("111111111");
+        phoneField.sendKeys("291233211");
         WebElement submitButton = driver.findElement(By.xpath("//*[@id=\'FormCall\']"));
         submitButton.click();
         Thread.sleep(5000);
@@ -65,7 +62,7 @@ public class NSVTestOLD {
         targetElement.click();
         WebElement colorSelect = driver.findElement(By.xpath("//*[@id=\'content\']/div[4]/div[3]/div/noindex/div/form/div[15]/div[1]"));
         colorSelect.click();
-        WebElement greenColor = driver.findElement(By.xpath("//*[@id=\'content\']/div[4]/div[3]/div/noindex/div/form/div[15]/div[2]/div[1]/label[5]/span/span"));
+        WebElement greenColor = driver.findElement(By.xpath("//*[@id=\'content\']/div[4]/div[3]/div/noindex/div/form/div[15]/div[2]/div[1]/label[4]/span"));
         greenColor.click();
         Thread.sleep(2000);
         WebElement submitButton = driver.findElement(By.xpath("//*[@id=\'modef\']/a"));
@@ -81,5 +78,3 @@ public class NSVTestOLD {
         driver.quit();
     }
 }
-*/
-
