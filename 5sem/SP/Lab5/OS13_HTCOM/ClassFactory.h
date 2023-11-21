@@ -1,9 +1,9 @@
-#pragma once
+п»ї#pragma once
 
-extern long g_cComponents;		// Количество активных компонентов
-extern long g_cServerLocks;		// Счетчик блокировок
+extern long g_cComponents;		// РљРѕР»РёС‡РµСЃС‚РІРѕ Р°РєС‚РёРІРЅС‹С… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
+extern long g_cServerLocks;		// РЎС‡РµС‚С‡РёРє Р±Р»РѕРєРёСЂРѕРІРѕРє
 
-// Фабрика класса
+// Р¤Р°Р±СЂРёРєР° РєР»Р°СЃСЃР°
 //
 class ClassFactory : public IClassFactory
 {
@@ -12,14 +12,14 @@ public:
 	virtual HRESULT __stdcall QueryInterface(const IID& iid, void** ppv);
 	virtual ULONG __stdcall AddRef();
 	virtual ULONG __stdcall Release();
-	// Интерфейс IClassFactory
+	// РРЅС‚РµСЂС„РµР№СЃ IClassFactory
 	virtual HRESULT __stdcall CreateInstance(IUnknown* pUnknownOuter, const IID& iid, void** ppv);
 	virtual HRESULT __stdcall LockServer(BOOL bLock);
 
-	// Конструктор
+	// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	ClassFactory() : m_cRef(1) {}
-	// Деструктор
-	~ClassFactory() { std::cout << "Фабрика класса:\t\tСаморазрушение" << std::endl; }
+	// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
+	~ClassFactory() { std::cout << "Р¤Р°Р±СЂРёРєР° РєР»Р°СЃСЃР°:\t\tРЎР°РјРѕСЂР°Р·СЂСѓС€РµРЅРёРµ" << std::endl; }
 private:
 	long m_cRef;
 };

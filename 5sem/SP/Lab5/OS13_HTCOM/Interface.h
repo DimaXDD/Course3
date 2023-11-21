@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "../../Lab3/OS10_HTAPI/pch.h"
 #include "../../Lab3/OS10_HTAPI/HT.h"

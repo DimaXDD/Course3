@@ -1,8 +1,8 @@
-#include "pch.h"
+п»ї#include "pch.h"
 #include "ClassFactory.h"
 #include "ComponentHT.h"
 
-#pragma region Реализация IUnknown для фабрики класса
+#pragma region Р РµР°Р»РёР·Р°С†РёСЏ IUnknown РґР»СЏ С„Р°Р±СЂРёРєРё РєР»Р°СЃСЃР°
 
 HRESULT __stdcall ClassFactory::QueryInterface(const IID& iid, void** ppv)
 {
@@ -34,28 +34,28 @@ ULONG __stdcall ClassFactory::Release()
 
 #pragma endregion
 
-#pragma region Реализация IClassFactory
+#pragma region Р РµР°Р»РёР·Р°С†РёСЏ IClassFactory
 
 HRESULT __stdcall ClassFactory::CreateInstance(IUnknown* pUnknownOuter, const IID& iid, void** ppv)
 {
-	std::cout << "Фабрика класса:\t\tСоздать компонент" << std::endl;
-	// Агрегирование не поддерживается
+	std::cout << "Р¤Р°Р±СЂРёРєР° РєР»Р°СЃСЃР°:\t\tРЎРѕР·РґР°С‚СЊ РєРѕРјРїРѕРЅРµРЅС‚" << std::endl;
+	// РђРіСЂРµРіРёСЂРѕРІР°РЅРёРµ РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ
 	if (pUnknownOuter != NULL)
 	{
 		return CLASS_E_NOAGGREGATION;
 	}
-	// Создать компонент	
+	// РЎРѕР·РґР°С‚СЊ РєРѕРјРїРѕРЅРµРЅС‚	
 	ComponentHT* pA = new ComponentHT;
 	if (pA == NULL)
 	{
 		return E_OUTOFMEMORY;
 	}
 
-	// Вернуть запрошенный интерфейс
+	// Р’РµСЂРЅСѓС‚СЊ Р·Р°РїСЂРѕС€РµРЅРЅС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ
 	HRESULT hr = pA->QueryInterface(iid, ppv);
 
-	// Освободить указатель на IUnknown
-	// (При ошибке в QueryInterface компонент разрушит сам себя)
+	// РћСЃРІРѕР±РѕРґРёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° IUnknown
+	// (РџСЂРё РѕС€РёР±РєРµ РІ QueryInterface РєРѕРјРїРѕРЅРµРЅС‚ СЂР°Р·СЂСѓС€РёС‚ СЃР°Рј СЃРµР±СЏ)
 	pA->Release();
 	return hr;
 }

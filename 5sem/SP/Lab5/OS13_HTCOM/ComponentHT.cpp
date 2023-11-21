@@ -1,13 +1,14 @@
-#include "pch.h"
+п»ї#include "pch.h"
 #include "ComponentHT.h"
 
 #ifdef _WIN64
-#pragma comment(lib, "../../Lab3/x64/Debug/OS10_HTAPI.lib")
+#pragma comment(lib, "E:\\3course\\5sem\\SP\\Lab3\\x64\\Debug\\OS10_HTAPI.lib")
 #else
-#pragma comment(lib, "../../Lab3/Debug/OS10_HTAPI.lib")
+#pragma comment(lib, "E:\\3course\\5sem\\SP\\Lab3\\Debug\\OS10_HTAPI.lib")
 #endif
 
-#pragma region Реализация IUnknown для компонента
+
+#pragma region Р РµР°Р»РёР·Р°С†РёСЏ IUnknown РґР»СЏ РєРѕРјРїРѕРЅРµРЅС‚Р°
 
 HRESULT __stdcall ComponentHT::QueryInterface(const IID& iid, void** ppv)
 {
@@ -18,12 +19,12 @@ HRESULT __stdcall ComponentHT::QueryInterface(const IID& iid, void** ppv)
 	else if (iid == IID_IHT)
 	{
 		*ppv = (IHT*)this;
-		std::cout << "Компонент:\t\tВернуть указатель на IHT" << std::endl;
+		std::cout << "РљРѕРјРїРѕРЅРµРЅС‚:\t\tР’РµСЂРЅСѓС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° IHT" << std::endl;
 	}
 	else if (iid == IID_IElement)
 	{
 		*ppv = (IElement*)this;
-		std::cout << "Компонент:\t\tВернуть указатель на IElement" << std::endl;
+		std::cout << "РљРѕРјРїРѕРЅРµРЅС‚:\t\tР’РµСЂРЅСѓС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° IElement" << std::endl;
 	}
 	else
 	{
@@ -50,7 +51,7 @@ ULONG __stdcall ComponentHT::Release()
 
 #pragma endregion
 
-#pragma region Реализация IHT
+#pragma region Р РµР°Р»РёР·Р°С†РёСЏ IHT
 
 STDMETHODIMP ComponentHT::create(ht::HtHandle** htHandle, int capacity, int secSnapshotInterval, int maxKeyLength, int maxPayloadLength, const wchar_t* fileName)
 {
@@ -114,7 +115,7 @@ STDMETHODIMP ComponentHT::print(const ht::Element* element)
 
 #pragma endregion
 
-#pragma region Реализация IElement
+#pragma region Р РµР°Р»РёР·Р°С†РёСЏ IElement
 STDMETHODIMP ComponentHT::createGetElement(ht::Element** getElement, const void* key, int keyLength)
 {
 	*getElement = new ht::Element(key, keyLength);

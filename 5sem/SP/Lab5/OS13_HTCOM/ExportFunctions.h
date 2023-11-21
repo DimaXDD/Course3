@@ -1,25 +1,25 @@
-#pragma once
+п»ї#pragma once
 
-extern HMODULE g_hModule;								// Описатель модуля
-extern const wchar_t* g_szFriendlyName;					// Дружественное имя компонента
-extern const wchar_t* g_szVerIndProgID;					// Не зависящий от версии ProgID
+extern HMODULE g_hModule;								// РћРїРёСЃР°С‚РµР»СЊ РјРѕРґСѓР»СЏ
+extern const wchar_t* g_szFriendlyName;					// Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅРѕРµ РёРјСЏ РєРѕРјРїРѕРЅРµРЅС‚Р°
+extern const wchar_t* g_szVerIndProgID;					// РќРµ Р·Р°РІРёСЃСЏС‰РёР№ РѕС‚ РІРµСЂСЃРёРё ProgID
 extern const wchar_t* g_szProgID;						// ProgID
-extern long g_cComponents;							// Количество активных компонентов
-extern long g_cServerLocks;							// Счетчик блокировок
+extern long g_cComponents;							// РљРѕР»РёС‡РµСЃС‚РІРѕ Р°РєС‚РёРІРЅС‹С… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
+extern long g_cServerLocks;							// РЎС‡РµС‚С‡РёРє Р±Р»РѕРєРёСЂРѕРІРѕРє
 
 //
-// Можно ли выгружать DLL?
+// РњРѕР¶РЅРѕ Р»Рё РІС‹РіСЂСѓР¶Р°С‚СЊ DLL?
 //
 STDAPI DllCanUnloadNow();
 //
-// Получить фабрику класса
+// РџРѕР»СѓС‡РёС‚СЊ С„Р°Р±СЂРёРєСѓ РєР»Р°СЃСЃР°
 //
 STDAPI DllGetClassObject(const CLSID& clsid, const IID& iid, void** ppv);
 //
-// Регистрация сервера
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ СЃРµСЂРІРµСЂР°
 //	
 STDAPI DllRegisterServer();
 //
-// Удаление сервера из Реестра
+// РЈРґР°Р»РµРЅРёРµ СЃРµСЂРІРµСЂР° РёР· Р РµРµСЃС‚СЂР°
 //
 STDAPI DllUnregisterServer();

@@ -11,7 +11,11 @@ int main(int argc, char* argv[])
 {
 	try
 	{
+		#ifdef _WIN64
+		HMODULE hmdll = LoadLibrary(L"../x64/Debug/OS11_HTAPI.dll");
+		#else
 		HMODULE hmdll = LoadLibrary(L"../Debug/OS11_HTAPI.dll");
+		#endif
 
 		if (!hmdll)
 			throw "-- LoadLibrary failed";

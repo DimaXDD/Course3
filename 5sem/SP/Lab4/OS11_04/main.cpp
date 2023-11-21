@@ -1,4 +1,8 @@
-﻿#pragma comment(lib, "../debug/OS11_HTAPI.lib")
+﻿#ifdef _WIN64
+#pragma comment(lib, "../x64/debug/OS11_HTAPI.lib")
+#else
+#pragma comment(lib, "../debug/OS11_HTAPI.lib")
+#endif
 
 #include <string>
 #include <sstream>

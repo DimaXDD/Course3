@@ -1,13 +1,13 @@
-#include "pch.h"
+п»ї#include "pch.h"
 #include "ExportFunctions.h"
 #include "Registry.h"
 #include "ClassFactory.h"
 
 //
-// Экспортируемые функции
+// Р­РєСЃРїРѕСЂС‚РёСЂСѓРµРјС‹Рµ С„СѓРЅРєС†РёРё
 //
 //
-// Можно ли выгружать DLL?
+// РњРѕР¶РЅРѕ Р»Рё РІС‹РіСЂСѓР¶Р°С‚СЊ DLL?
 //
 STDAPI DllCanUnloadNow()
 {
@@ -22,25 +22,25 @@ STDAPI DllCanUnloadNow()
 }
 
 //
-// Получить фабрику класса
+// РџРѕР»СѓС‡РёС‚СЊ С„Р°Р±СЂРёРєСѓ РєР»Р°СЃСЃР°
 //
 STDAPI DllGetClassObject(const CLSID& clsid,
 	const IID& iid,
 	void** ppv)
 {
-	std::cout << "DllGetClassObject:\tСоздать фабрику класса" << std::endl;
-	// Можно ли создать такой компонент?
+	std::cout << "DllGetClassObject:\tРЎРѕР·РґР°С‚СЊ С„Р°Р±СЂРёРєСѓ РєР»Р°СЃСЃР°" << std::endl;
+	// РњРѕР¶РЅРѕ Р»Рё СЃРѕР·РґР°С‚СЊ С‚Р°РєРѕР№ РєРѕРјРїРѕРЅРµРЅС‚?
 	if (clsid != CLSID_ComponentHT)
 	{
 		return CLASS_E_CLASSNOTAVAILABLE;
 	}
-	// Создать фабрику класса
-	ClassFactory* pFactory = new ClassFactory; // Счетчик ссылок устанавливается в конструкторе в 1
+	// РЎРѕР·РґР°С‚СЊ С„Р°Р±СЂРёРєСѓ РєР»Р°СЃСЃР°
+	ClassFactory* pFactory = new ClassFactory; // РЎС‡РµС‚С‡РёРє СЃСЃС‹Р»РѕРє СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ РІ 1
 	if (pFactory == NULL)
 	{
 		return E_OUTOFMEMORY;
 	}
-	// Получить требуемый интерфейс
+	// РџРѕР»СѓС‡РёС‚СЊ С‚СЂРµР±СѓРµРјС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ
 	HRESULT hr = pFactory->QueryInterface(iid, ppv);
 	pFactory->Release();
 
@@ -48,7 +48,7 @@ STDAPI DllGetClassObject(const CLSID& clsid,
 }
 
 //
-// Регистрация сервера
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ СЃРµСЂРІРµСЂР°
 //	
 STDAPI DllRegisterServer()
 {
@@ -60,7 +60,7 @@ STDAPI DllRegisterServer()
 }
 
 //
-// Удаление сервера из Реестра
+// РЈРґР°Р»РµРЅРёРµ СЃРµСЂРІРµСЂР° РёР· Р РµРµСЃС‚СЂР°
 //
 STDAPI DllUnregisterServer()
 {

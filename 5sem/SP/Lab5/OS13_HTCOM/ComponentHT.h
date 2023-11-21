@@ -1,10 +1,10 @@
-#pragma once
+п»ї#pragma once
 #include "Interface.h"
 
-extern long g_cComponents;		// Количество активных компонентов
-extern long g_cServerLocks;		// Счетчик блокировок
+extern long g_cComponents;		// РљРѕР»РёС‡РµСЃС‚РІРѕ Р°РєС‚РёРІРЅС‹С… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
+extern long g_cServerLocks;		// РЎС‡РµС‚С‡РёРє Р±Р»РѕРєРёСЂРѕРІРѕРє
 
-// Компонент
+// РљРѕРјРїРѕРЅРµРЅС‚
 //
 class ComponentHT : public IHT, public IElement
 {
@@ -14,7 +14,7 @@ public:
 	virtual ULONG __stdcall AddRef();
 	virtual ULONG __stdcall Release();
 
-	// Интерфейс IHT
+	// РРЅС‚РµСЂС„РµР№СЃ IHT
 	STDMETHOD(create(ht::HtHandle** htHandle, int capacity, int secSnapshotInterval, int maxKeyLength, int maxPayloadLength, const wchar_t* fileName));
 	STDMETHOD(open(ht::HtHandle** htHandle, const wchar_t* fileName, bool isMapFile = false));
 	STDMETHOD(snap(BOOL& rc, ht::HtHandle* htHandle));
@@ -26,24 +26,24 @@ public:
 	STDMETHOD(getLastError(const char** lastError, ht::HtHandle* htHandle));
 	STDMETHOD(print(const ht::Element* element));
 
-	// Интерфейс IElement
+	// РРЅС‚РµСЂС„РµР№СЃ IElement
 	STDMETHOD(createGetElement(ht::Element** getElement, const void* key, int keyLength));
 	STDMETHOD(createInsertElement(ht::Element** newElement, const void* key, int keyLength, const void* payload, int  payloadLength));
 	STDMETHOD(createUpdateElement(ht::Element** updateElement, const ht::Element* oldElement, const void* newPayload, int  newPayloadLength));
 
-	// Конструктор
+	// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	ComponentHT() : m_cRef(1)
 	{
 		InterlockedIncrement(&g_cComponents);
 	}
-	// Деструктор
+	// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	~ComponentHT()
 	{
 		InterlockedDecrement(&g_cComponents);
-		std::cout << "Компонент:\t\tСаморазрушение" << std::endl;
+		std::cout << "РљРѕРјРїРѕРЅРµРЅС‚:\t\tРЎР°РјРѕСЂР°Р·СЂСѓС€РµРЅРёРµ" << std::endl;
 	}
 
 private:
-	// Счетчик ссылок
+	// РЎС‡РµС‚С‡РёРє СЃСЃС‹Р»РѕРє
 	long m_cRef;
 };
