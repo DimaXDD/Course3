@@ -3,7 +3,7 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 
-const pass = 'lcoevsvwfcqwzqst';
+const pass = ''; // тут вписывайте пароль от smtp на почте
 
 function send(sender, receiver, message) {
     let transporter = nodemailer.createTransport(smtpTransport({

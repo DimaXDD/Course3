@@ -3,7 +3,7 @@ const smtpTransport = require('nodemailer-smtp-transport');
 
 //const sender = 'dimatruba2004@yandex.ru';
 //const receiver = 'dimatruba2004@yandex.ru';
-//const pass = 'lcoevsvwfcqwzqst';
+//const pass = ''; // тут вписывайте пароль от smtp на почте
 
 
 function send(from, to, pass, message) {

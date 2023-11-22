@@ -3,7 +3,7 @@ const {send} = require('./m05_TDS')
 async function main() {
     let from = 'dimatruba2004@yandex.ru';
     let to = 'dimatruba2004@yandex.ru';
-    let pass = 'lcoevsvwfcqwzqst';
+    let pass = ''; // тут вписывайте пароль от smtp на почте
     let message = 'Hello from 05-03!';
   
     try {

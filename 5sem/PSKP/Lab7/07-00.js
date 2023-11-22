@@ -80,34 +80,41 @@ http.createServer((req, res) => {
         case "/6":
             let result = '';
             let form = new mp.Form({ uploadDir: './static' });
-
+          
             form.on('field', (name, field) => {
-                console.log(field);
-                result += `'${name}' = ${field}`;
+              console.log(field);
+              result += `'${name}' = ${field}`;
             });
-
+          
             form.on('file', (name, file) => {
-                console.log(name, file);
-                result += `'${name}': Original filename – ${file.originalFilename}, Filepath – ${file.path}`;
+              console.log(name, file);
+              const filePath = './static/server.png'; // Путь для сохранения файла
+              const readStream = fs.createReadStream(file.path);
+              const writeStream = fs.createWriteStream(filePath);
+          
+              readStream.pipe(writeStream); // Копирование файла
+          
+              result += `'${name}': Original filename – ${file.originalFilename}, Filepath – ${filePath}`;
             });
-
+          
             form.on('error', (err) => {
-                res.writeHead(500, { 'Content-Type': 'text/html' });
-                console.log('error', err.message);
-                res.end('Form error.');
+              res.writeHead(500, { 'Content-Type': 'text/html' });
+              console.log('error', err.message);
+              res.end('Form error.');
             });
-
+          
             form.on('close', () => {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write('Form data:');
-                res.end(result);
+              res.writeHead(200, { 'Content-Type': 'text/html' });
+              res.write('Form data:');
+              res.end(result);
             });
-
+          
             form.parse(req);
             break;
         case "/7":
             res.writeHead(200, { 'Content-Type': 'text/html' });
             let file = fs.readFileSync("./static/server.png");
+            console.log("Done!");
             res.end(file);
             break;
     }

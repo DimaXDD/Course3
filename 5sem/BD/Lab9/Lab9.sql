@@ -1,13 +1,13 @@
 -- 1) Используем коннект, в котором работали в 8 лабе
 -- 2) Скрипт создания и заполнения таблиц лежит в той же 8 лабе
 
+alter pluggable database TDS_PDB open;
+
 -- ============================================================
 
 -- 1. Разработайте АБ, демонстрирующий работу оператора SELECT с точной выборкой.
 
-SELECT *
-FROM AUDITORIUM_TYPE
-WHERE AUDITORIUM_TYPE = 'ЛК';
+SELECT * FROM AUDITORIUM_TYPE WHERE AUDITORIUM_TYPE = 'ЛК';
 
 -- 2. Разработайте АБ, демонстрирующий работу оператора SELECT с неточной точной выборкой. 
 -- Используйте конструкцию WHEN OTHERS секции исключений и встроенную функции 
@@ -19,11 +19,11 @@ DECLARE
 BEGIN
   SELECT AUDITORIUM_TYPE,
          AUDITORIUM_TYPENAME
-  INTO
+  INTOs
     v_AUDITORIUM_TYPE,
     v_AUDITORIUM_TYPENAME
   FROM AUDITORIUM_TYPE;
-  --WHERE AUDITORIUM_TYPE = 'ЛК';
+  WHERE AUDITORIUM_TYPE = 'ЛК';
 
   DBMS_OUTPUT.PUT_LINE('AUDITORIUM_TYPE: ' || v_AUDITORIUM_TYPE || ', AUDITORIUM_TYPENAME: ' || v_AUDITORIUM_TYPENAME);
 EXCEPTION
@@ -33,7 +33,35 @@ end;
 
 -- 3. Разработайте АБ, демонстрирующий работу конструкции WHEN TO_MANY_ROWS 
 -- секции исключений для диагностирования неточной выборки.
--- Чтобы вызвать оишбку, вместе ЛК напишите ЛК-К
+
+-- Чтобы вызвать оишбку, вместе ЛК-К напишите ЛК
+DECLARE
+  v_AUDITORIUM          AUDITORIUM.AUDITORIUM%TYPE;
+  v_AUDITORIUM_NAME     AUDITORIUM.AUDITORIUM_NAME%TYPE;
+  v_AUDITORIUM_CAPACITY AUDITORIUM.AUDITORIUM_CAPACITY%TYPE;
+BEGIN
+  SELECT AUDITORIUM,
+         AUDITORIUM_NAME,
+         AUDITORIUM_CAPACITY
+  INTO
+    v_AUDITORIUM,
+    v_AUDITORIUM_NAME,
+    v_AUDITORIUM_CAPACITY
+  FROM AUDITORIUM
+  WHERE AUDITORIUM_TYPE = 'ЛК-К';
+
+  DBMS_OUTPUT.PUT_LINE('AUDITORIUM: ' || v_AUDITORIUM || ', AUDITORIUM_NAME: ' || v_AUDITORIUM_NAME ||
+                       ', AUDITORIUM_CAPACITY: ' || v_AUDITORIUM_CAPACITY);
+EXCEPTION
+  WHEN TOO_MANY_ROWS THEN
+    DBMS_OUTPUT.PUT_LINE('Ошибка: ' || SQLCODE || ' ' || SQLERRM);
+end;
+
+select * from AUDITORIUM;
+
+-- 4. Разработайте АБ, демонстрирующий возникновение и обработку исключения NO_DATA_FOUND.
+
+-- Для вызова ошибки напишите любую инфу в AUDITORIUM_TYPE
 DECLARE
   v_AUDITORIUM          AUDITORIUM.AUDITORIUM%TYPE;
   v_AUDITORIUM_NAME     AUDITORIUM.AUDITORIUM_NAME%TYPE;
@@ -48,31 +76,6 @@ BEGIN
     v_AUDITORIUM_CAPACITY
   FROM AUDITORIUM
   WHERE AUDITORIUM_TYPE = 'ЛК';
-
-  DBMS_OUTPUT.PUT_LINE('AUDITORIUM: ' || v_AUDITORIUM || ', AUDITORIUM_NAME: ' || v_AUDITORIUM_NAME ||
-                       ', AUDITORIUM_CAPACITY: ' || v_AUDITORIUM_CAPACITY);
-EXCEPTION
-  WHEN TOO_MANY_ROWS THEN
-    DBMS_OUTPUT.PUT_LINE('Ошибка: ' || SQLCODE || ' ' || SQLERRM);
-end;
-
-select * from AUDITORIUM;
-
--- 4. Разработайте АБ, демонстрирующий возникновение и обработку исключения NO_DATA_FOUND. 
-DECLARE
-  v_AUDITORIUM          AUDITORIUM.AUDITORIUM%TYPE;
-  v_AUDITORIUM_NAME     AUDITORIUM.AUDITORIUM_NAME%TYPE;
-  v_AUDITORIUM_CAPACITY AUDITORIUM.AUDITORIUM_CAPACITY%TYPE;
-BEGIN
-  SELECT AUDITORIUM,
-         AUDITORIUM_NAME,
-         AUDITORIUM_CAPACITY
-  INTO
-    v_AUDITORIUM,
-    v_AUDITORIUM_NAME,
-    v_AUDITORIUM_CAPACITY
-  FROM AUDITORIUM
-  WHERE AUDITORIUM_TYPE = 'ЛК-КККККК';
 
   DBMS_OUTPUT.PUT_LINE('AUDITORIUM: ' || v_AUDITORIUM || ', AUDITORIUM_NAME: ' || v_AUDITORIUM_NAME ||
                        ', AUDITORIUM_CAPACITY: ' || v_AUDITORIUM_CAPACITY);
@@ -252,19 +255,10 @@ DECLARE
   v_count_before NUMBER;
   v_count_after NUMBER;
 BEGIN
-  -- Получаем текущее количество записей в таблице
   SELECT COUNT(*) INTO v_count_before FROM AUDITORIUM;
-  
-  -- Выводим текущее количество записей
   DBMS_OUTPUT.PUT_LINE('Количество записей до удаления: ' || v_count_before);
-  
-  -- Удаляем записи из таблицы
   DELETE FROM AUDITORIUM WHERE AUDITORIUM_TYPE = 'ЛК';
-  
-  -- Получаем количество записей после удаления
   SELECT COUNT(*) INTO v_count_after FROM AUDITORIUM;
-  
-  -- Выводим количество записей после удаления
   DBMS_OUTPUT.PUT_LINE('Количество записей после удаления: ' || v_count_after);
   
   -- Если все прошло успешно, фиксируем изменения
@@ -277,7 +271,6 @@ EXCEPTION
   WHEN OTHERS THEN
     -- Если произошла ошибка, откатываем изменения
     ROLLBACK;
-    
     DBMS_OUTPUT.PUT_LINE('Произошла ошибка. Изменения были отменены.');
 END;
 
@@ -375,49 +368,75 @@ end;
 -- Примените курсор с параметрами и три способа организации цикла по строкам курсора.
 
 DECLARE
-  -- Объявление переменных
-  v_auditorium AUDITORIUM.AUDITORIUM%TYPE;
-  v_auditorium_name AUDITORIUM.AUDITORIUM_NAME%TYPE;
-  v_auditorium_capacity AUDITORIUM.AUDITORIUM_CAPACITY%TYPE;
-  v_auditorium_type AUDITORIUM.AUDITORIUM_TYPE%TYPE;
+  v_AUDITORIUM          AUDITORIUM.AUDITORIUM%TYPE;
+  v_AUDITORIUM_NAME     AUDITORIUM.AUDITORIUM_NAME%TYPE;
+  v_AUDITORIUM_CAPACITY AUDITORIUM.AUDITORIUM_CAPACITY%TYPE;
+  isFirst20 boolean := true;
+  isFirst30 boolean := true;
+  isFirst60 boolean := true;
+  isFirst80 boolean := true;
+  isFirstFull boolean := true;
 
-  -- Объявление курсора с параметрами
-  CURSOR c_auditorium(p_min_capacity NUMBER, p_max_capacity NUMBER) IS
-    SELECT AUDITORIUM, AUDITORIUM_NAME, AUDITORIUM_CAPACITY, AUDITORIUM_TYPE
+  CURSOR c_AUDITORIUM IS
+    SELECT AUDITORIUM,
+           AUDITORIUM_NAME,
+           AUDITORIUM_CAPACITY
     FROM AUDITORIUM
-    WHERE AUDITORIUM_CAPACITY BETWEEN p_min_capacity AND p_max_capacity;
+    ORDER BY AUDITORIUM_CAPACITY;
 
 BEGIN
-  -- Способ 1: LOOP-цикл с явным курсором
-      DBMS_OUTPUT.PUT_LINE('Способ 1: LOOP-цикл с явным курсором');
-  OPEN c_auditorium(0, 20);  -- Список аудиторий с вместимостью меньше 20
-  DBMS_OUTPUT.PUT_LINE('Список аудиторий с вместимостью меньше 20:');
+  OPEN c_AUDITORIUM;
   LOOP
-    FETCH c_auditorium INTO v_auditorium, v_auditorium_name, v_auditorium_capacity, v_auditorium_type;
-    EXIT WHEN c_auditorium%NOTFOUND;
-    DBMS_OUTPUT.PUT_LINE(v_auditorium || ' - ' || v_auditorium_name || ' - ' || v_auditorium_capacity || ' - ' || v_auditorium_type);
-  END LOOP;
-  CLOSE c_auditorium;
+    FETCH c_AUDITORIUM INTO v_AUDITORIUM, v_AUDITORIUM_NAME, v_AUDITORIUM_CAPACITY;
+    EXIT WHEN c_AUDITORIUM%NOTFOUND;
+    IF v_AUDITORIUM_CAPACITY >= 0 and v_AUDITORIUM_CAPACITY <= 20 THEN
+      IF isFirst20 then
+        DBMS_OUTPUT.PUT_LINE('------------------ 0 > 20 ----------------');
+        isFirst20 := false;
+      end if;
+      DBMS_OUTPUT.PUT_LINE('AUDITORIUM: ' || v_AUDITORIUM || ', AUDITORIUM_NAME: ' || v_AUDITORIUM_NAME ||
+                           ', AUDITORIUM_CAPACITY: ' || v_AUDITORIUM_CAPACITY);
+    END IF;
 
-  -- Способ 2: FOR-цикл с неявным курсором
-        DBMS_OUTPUT.PUT_LINE('FOR-цикл с неявным курсором');
-  DBMS_OUTPUT.PUT_LINE('Список аудиторий с вместимостью от 21 до 30:');
-  FOR auditorium_rec IN c_auditorium(21, 30) LOOP
-    DBMS_OUTPUT.PUT_LINE(auditorium_rec.AUDITORIUM || ' - ' || auditorium_rec.AUDITORIUM_NAME || ' - ' || auditorium_rec.AUDITORIUM_CAPACITY || ' - ' || auditorium_rec.AUDITORIUM_TYPE);
+    IF v_AUDITORIUM_CAPACITY >= 21 and v_AUDITORIUM_CAPACITY <= 30 THEN
+      IF isFirst30 then
+        DBMS_OUTPUT.PUT_LINE('------------------ 21 > 30  ----------------');
+        isFirst30 := false;
+      end if;
+      DBMS_OUTPUT.PUT_LINE('AUDITORIUM: ' || v_AUDITORIUM || ', AUDITORIUM_NAME: ' || v_AUDITORIUM_NAME ||
+                           ', AUDITORIUM_CAPACITY: ' || v_AUDITORIUM_CAPACITY);
+    END IF;
+
+    IF v_AUDITORIUM_CAPACITY >= 31 and v_AUDITORIUM_CAPACITY <= 60 THEN
+      IF isFirst60 then
+        DBMS_OUTPUT.PUT_LINE('------------------ 31 > 60 ----------------');
+        isFirst60 := false;
+      end if;
+      DBMS_OUTPUT.PUT_LINE('AUDITORIUM: ' || v_AUDITORIUM || ', AUDITORIUM_NAME: ' || v_AUDITORIUM_NAME ||
+                           ', AUDITORIUM_CAPACITY: ' || v_AUDITORIUM_CAPACITY);
+    END IF;
+
+    IF v_AUDITORIUM_CAPACITY >= 61 and v_AUDITORIUM_CAPACITY <= 80 THEN
+      IF isFirst80 then
+        DBMS_OUTPUT.PUT_LINE('------------------ 61 > 80 ----------------');
+        isFirst80 := false;
+      end if;
+      DBMS_OUTPUT.PUT_LINE('AUDITORIUM: ' || v_AUDITORIUM || ', AUDITORIUM_NAME: ' || v_AUDITORIUM_NAME ||
+                           ', AUDITORIUM_CAPACITY: ' || v_AUDITORIUM_CAPACITY);
+    END IF;
+
+    IF v_AUDITORIUM_CAPACITY >= 81 THEN
+      IF isFirstFull then
+        DBMS_OUTPUT.PUT_LINE('------------------ > 81 ----------------');
+        isFirstFull := false;
+      end if;
+      DBMS_OUTPUT.PUT_LINE('AUDITORIUM: ' || v_AUDITORIUM || ', AUDITORIUM_NAME: ' || v_AUDITORIUM_NAME ||
+                           ', AUDITORIUM_CAPACITY: ' || v_AUDITORIUM_CAPACITY);
+    END IF;
   END LOOP;
 
-  -- Способ 3: LOOP-цикл с использованием FETCH INTO
-          DBMS_OUTPUT.PUT_LINE('LOOP-цикл с использованием FETCH INTO');
-  DBMS_OUTPUT.PUT_LINE('Список аудиторий с вместимостью от 31 до 60:');
-  OPEN c_auditorium(31, 60);  -- Список аудиторий с вместимостью от 31 до 60
-  LOOP
-    FETCH c_auditorium INTO v_auditorium, v_auditorium_name, v_auditorium_capacity, v_auditorium_type;
-    EXIT WHEN c_auditorium%NOTFOUND;
-    DBMS_OUTPUT.PUT_LINE(v_auditorium || ' - ' || v_auditorium_name || ' - ' || v_auditorium_capacity || ' - ' || v_auditorium_type);
-  END LOOP;
-  CLOSE c_auditorium;
-
-END;
+  CLOSE c_AUDITORIUM;
+end;
 
 -- 16. Создайте AБ. Объявите курсорную переменную с помощью системного типа refcursor. 
 -- Продемонстрируйте ее применение для курсора c параметрами.
@@ -475,7 +494,6 @@ BEGIN
    LOOP
       FETCH task17 INTO auditorium_id, auditorium_name, auditorium_type, auditorium_capacity;
       EXIT WHEN task17%NOTFOUND;
-      -- Выводим значения аудиторий, удовлетворяющих условию подзапроса
       DBMS_OUTPUT.PUT_LINE(
          'Аудитория: ' || auditorium_id ||
          ', Название: ' || auditorium_name ||
@@ -510,6 +528,9 @@ end;
 
 -- 19. Создайте AБ. Удалите все аудитории (таблица AUDITORIUM) вместимостью от 0 до 20. 
 -- Используйте явный курсор с параметрами, цикл WHILE, конструкцию UPDATE CURRENT OF.
+select * from AUDITORIUM;
+rollback;
+
 DECLARE
   v_AUDITORIUM AUDITORIUM.AUDITORIUM%TYPE;
   CURSOR c_AUDITORIUM IS
