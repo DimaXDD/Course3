@@ -524,16 +524,11 @@ END;
 DECLARE
   v_num NUMBER := 1;
 BEGIN
-  CASE v_num
-    WHEN 1 THEN
-      DBMS_OUTPUT.PUT_LINE('v_num = 1');
-    WHEN 2 THEN
-      DBMS_OUTPUT.PUT_LINE('v_num = 2');
-    WHEN 3 THEN
-      DBMS_OUTPUT.PUT_LINE('v_num = 3');
-    ELSE
-      DBMS_OUTPUT.PUT_LINE('v_num is null');
-  END CASE;
+  LOOP
+    DBMS_OUTPUT.PUT_LINE(v_num);
+    v_num := v_num + 1;
+    EXIT WHEN v_num > 10;
+  END LOOP;
 END;
 
 -- 25. Разработайте АБ, демонстрирующий работу оператора WHILE.

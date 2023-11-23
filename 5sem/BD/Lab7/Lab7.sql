@@ -61,7 +61,7 @@ GRANT CREATE SYNONYM TO TDS;
 GRANT CREATE PUBLIC SYNONYM TO TDS;
 GRANT CREATE MATERIALIZED VIEW TO TDS;
 
-select * from USER_SYS_PRIVS where username = 'TDS';
+SELECT * FROM DBA_SYS_PRIVS WHERE GRANTEE = 'TDS';
 
 -- 1. Прочитайте задание полностью и выдайте своему пользователю необходимые права.
 
@@ -76,7 +76,8 @@ select * from USER_SYS_PRIVS where username = 'TDS';
 -- не циклическая; 
 -- значения не кэшируются в памяти; 
 -- хронология значений не гарантируется. 
--- Получите несколько значений последовательности. Получите текущее значение последовательности.
+-- Получите несколько значений последовательности. 
+-- Получите текущее значение последовательности.
 
 create sequence S1
   start with 1000
@@ -105,6 +106,7 @@ create sequence S2
   nocycle;
 
 select S2.NEXTVAL from DUAL;
+
 
 -- 5. Создайте последовательность S3 (SEQUENCE), со следующими характеристиками: 
 -- начальное значение 10; 
