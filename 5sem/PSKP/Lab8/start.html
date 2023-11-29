@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задание №1</title>
+</head>
+<script type="text/javascript">
+    const startWS = () => {
+        let n = 0;
+        let socket = new WebSocket('ws://localhost:4000/wsserver');
+        let sendingInterval = null;
+
+        socket.onopen = () => {
+            console.log('socket open');
+            sendingInterval = setInterval(() => socket.send(`08-01-client: ${++n}`), 3000);
+        }
+
+        socket.onclose = (e) => console.log('socket close');
+
+        socket.onmessage = (message) => content.innerHTML += `<p>${message.data}</p>`;
+
+        socket.onerror = (e) => console.log('socket error', e);
+
+        setTimeout(() => {
+            clearInterval(sendingInterval);
+            socket.close(1000, 'Closing socket');
+            content.innerHTML += `<p>end</p>`
+        }, 25000);
+    }
+</script>
+<body>
+    <h1>08-01</h1>
+    <button type="button" onclick="startWS()">startWS</button>
+    <div id="content"></div>
+</body>
+</html>
