@@ -1,41 +1,45 @@
-﻿#include <iostream>
-#include <Windows.h>
+﻿#include <windows.h>
+#include <iostream>
 
-using namespace std;
-#define KB (1024)
+void sh(HANDLE heap) {
+    PROCESS_HEAP_ENTRY entry;
+    entry.lpData = NULL;
+    SIZE_T totalSize = 0, allocatedSize = 0, unallocatedSize = 0;
 
-void sh(HANDLE pheap)
-{
-	PROCESS_HEAP_ENTRY phe;
-	phe.lpData = NULL;
-	while (HeapWalk(pheap, &phe))
-	{
-		// R - начало непрерывной области
-		// U - нераспределенная область 
-		// B - распределенная область
-		cout << "-- address = " << showbase << hex << phe.lpData <<
-			", size = " << dec << phe.cbData <<
-			((phe.wFlags & PROCESS_HEAP_REGION) ? " R" : "") <<
-			((phe.wFlags & PROCESS_HEAP_UNCOMMITTED_RANGE) ? " U" : "") <<
-			((phe.wFlags & PROCESS_HEAP_ENTRY_BUSY) ? " B" : "") << "\n";
-	}
+    while (HeapWalk(heap, &entry) != FALSE) {
+        totalSize += entry.cbData;
+        if (entry.wFlags & PROCESS_HEAP_ENTRY_BUSY) {
+            allocatedSize += entry.cbData;
+        }
+        else {
+            unallocatedSize += entry.cbData;
+        }
+    }
+
+    std::cout << "Общий размер heap: " << totalSize << "\n";
+    std::cout << "Размер распределенной области памяти heap: " << allocatedSize << "\n";
+    std::cout << "Размер нераспределенной области памяти heap: " << unallocatedSize << "\n";
 }
 
-int main()
-{
-	// Параметры пользовательской кучи:
-	// 1. доступ не синхронизирован
-	// 2. куча заполняется нулями
-	// 3. начальный размер 4 мб
-	// 4. конечный размер ограничен размером виртуальной памяти
-	HANDLE heap = HeapCreate(HEAP_NO_SERIALIZE | HEAP_ZERO_MEMORY, 4096 * 1024, 0);
-	sh(heap);
+// Параметры пользовательской кучи:
+    // 1. доступ не синхронизирован
+    // 2. куча заполняется нулями
+    // 3. начальный размер 4 мб
+    // 4. конечный размер ограничен размером виртуальной памяти
 
-	int* x1 = (int*)HeapAlloc(heap, HEAP_NO_SERIALIZE | HEAP_ZERO_MEMORY, 300000 * sizeof(int));
-	cout << "\nAddress: " << x1 << "\n\n";
-	sh(heap);
+int main() {
+    SetConsoleOutputCP(1251);
+    const SIZE_T HEAPSIZE = 4 * 1024 * 1024;
+    HANDLE heap = HeapCreate(0, HEAPSIZE, 0);
+    sh(heap);
 
-	HeapFree(heap, HEAP_NO_SERIALIZE, x1);
-	sh(heap);
-	HeapDestroy(heap);
+    const int ARRAYSIZE = 300000;
+    int* array = (int*)HeapAlloc(heap, 0, ARRAYSIZE * sizeof(int));
+
+    sh(heap);
+
+    HeapFree(heap, 0, array);
+    HeapDestroy(heap);
+
+    return 0;
 }
