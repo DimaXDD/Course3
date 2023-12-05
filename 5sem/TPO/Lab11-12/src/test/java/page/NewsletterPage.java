@@ -31,7 +31,9 @@ public class NewsletterPage extends BasePage {
 
     public NewsletterPage testNewsletterShop (String email) throws InterruptedException {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        long scrollHeight = (long) js.executeScript("return document.documentElement.scrollHeight");
+        long scrollTo = (long) (scrollHeight * 0.7);
+        js.executeScript("window.scrollTo(0, arguments[0]);", scrollTo);
         emailInput.sendKeys(email);
         log.info("Email send");
         checkButton.click();
@@ -41,6 +43,7 @@ public class NewsletterPage extends BasePage {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
         wait.until(ExpectedConditions.urlToBe("https://cp.unisender.com/ru/error_subscribe"));
+
         return this;
     }
 

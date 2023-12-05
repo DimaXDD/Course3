@@ -1,0 +1,16 @@
+{
+  "name": "lab9",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dmitry",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.5",
+    "rpc-websockets": "^7.8.0",
+    "ws": "^8.14.2"
+  }
+}
