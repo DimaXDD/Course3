@@ -1,0 +1,3 @@
+﻿  Server10-03.cpp
+E:\3course\5sem\PSKP\Lab10C++\Server10-03\Server10-03.cpp(29,63): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  Server10-03.vcxproj -> E:\3course\5sem\PSKP\Lab10C++\x64\Debug\Server10-03.exe

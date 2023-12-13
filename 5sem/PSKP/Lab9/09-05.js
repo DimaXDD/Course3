@@ -29,22 +29,27 @@ server.register('square', params => {
 server.register('fact', params => {
     if (params.length !== 1)
         return [1];
-    return factorial(params);
+    return factorial(params[0]);
 }).protected();
 
 server.register('fib', params => {
     if (params.length !== 1)
         return [1];
-    return fibonacci(params-1);
+    return fibonacci(params[0]);
 }).protected();
-
-
 
 function factorial(n) {
     return (n == 1 || n == 0) ? 1 : n * factorial(n - 1);
 }
 
 function fibonacci(n) {
-    if (n <= 1) return 1;
-    return fibonacci(n - 1) + fibonacci(n - 2);
+    if (n <= 0) return [];
+    if (n == 1) return [0];
+    if (n == 2) return [0, 1];
+    let fibArray = [0, 1];
+    for (let i = 2; i < n; i++) {
+        fibArray.push(fibArray[i - 1] + fibArray[i - 2]);
+    }
+    return fibArray;
 }
+

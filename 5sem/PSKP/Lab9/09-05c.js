@@ -17,7 +17,8 @@ async function calculate() {
                             await ws.call('square', [5, 4]),
                             await ws.call('mul', [3, 5, 7, 9, 11, 13])
                         ])
-                    + await ws.call('fib', [7])
+                       + (await ws.call('fib', [7]))[6]
+                    // + await ws.call('fib', [7])
                     * await ws.call('mul', [2, 4, 6]))
     );
 }
