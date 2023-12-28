@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Handler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #ff6347; /* Tomato color */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #cd5c5c; /* IndianRed color */
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #4b0082; /* Indigo color */
+        }
+
+        pre {
+            background-color: #e6e6fa; /* Lavender color */
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+         function handleResponse(response) {
+            if (response.status === 500) {
+                document.getElementById('result').textContent = 'Ошибка: Сервер вернул статус 500';
+                throw Error('Сервер вернул статус 500');
+            } else if (!response.ok) {
+                return response.text().then(errorText => {
+                    throw Error(errorText);
+                });
+            } else {
+                return response.json();
+            }
+        }
+
+    function handleError(error) {
+        console.error('Error:', error);
+        document.getElementById('result').textContent = 'Ошибка: ' + error.message;
+    }
+
+
+        function getAPI() {
+            fetch('/api/pulpits')
+                .then(handleResponse)
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(handleError);
+        }
+
+        function postAPI() {
+            const PULPIT = document.getElementById('postPULPIT').value;
+            const PULPIT_NAME = document.getElementById('postPULPIT_NAME').value;
+            const FACULTY = document.getElementById('postFACULTY').value;
+
+            const data = { PULPIT, PULPIT_NAME, FACULTY };
+
+            fetch('/api/pulpits', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(handleResponse)
+            .then(data => {
+                console.log(data);
+                document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(handleError);
+        }
+
+        function putAPI() {
+            const PULPIT = document.getElementById('putPULPIT').value;
+            const PULPIT_NAME = document.getElementById('putPULPIT_NAME').value;
+            const FACULTY = document.getElementById('putFACULTY').value;
+
+            const data = { PULPIT, PULPIT_NAME, FACULTY };
+
+            fetch('/api/pulpits', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(handleResponse)
+            .then(data => {
+                console.log(data);
+                document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(handleError);
+        }
+
+        function deleteAPI() {
+            const id = document.getElementById('deleteID').value;
+
+            fetch(`/api/pulpits/${id}`, {
+                method: 'DELETE',
+            })
+            .then(handleResponse)
+            .then(data => {
+                console.log(data);
+                document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(handleError);
+        }
+    </script>
+</head>
+<body>
+    <button onclick="getAPI()">GET</button>
+
+    <h2>POST</h2>
+    <input id="postPULPIT" placeholder="PULPIT">
+    <input id="postPULPIT_NAME" placeholder="PULPIT_NAME">
+    <input id="postFACULTY" placeholder="FACULTY">
+    <button onclick="postAPI()">POST</button>
+
+    <h2>PUT</h2>
+    <input id="putPULPIT" placeholder="PULPIT">
+    <input id="putPULPIT_NAME" placeholder="PULPIT_NAME">
+    <input id="putFACULTY" placeholder="FACULTY">
+    <button onclick="putAPI()">PUT</button>
+
+    <h2>DELETE</h2>
+    <input id="deleteID" placeholder="ID">
+    <button onclick="deleteAPI()">DELETE</button>
+
+    <h2>Result:</h2>
+    <pre id="result"></pre>
+</body>
+</html>

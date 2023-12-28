@@ -4,6 +4,7 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.3313
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:         [
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:             _Elem=char
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:         ]
+E:\3course\5sem\OS\Lab9\OS09_01\OS09_01.cpp(94): warning C4715: printFileTxt: значение возвращается не при всех путях выполнения
   (компиляция исходного файла "OS09_01.cpp")
   C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53):
   контекст создания экземпляра шаблона (сначала самый старый)
@@ -27,5 +28,4 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.3313
               _Size=unsigned int
           ]
   
-E:\3course\5sem\OS\Lab9\OS09_01\OS09_01.cpp(94): warning C4715: printFileTxt: значение возвращается не при всех путях выполнения
   OS09_01.vcxproj -> E:\3course\5sem\OS\Lab9\Debug\OS09_01.exe
