@@ -1,0 +1,17 @@
+
+   --- хорошая подборка ресурсов о css ---
+   https://proglib.io/p/css-resourses/
+
+
+    --- промисы ---------------
+    https://learn.javascript.ru/promise
+    http://www.ecma-international.org/ecma-262/6.0/index.html#sec-promise-objects
+
+    ---javascript -------------
+
+   https://proglib.io/p/javascript-2019/ 
+
+
+
+  --- webpack ---------------
+  https://learn.javascript.ru/screencast/webpack#webpack-1-intro

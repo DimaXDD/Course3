@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab1</title>
+</head>
+<body>
+    <h1>Лаборанторная работа №1</h1>
+    <p><a href="https://www.belstu.by/">БГТУ</a></p>
+    <button onclick="showBrowserInfo()">Информация о браузере</button>
+</body>
+    <script>
+        function showBrowserInfo() {
+            var info = document.createTextNode("Информация о браузере: " + navigator.userAgent);
+            var newLine = document.createElement('br');
+            document.body.appendChild(newLine);
+            document.body.appendChild(info);
+            console.log("Hello World");
+        }
+    </script>
+</html>
