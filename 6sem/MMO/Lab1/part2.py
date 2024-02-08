@@ -21,26 +21,44 @@ def part_MatPlotLib():
     print('\n====================================\n')
 
     # 5. Постройте box plot для выбранного параметра. Объясните, что на нем изображено.
-    plt.boxplot(df['user_id'])
+    plt.boxplot(df['user_age'])
     plt.show()
-    # Box plot - это график, который показывает распределение набора данных. Он показывает минимальное,
-    # первый квартиль, медиану, третий квартиль и максимальное значение набора данных.
     print('\n====================================\n')
 
     # 6. Примените к выбранному параметру метод .describe(). Поясните параметры метода и
     # полученные результаты.
     print(df['comment'].describe())
-    # метод .describe() возвращает основные статистические данные для набора данных.
-    # count - количество значений в наборе данных
-    # unique - количество уникальных значений
-    # top - наиболее часто встречающееся значение
-    # freq - частота наиболее часто встречающегося значения
+
     print('\n====================================\n')
 
     # 7. Сгруппируйте данные по какому-либо признаку и произведите расчет и анализ по
     # каким-либо параметрам. Примеры группировок и рассуждений можно посмотреть в
     # примере Examples/Titanic.html
     print(df.groupby('date').count())
+
+    print('Распределение пользователей по полу')
+    user_sex_counts = df.groupby('user_sex').size()
+    print(user_sex_counts)
+    print('\n====================================\n')
+
+    print('Средний возраст пользователей')
+    average_age_by_sex = df.groupby('user_sex')['user_age'].mean()
+    print(average_age_by_sex)
+    print('\n====================================\n')
+
+    print('Топ-5 стран по количеству пользователей')
+    top_countries = df.groupby('user_country').size().sort_values(ascending=False).head(5)
+    print(top_countries)
+    print('\n====================================\n')
+
+    print('Распределение рейтингов')
+    rating_counts = df.groupby('rating').size()
+    print(rating_counts)
+    print('\n====================================\n')
+
+    print('Самые популярные персонажи (любимые)')
+    top_characters = df.groupby('favourite_character').size().sort_values(ascending=False).head(5)
+    print(top_characters)
     print('\n====================================\n')
 
 

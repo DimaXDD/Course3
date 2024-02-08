@@ -4,7 +4,6 @@ import pandas as pd
 def part_NumPy():
     print("Часть про NumPy:\n")
     # Создайте двумерный массив из 20 целых случайных чисел
-    # reshape - преобразовать одномерный массив в двумерный (4х5)
     arr = np.random.randint(0, 100, 20).reshape(4, 5)
     print(f"Исходный массив:\n{arr}\n")
 
