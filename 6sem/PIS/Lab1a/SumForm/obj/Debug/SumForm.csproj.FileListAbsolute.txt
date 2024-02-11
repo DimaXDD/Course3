@@ -1,0 +1,10 @@
+E:\3course\6sem\PIS\Lab1a\SumForm\bin\Debug\SumForm.exe.config
+E:\3course\6sem\PIS\Lab1a\SumForm\bin\Debug\SumForm.exe
+E:\3course\6sem\PIS\Lab1a\SumForm\bin\Debug\SumForm.pdb
+E:\3course\6sem\PIS\Lab1a\SumForm\obj\Debug\SumForm.csproj.AssemblyReference.cache
+E:\3course\6sem\PIS\Lab1a\SumForm\obj\Debug\SumForm.Form1.resources
+E:\3course\6sem\PIS\Lab1a\SumForm\obj\Debug\SumForm.Properties.Resources.resources
+E:\3course\6sem\PIS\Lab1a\SumForm\obj\Debug\SumForm.csproj.GenerateResource.cache
+E:\3course\6sem\PIS\Lab1a\SumForm\obj\Debug\SumForm.csproj.CoreCompileInputs.cache
+E:\3course\6sem\PIS\Lab1a\SumForm\obj\Debug\SumForm.exe
+E:\3course\6sem\PIS\Lab1a\SumForm\obj\Debug\SumForm.pdb

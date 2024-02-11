@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiplication Form</title>
+    <script>
+        function multiplyNumbers() {
+            var x = document.getElementById('x').value;
+            var y = document.getElementById('y').value;
+
+            var formData = new FormData();
+            formData.append('X', x);
+            formData.append('Y', y);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/task6');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById('result').innerText = 'Result: ' + xhr.responseText;
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
+</head>
+<body>
+    <h1>Multiplication Form</h1>
+    <form>
+        <label for='x'>X:</label>
+        <input type='number' id='x' name='x'><br><br>
+        <label for='y'>Y:</label>
+        <input type='number' id='y' name='y'><br><br>
+        <button type='button' onclick='multiplyNumbers()'>Multiply</button>
+    </form>
+    <div id='result'></div>
+</body>
+</html>
