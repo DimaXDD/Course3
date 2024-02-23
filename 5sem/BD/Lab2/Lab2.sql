@@ -47,9 +47,11 @@ grant
     create table,
     create view,
     create procedure,
+    create function,
     drop any table,
     drop any view,
-    drop any procedure
+    drop any procedure,
+    drop any function
 to RL_TDSCORE;
 
 

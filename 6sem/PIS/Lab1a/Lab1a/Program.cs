@@ -29,17 +29,10 @@ internal class Program
         });
 
         // Task 4
-        app.MapPost("/task4", async (context) =>
+        app.MapPost("/task4", async (string x, string y) =>
         {
-            // Получаем данные из тела запроса
-            var form = await context.Request.ReadFormAsync();
-
-            int x = int.Parse(form["X"]);
-            int y = int.Parse(form["Y"]);
-            int sum = x + y;
-
-            // Отправляем результат обратно клиенту
-            await context.Response.WriteAsync(sum.ToString());
+            int sum = Convert.ToInt32(x) + Convert.ToInt32(y);
+            return sum;
         });
 
         // Task 5
@@ -77,6 +70,7 @@ internal class Program
             int y = int.Parse(form["Y"]);
             int sum = x * y;
 
+            Console.WriteLine(sum);
             await context.Response.WriteAsync(sum.ToString());
         });
 

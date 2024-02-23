@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Lab1b</title>
+</head>
+<body>
+    <button onclick="WSstop()">Stop</button>
+    <button onclick="WSsend()">Send</button>
+    <div id="messages"></div>
+
+    <script>
+        var message = document.getElementById('messages');
+        var ws;
+        var sI;
+
+        function WSsend() {
+            let k = 1;
+
+            ws = new WebSocket(`ws://${location.hostname}:${location.port}/tws`);
+
+            ws.onopen = () => {
+                message.innerHTML += 'send: Connection from client </br>';
+                ws.send('Connection from client');
+            }
+
+            sI = setInterval(() => { ws.send('send from client' + (k++)), 500 });
+
+            ws.onclose = () => { message.innerHTML += 'close' + "</br>" };
+            ws.onmessage = (e) => { message.innerHTML += e.data + "</br>" };
+            ws.onerror = (e) => { message.innerHTML += e.message + "</br>"};
+        };
+        function WSstop() {
+            clearInterval(sI);
+            ws.close();
+        };
+    </script>
+</body>
+</html>

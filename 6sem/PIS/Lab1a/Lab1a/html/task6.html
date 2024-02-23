@@ -10,26 +10,17 @@
             var formData = new FormData();
             formData.append('X', x);
             formData.append('Y', y);
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/task6');
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    document.getElementById('result').innerText = 'Result: ' + xhr.responseText;
-                }
-            };
-            xhr.send(formData);
         }
     </script>
 </head>
 <body>
-    <h1>Multiplication Form</h1>
-    <form>
+    <h1>Form Task6</h1>
+    <form action="task6" method="post">
         <label for='x'>X:</label>
         <input type='number' id='x' name='x'><br><br>
         <label for='y'>Y:</label>
         <input type='number' id='y' name='y'><br><br>
-        <button type='button' onclick='multiplyNumbers()'>Multiply</button>
+        <button type='submit' onclick='multiplyNumbers()'>Multiply</button>
     </form>
     <div id='result'></div>
 </body>

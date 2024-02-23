@@ -17,6 +17,8 @@ namespace SumForm
         public Form1()
         {
             InitializeComponent();
+            textBox1.KeyPress += textBox1_KeyPress;
+            textBox2.KeyPress += textBox2_KeyPress;
             client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5026");
         }
@@ -28,9 +30,12 @@ namespace SumForm
                 int x = int.Parse(textBox1.Text);
                 int y = int.Parse(textBox2.Text);
 
-                var content = new StringContent($"X={x}&Y={y}", Encoding.UTF8, 
-                    "application/x-www-form-urlencoded");
-                var response = await client.PostAsync("/task4", content);
+                string queryString = $"?X={x}&Y={y}";
+
+                var urlWithParameters = "/task4" + queryString;
+                var content = new StringContent("");
+                var response = await client.PostAsync(urlWithParameters, content);
+                response.EnsureSuccessStatusCode();
 
                 string result = await response.Content.ReadAsStringAsync();
                 textBox3.Text = result;
@@ -40,5 +45,23 @@ namespace SumForm
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+        }
+
+
     }
 }
