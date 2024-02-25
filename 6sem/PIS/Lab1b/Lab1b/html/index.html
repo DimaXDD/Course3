@@ -18,7 +18,7 @@
         function WSsend() {
             let k = 1;
 
-            ws = new WebSocket(`ws://${location.hostname}:${location.port}/tws`);
+            ws = new WebSocket(`ws://${location.hostname}:${location.port}/testws`);
 
             ws.onopen = () => {
                 message.innerHTML += 'send: Connection from client </br>';

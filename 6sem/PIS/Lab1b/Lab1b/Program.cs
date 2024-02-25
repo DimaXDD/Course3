@@ -18,7 +18,7 @@ internal class Program
 
         app.UseWebSockets();
 
-        app.MapGet("/tws", async (HttpContext context) =>
+        app.MapGet("/testws", async (HttpContext context) =>
         {
             Thread hSendCycle = new Thread(new System.Threading.ParameterizedThreadStart(SendCycle));
 

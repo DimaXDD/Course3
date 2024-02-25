@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab13</title>
+</head>
+<body>
+    <h1>Lab13</h1>
+    <table>
+        <tr>
+            <td>
+                <label for="teacherId">Teacher ID:</label>
+            </td>
+            <td>
+                <input type="text" id="teacherId">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="teacherName">Teacher Name:</label>
+            </td>
+            <td>
+                <input type="text" id="teacherName">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="pulpit">Pulpit:</label>
+            </td>
+            <td>
+                <input type="text" id="pulpit">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="delete">Delete Teacher:</label>
+            </td>
+            <td>
+                <input type="text" id="delete">
+            </td>
+        </tr>
+    </table>
+
+    <button onclick="getTeachers()">Get Teachers</button>
+    <button onclick="addTeacher()">Add Teacher</button>
+    <button onclick="updateTeacher()">Update Teacher</button>
+    <button onclick="deleteTeacher()">Delete Teacher</button>
+
+    <div id="response"></div>
+
+    <script>
+        function handleResponse(response) {
+            let data = JSON.parse(response);
+            let result = "";
+            if (Array.isArray(data)) {
+                data.forEach(element => {
+                    result += 
+                    element.TEACHER + " " 
+                    + element.TEACHER_NAME + " "
+                    + element.PULPIT + "<br>";
+                });
+                document.getElementById("response").innerHTML = result;
+            }
+        }
+
+        function handleError(error) {
+            document.getElementById("response").innerText = error;
+        }
+
+        function getTeachers() {
+            fetch('/api/teachers')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch teachers');
+                    }
+                    return response.json();
+                })
+                .then(data => handleResponse(JSON.stringify(data)))
+                .catch(error => handleError(error.message));
+        }
+
+        function addTeacher() {
+            const teacherId = document.getElementById("teacherId").value;
+            const teacherName = document.getElementById("teacherName").value;
+            const pulpit = document.getElementById("pulpit").value;
+            fetch('/api/teachers', {
+                method: 'POST',
+                body: JSON.stringify({ TEACHER: teacherId, TEACHER_NAME: teacherName, PULPIT: pulpit }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to add teacher');
+                }
+                return response.json();
+            })
+            .then(data => handleResponse(JSON.stringify(data)))
+            .catch(error => handleError(error.message));
+            getTeachers();
+        }
+
+        function updateTeacher() {
+            const teacherId = document.getElementById("teacherId").value;
+            const teacherName = document.getElementById("teacherName").value;
+            const pulpit = document.getElementById("pulpit").value;
+            fetch('/api/teachers', {
+                method: 'PUT',
+                body: JSON.stringify({ TEACHER: teacherId, TEACHER_NAME: teacherName, PULPIT: pulpit }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update teacher');
+                }
+                return response.json();
+            })
+            .then(data => handleResponse(JSON.stringify(data)))
+            .catch(error => handleError(error.message));
+            getTeachers();
+        }
+
+        function deleteTeacher() {
+            const teacherId = document.getElementById("delete").value;
+            fetch(`/api/teachers/${teacherId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to delete teacher');
+                }
+                return response.json();
+            })
+            .then(data => handleResponse(JSON.stringify(data)))
+            .catch(error => handleError(error.message));
+            getTeachers();
+        }
+    </script>
+</body>
+</html>
