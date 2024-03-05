@@ -1,14 +1,12 @@
-const DB = require('../database/db');
-const { DataTypes } = require('sequelize');
+const DB_controller = require('../dataBase/DB');
 
-class teachersAPI {
+class SubjectsAPI {
     async select(req, res) {
         let response;
-        const sequelize = new DB();
+        const DB = new DB_controller();
 
         try {
-            await sequelize.client_connect();
-            response = await sequelize.teacher.findAll();
+            response = await DB.prismaClient.sUBJECT.findMany();
         } catch (e) {
             console.error('Ошибка выполнения запроса', e);
             response = { error: 'Внутренняя ошибка сервера' };
@@ -16,19 +14,23 @@ class teachersAPI {
             return;
         }
 
-        await sequelize.close_connection();
         res.status(200).json(response);
     }
 
     async insert(req, res) {
+        let prisma = new DB_controller().prismaClient;
+
         let response;
-        const { TEACHER, TEACHER_NAME, PULPIT } = req.body;
-
-        const sequelize = new DB();
-
+        const { SUBJECT, SUBJECT_NAME, PULPIT } = req.body;
+    
         try {
-            await sequelize.client_connect();
-            await sequelize.teacher.create({ TEACHER, TEACHER_NAME, PULPIT });
+            response = await prisma.sUBJECT.create({
+                data: {
+                    SUBJECT: SUBJECT,
+                    SUBJECT_NAME: SUBJECT_NAME,
+                    PULPIT: PULPIT
+                }
+            });
             response = { message: 'Успешно вставлено' };
         } catch (e) {
             console.error('Ошибка выполнения запроса', e);
@@ -36,19 +38,21 @@ class teachersAPI {
             res.status(500).json(response);
             return;
         }
-        await sequelize.close_connection();
+    
         res.status(200).json(response);
     }
-
+    
     async update(req, res) {
+        let prisma = new DB_controller().prismaClient;
+
         let response;
-        const { TEACHER, TEACHER_NAME, PULPIT } = req.body;
-
-        const sequelize = new DB();
-
+        const { SUBJECT, SUBJECT_NAME, PULPIT } = req.body;
+    
         try {
-            await sequelize.client_connect();
-            await sequelize.teacher.update({ TEACHER_NAME, PULPIT }, { where: { TEACHER } });
+            response = await prisma.sUBJECT.update({
+                where: { SUBJECT: SUBJECT },
+                data: { SUBJECT_NAME: SUBJECT_NAME, PULPIT: PULPIT }
+            });
             response = { message: 'Успешно обновлено' };
         } catch (e) {
             console.error('Ошибка выполнения запроса', e);
@@ -56,20 +60,20 @@ class teachersAPI {
             res.status(500).json(response);
             return;
         }
-
-        await sequelize.close_connection();
+    
         res.status(200).json(response);
     }
-
+    
     async delete(req, res) {
+        let prisma = new DB_controller().prismaClient;
+
         let response;
         const { id } = req.params;
-
-        const sequelize = new DB();
-
+    
         try {
-            await sequelize.client_connect();
-            await sequelize.teacher.destroy({ where: { TEACHER: id } });
+            response = await prisma.sUBJECT.delete({
+                where: { SUBJECT: id }
+            });
             response = { message: 'Успешно удалено' };
         } catch (e) {
             console.error('Ошибка выполнения запроса', e);
@@ -77,10 +81,9 @@ class teachersAPI {
             res.status(500).json(response);
             return;
         }
-
-        await sequelize.close_connection();
+    
         res.status(200).json(response);
     }
 }
 
-module.exports = new teachersAPI();
+module.exports = new SubjectsAPI();

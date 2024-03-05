@@ -1,4 +1,4 @@
-const DB = require('../dataBase/DB');
+const DB = require('../database/db');
 const url = require('url');
 
 class auditoriumsAPI {
@@ -102,7 +102,7 @@ class auditoriumsAPI {
 
     async transaction(req, res) {
         let response;
-        let sequelize = new DB("Univer", "Frein", "123");
+        let sequelize = new DB('TDS', 'sa', '1111');
 
         try {
             await sequelize.client_connect();

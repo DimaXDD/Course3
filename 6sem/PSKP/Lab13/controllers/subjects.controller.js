@@ -1,4 +1,4 @@
-const DB = require('../dataBase/DB');
+const DB = require('../database/db');
 const { DataTypes } = require('sequelize');
 
 class SubjectsAPI {

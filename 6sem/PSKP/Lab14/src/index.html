@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab14</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Lab14</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Pulpit Code</th>
+                    <th>Pulpit Name</th>
+                    <th>Number of Teachers</th>
+                </tr>
+            </thead>
+            <tbody id="pulpitTableBody">
+                <!-- Кафедры будут здесь -->
+            </tbody>
+        </table>
+        <button onclick="forwardPage()">Forward</button>
+            <a id="PageNumber">1</a>
+        <button onclick="nextPage()">Next</button>
+    </div>
+
+    <script>
+        let page = 1;
+        let datasize = 0;
+
+        async function nextPage(){
+            if(datasize == 10){
+                loadPulpits(++page);
+            }
+        }
+        async function forwardPage(){
+            if(page > 1)
+                loadPulpits(--page);
+        }
+
+        // Функция для загрузки данных о кафедрах с сервера
+        async function loadPulpits(page) {
+            const response = await fetch(`/api/pulpitspg?page=${page}`);
+            const data = await response.json();
+            displayPulpits(data);
+        }
+
+        // Функция для отображения данных о кафедрах в таблице
+        function displayPulpits(pulpits) {
+            const tableBody = document.getElementById('pulpitTableBody');
+            tableBody.innerHTML = ``;
+            datasize = 0;
+            let row = ''
+            pulpits.forEach(pulpit => {
+                console.log(pulpit._count);
+                datasize++;
+                row += `
+                    <tr>
+                        <td>${pulpit.PULPIT}</td>
+                        <td>${pulpit.PULPIT_NAME}</td>
+                        <td>${pulpit._count.TEACHER_TEACHER_PULPITToPULPIT}</td>
+                    </tr>
+                `;
+            });
+            tableBody.innerHTML = `${row}`
+            const PageNumber = document.getElementById('PageNumber');
+            PageNumber.innerHTML = `${page}`;
+        }
+
+        // Загрузка данных о кафедрах при загрузке страницы
+        loadPulpits(1);
+    </script>
+</body>
+</html>

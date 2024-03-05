@@ -4,8 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebSocket Lab1b</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #555;
+            }
+
+        #messages {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+            #messages p {
+                margin: 0;
+                padding: 5px 0;
+            }
+    </style>
 </head>
 <body>
+    <h1>Lab1b - WebSocket</h1>
     <button onclick="WSstop()">Stop</button>
     <button onclick="WSsend()">Send</button>
     <div id="messages"></div>
@@ -23,14 +62,19 @@
             ws.onopen = () => {
                 message.innerHTML += 'send: Connection from client </br>';
                 ws.send('Connection from client');
-            }
 
-            sI = setInterval(() => { ws.send('send from client' + (k++)), 500 });
+                sI = setInterval(() => {
+                    if (ws.readyState === WebSocket.OPEN) {
+                        ws.send('send from client' + (k++));
+                    }
+                }, 500);
+            }
 
             ws.onclose = () => { message.innerHTML += 'close' + "</br>" };
             ws.onmessage = (e) => { message.innerHTML += e.data + "</br>" };
-            ws.onerror = (e) => { message.innerHTML += e.message + "</br>"};
+            ws.onerror = (e) => { message.innerHTML += e.message + "</br>" };
         };
+
         function WSstop() {
             clearInterval(sI);
             ws.close();

@@ -10,7 +10,10 @@ class DB_controller {
             {
                 host: 'localhost',
                 dialect: 'mssql',
-                logging: false
+                logging: false, 
+                hooks: {
+                    beforeBulkDestroy:(inst, opt) => { console.log("Хук по умолчанию: beforeDestroy"); }
+                }
             }
         );
         this.faculty = this.sequelize.define('Faculty', {
@@ -24,10 +27,11 @@ class DB_controller {
                 allowNull: false
             }
         }, {
-            tableName: 'FACULTY', // Название таблицы
-            timestamps: false // Если нет столбцов created_at и updated_at
+            tableName: 'FACULTY',
+            timestamps: false
         });
-        // Определение модели Pulpit
+
+        // Модель Pulpit
         this.pulpit = this.sequelize.define('Pulpit', {
             PULPIT: {
                 type: DataTypes.CHAR(10),
@@ -46,7 +50,8 @@ class DB_controller {
             tableName: 'PULPIT', 
             timestamps: false,
         });
-        // Определение модели Teacher
+
+        // Модель Teacher
         this.teacher = this.sequelize.define('Teacher', {
             TEACHER: {
                 type: DataTypes.CHAR(10),
@@ -65,7 +70,8 @@ class DB_controller {
             tableName: 'TEACHER',
             timestamps: false 
         });
-        // Определение модели Subject
+
+        // Модель Subject
         this.subject = this.sequelize.define('Subject', {
             SUBJECT: {
                 type: DataTypes.CHAR(10),
@@ -84,7 +90,8 @@ class DB_controller {
             tableName: 'SUBJECT', 
             timestamps: false 
         });
-        // Определение модели AuditoriumType
+
+        // Модель AuditoriumType
         this.auditoriumType = this.sequelize.define('AuditoriumType', {
             AUDITORIUM_TYPE: {
                 type: DataTypes.CHAR(10),
@@ -94,13 +101,14 @@ class DB_controller {
             AUDITORIUM_TYPENAME: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                //unique: true
+
             }
         }, {
             tableName: 'AUDITORIUM_TYPE', 
             timestamps: false 
         });
-        // Определение модели Auditorium
+
+        // Модель Auditorium
         this.auditorium = this.sequelize.define('Auditorium', {
             AUDITORIUM: {
                 type: DataTypes.CHAR(10),
@@ -123,13 +131,14 @@ class DB_controller {
             tableName: 'AUDITORIUM',
             timestamps: false 
         });
+
         // Определение внешних ключей
         this.pulpit.belongsTo(this.faculty, { foreignKey: 'FACULTY', targetKey: 'FACULTY' });
         this.teacher.belongsTo(this.pulpit, { foreignKey: 'PULPIT', targetKey: 'PULPIT' });
         this.subject.belongsTo(this.pulpit, { foreignKey: 'PULPIT', targetKey: 'PULPIT' });
         this.auditorium.belongsTo(this.auditoriumType, { foreignKey: 'AUDITORIUM_TYPE', targetKey: 'AUDITORIUM_TYPE' });
         
-        //задание 4
+        //  Задание 4
         this.auditorium.addScope('capacityRange', {
             where: {
               AUDITORIUM_CAPACITY: {
@@ -177,7 +186,7 @@ class DB_controller {
     
     async task6() {
         const transaction = await this.sequelize.transaction({
-            timeout: 60000 // Установка тайм-аута
+            timeout: 60000
         });
 
         try {
@@ -191,7 +200,6 @@ class DB_controller {
 
             console.log('Транзакция успешно отменена');
         } catch (error) {
-            // В случае ошибки отменяем транзакцию
             await transaction.rollback();
             console.error('Ошибка выполнения транзакции:', error);
         }

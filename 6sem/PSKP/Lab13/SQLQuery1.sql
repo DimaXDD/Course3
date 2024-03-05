@@ -33,7 +33,7 @@ CREATE TABLE PULPIT
  
 delete PULPIT;  
 insert into PULPIT   (PULPIT,    PULPIT_NAME,                                                   FACULTY )
-             values  ('ИСиТ',    'Иформационный систем и технологий ',                         'ИДиП'  );
+             values  ('ИСиТ',    'Информационных систем и технологий ',                         'ИДиП'  );
 insert into PULPIT   (PULPIT,    PULPIT_NAME,                                                   FACULTY )
              values  ('ПОиСОИ', 'Полиграфического оборудования и систем обработки информации ', 'ИДиП'  );
 insert into PULPIT   (PULPIT,    PULPIT_NAME,                                                   FACULTY)

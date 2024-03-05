@@ -1,4 +1,4 @@
-const DB = require('../dataBase/DB');
+const DB = require('../database/db');
 const url = require('url');
 
 class facultiesAPI {
@@ -12,13 +12,13 @@ class facultiesAPI {
         } catch (e) {
             console.log(e)
         }
-        //console.log(JSON.stringify(response));
         res.end(JSON.stringify(response));
     }
 
     async selectWithParam(req, res) {
         let response;
         const { id } = req.params;
+        console.log(id);
         let sequelize = new DB();
     
         try {
@@ -26,17 +26,17 @@ class facultiesAPI {
             const faculty = await sequelize.subject.findAll({ 
                 include: [{ 
                     model: sequelize.pulpit, 
-                    where: { FACULTY: id } // Условие для выборки кафедр определенного факультета
+                    where: { FACULTY: id }
                 }] 
             });
     
-            if (!faculty || faculty.length === 0) { // Проверка на пустой результат
+            if (!faculty || faculty.length === 0) {
                 response = { error: 'Faculty not found' };
                 res.status(404).json(response);
                 return;
             }
     
-            response = faculty; // Response includes the faculty with associated pulpits and subjects
+            response = faculty;
         } catch (e) {
             console.error('Error executing query', e);
             response = { error: 'Internal Server Error' };
