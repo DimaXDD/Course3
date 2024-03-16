@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "5RlfkxZXnHsJa3l3HN9lfOlP9WasC2vxx2R6GpBzMJc=",
+  "Source": "ASPCMVC01",
+  "BasePath": "_content/ASPCMVC01",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ASPCMVC01\\wwwroot",
+      "Source": "ASPCMVC01",
+      "ContentRoot": "E:\\3course\\6sem\\PIS\\Lab2a\\ASPCMVC01\\wwwroot\\",
+      "BasePath": "_content/ASPCMVC01",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\3course\\6sem\\PIS\\Lab2a\\ASPCMVC01\\wwwroot\\index.html",
+      "SourceId": "ASPCMVC01",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\3course\\6sem\\PIS\\Lab2a\\ASPCMVC01\\wwwroot\\",
+      "BasePath": "_content/ASPCMVC01",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ]
+}

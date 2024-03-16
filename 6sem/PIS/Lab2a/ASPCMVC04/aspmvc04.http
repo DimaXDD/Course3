@@ -1,0 +1,6 @@
+@hostname=localhost
+@port=5085
+
+
+GET http://{{hostname}}:{{port}}/Status/S500
+###
