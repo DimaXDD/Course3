@@ -2,6 +2,13 @@ const express = require('express');
 const passport = require('passport');
 const DigestStrategy = require('passport-http').DigestStrategy;
 const Users = require('./users.json');
+const session = require('express-session')(
+    {
+        resave: false,
+        saveUninitialized: false,
+        secret: '1111'
+    }
+);
 
 const getCredential = (user) => {
     let u = Users.find((e) => {return e.user.toUpperCase() == user.toUpperCase();});
@@ -11,6 +18,7 @@ const getCredential = (user) => {
 const verPassword = (pass1, pass2) => {return pass1 == pass2};
 
 const app = express();
+app.use(session);
 app.use(passport.initialize());
 
 passport.use(new DigestStrategy({qop: 'auth'}, (user, done) => {
@@ -28,7 +36,7 @@ passport.use(new DigestStrategy({qop: 'auth'}, (user, done) => {
 }));
 
 app.get('/login',
-    function(req, res, next) {
+    (req, res, next) => {
         console.log('preAuth');
         if (req.session && req.session.logout) {
             req.session.logout = false;
@@ -37,17 +45,15 @@ app.get('/login',
         next();
     }, 
     passport.authenticate('digest', { session: false }),
-    function(req, res, next) {
-        res.send('Аутентификация прошла успешно, вы можете получить доступ к ресурсу.');
+    (req, res, next) => {
+        res.redirect('/resource');
         next();
     }
 );
 
 app.get('/logout', (req, res) => {
     console.log('Logout');
-    if (req.session) {
-        req.session.logout = true;
-    }
+    req.session.logout = true;
     res.redirect('/login');
 });
 

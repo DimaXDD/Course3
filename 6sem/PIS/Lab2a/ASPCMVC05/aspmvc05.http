@@ -1,7 +1,7 @@
 @hostname=localhost
-@port=5062
+@port=5117
 
-GET http://localhost:5062/Parm/Index
+GET http://localhost:5117/Parm/Index
 ###
 GET http://{{hostname}}:{{port}}/Parm/Index/1
 ###

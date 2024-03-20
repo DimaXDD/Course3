@@ -47,8 +47,8 @@ app.get('/login',
         next();
     }, 
     passport.authenticate('basic', { session: false }),
-    function(req, res, next) {
-        res.send('Аутентификация прошла успешно, вы можете получить доступ к ресурсу.');
+    (req, res, next) => {
+        res.redirect('/resource')
         next();
     }
 );

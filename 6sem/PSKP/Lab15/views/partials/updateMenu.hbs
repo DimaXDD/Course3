@@ -49,23 +49,30 @@
         if(document.getElementById('inpName2').value == number)
             document.getElementById('delBTN').disabled = false;
     }
+
     function ValidateForm() {
         let name = document.getElementById('inpName').value;
         let number = document.getElementById('inpName2').value;
 
-        if(name === "" || number === "" || !isNaN(name) || !validatePhoneNumber(number)){
+        if(name === "" || number === "" || !isNaN(name) || !validatePhoneNumber(number) || !validateName(name)){
             document.getElementById('BTNsubm').disabled = true;
-            document.getElementById('BTNsubm').style.opacity = 0.5;
+            document.getElementById('BTNsubm').classList.add('disabled-button');
         } else {
             document.getElementById('BTNsubm').disabled = false;
-            document.getElementById('BTNsubm').style.opacity = 1;
-        }
+            document.getElementById('BTNsubm').classList.remove('disabled-button');
     }
+}
+
 
     function validatePhoneNumber(number) {
         let belarusPattern = new RegExp("^375[0-9]{9}$");
         let russiaPattern = new RegExp("^7[0-9]{10}$");
 
         return belarusPattern.test(number) || russiaPattern.test(number);
+    }
+
+    function validateName(name) {
+        let namePattern = new RegExp("^[a-zA-Zа-яА-ЯёЁ]+$");
+        return namePattern.test(name);
     }
 </script>

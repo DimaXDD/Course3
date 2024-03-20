@@ -59,6 +59,30 @@ button:hover{
     color: white;
 }
 
+#BTNsubm {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+#delBTN {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+button[type="button"] {
+    background-color: #555555; /* Dark Gray */
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.disabled-button {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 ul {
     max-height: 300px; /* Ограничение ширины div */
     overflow-y: auto; /* Включение вертикального скролла, если содержимое не помещается */
