@@ -33,16 +33,16 @@ class facultiesAPI {
                 }
             });
     
-            if (!faculty) { // Check if faculty exists
+            if (!faculty) {
                 response = { error: 'Faculty not found' };
                 res.status(404).json(response);
                 return;
             }
     
-            response = faculty; // Response includes the faculty with associated pulpits and subjects
+            response = faculty;
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -54,24 +54,23 @@ class facultiesAPI {
         let prisma = new DB_controller().prismaClient;
     
         let response;
-        const { FACULTY, FACULTY_NAME, PULPITS } = req.body; // Добавляем PULPITS для передачи кафедр
+        const { FACULTY, FACULTY_NAME, PULPITS } = req.body;
         
         try {
-            // Создаем факультет
             response = await prisma.fACULTY.create({
                 data: {
                     FACULTY: FACULTY,
                     FACULTY_NAME: FACULTY_NAME,
                     PULPIT_PULPIT_FACULTYToFACULTY: { // Добавляем связанные кафедры
-                        create: PULPITS // Передаем данные кафедр для создания
+                        create: PULPITS
                     }
                 }
             });
             
-            response = { message: 'Insert successful', faculty: response }; // Возвращаем созданный факультет и его кафедры
+            response = { message: 'Insert successful', faculty: response };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to insert faculty' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -92,8 +91,8 @@ class facultiesAPI {
             });
             response = { message: 'Update successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to update faculty' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -112,8 +111,8 @@ class facultiesAPI {
             });
             response = { message: 'Delete successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to delete faculty' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }

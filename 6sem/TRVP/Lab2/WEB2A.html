@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB2A</title>
+</head>
+<body>
+    <h1>Введите значения x и y:</h1>
+    <form id="calcForm">
+        <input type="text" id="valueX" name="valueX" placeholder="Введите значение x">
+        <br/>
+        <input type="text" id="valueY" name="valueY" placeholder="Введите значение y">
+        <br/>
+        <button type="submit">Вычислить</button>
+    </form>
+    <h2>Результат:</h2>
+    <div id="result"></div>
+</body>
+
+<script>
+    const form = document.getElementById('calcForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const x = document.getElementById('valueX').value;
+        const y = document.getElementById('valueY').value;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/calculate', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-Value-x', x);
+        xhr.setRequestHeader('X-Value-y', y);
+
+        xhr.onload = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                const z = this.getResponseHeader('X-Value-z');
+                resultDiv.textContent = 'Результат: ' + z;
+            }
+        };
+
+        xhr.send();
+    });
+</script>
+</html>

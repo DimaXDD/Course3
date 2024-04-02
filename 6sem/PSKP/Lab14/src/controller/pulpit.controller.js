@@ -9,8 +9,8 @@ class PulpitsAPI {
         try {
             response = await DB.prismaClient.pULPIT.findMany();
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -19,7 +19,7 @@ class PulpitsAPI {
     }
 
     async selectPulpit(req, res) {
-        const page = req.query.page ? parseInt(req.query.page) : 1; // Получаем номер страницы из запроса, если не указан, то по умолчанию первая страница
+        const page = req.query.page ? parseInt(req.query.page) : 1; // Получаем номер страницы из запроса
         const perPage = 10; // Количество кафедр на странице
     
         let response;
@@ -32,12 +32,12 @@ class PulpitsAPI {
                         select: { TEACHER_TEACHER_PULPITToPULPIT: true }
                     }
                 },
-                skip: (page - 1) * perPage, // Пропускаем предыдущие кафедры на предыдущих страницах
-                take: perPage // Получаем только указанное количество кафедр на странице
+                skip: (page - 1) * perPage,
+                take: perPage
             });
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -58,8 +58,8 @@ class PulpitsAPI {
                 }
             });
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -84,8 +84,8 @@ class PulpitsAPI {
                 }
             });
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -108,7 +108,6 @@ class PulpitsAPI {
             });
     
             if (!faculty) {
-                // Создаем новый факультет, если он не существует
                 faculty = await prisma.fACULTY.create({
                     data: {
                         FACULTY: FACULTY_PULPIT.FACULTY,
@@ -117,21 +116,19 @@ class PulpitsAPI {
                 });
             }
     
-            // Создаем кафедру только если факультет не существует или не указаны кафедры
-            if (!faculty || !FACULTY_PULPIT) {
-                response = await prisma.pULPIT.create({
-                    data: {
-                        PULPIT: PULPIT,
-                        PULPIT_NAME: PULPIT_NAME,
-                        FACULTY: FACULTY
-                    }
-                });
-            }
+            // Создаем кафедру
+            response = await prisma.pULPIT.create({
+                data: {
+                    PULPIT: PULPIT,
+                    PULPIT_NAME: PULPIT_NAME,
+                    FACULTY: FACULTY_PULPIT.FACULTY
+                }
+            });
     
             response = { message: 'Insert successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to insert pulpit' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -152,8 +149,8 @@ class PulpitsAPI {
             });
             response = { message: 'Update successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to update pulpit' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -173,8 +170,8 @@ class PulpitsAPI {
             });
             response = { message: 'Delete successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to delete pulpit' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }

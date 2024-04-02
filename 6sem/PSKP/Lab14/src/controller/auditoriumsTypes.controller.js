@@ -10,8 +10,8 @@ class auditoriumsTypesAPI {
         try {
             response = await DB.prismaClient.aUDITORIUM_TYPE.findMany();
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -26,18 +26,17 @@ class auditoriumsTypesAPI {
         let DB = new DB_controller();
     
         try {
-            // Используем метод findMany для поиска всех аудиторий с определенным типом
             response = await DB.prismaClient.aUDITORIUM_TYPE.findUnique({
                 include:{
                     AUDITORIUM_AUDITORIUM_AUDITORIUM_TYPEToAUDITORIUM_TYPE:true
                 },
                 where: {
-                    AUDITORIUM_TYPE: id // Устанавливаем условие по типу аудитории
+                    AUDITORIUM_TYPE: id
                 }
             });
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -60,8 +59,8 @@ class auditoriumsTypesAPI {
             });
             response = { message: 'Insert successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to insert auditorium type' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -82,8 +81,8 @@ class auditoriumsTypesAPI {
             });
             response = { message: 'Update successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to update auditorium type' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -103,8 +102,8 @@ class auditoriumsTypesAPI {
             });
             response = { message: 'Delete successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to delete auditorium type' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }

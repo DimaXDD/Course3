@@ -1,0 +1,17 @@
+[
+    {
+        "username": "user1",
+        "password": "pass1",
+        "info": "Trubach Dmitry"
+    },
+    {
+        "username": "user2",
+        "password": "pass2",
+        "info": "Pesetskii Ilya"
+    },
+    {
+        "username": "user3",
+        "password": "pass3",
+        "info": "Pesetskii Nikita"
+    }
+]

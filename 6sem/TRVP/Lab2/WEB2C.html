@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEB2C</title>
+</head>
+<body>
+  <h1>C</h1>
+  <form id="formAB">
+    <input type="text" id="valueX" name="valueX" placeholder="Введите значение для X">
+    <br/>
+    <input type="text" id="valueY" name="valueY" placeholder="Введите значение для Y">
+    <br/>
+    <input type="text" id="valueN" name="valueN" placeholder="Введите значение для N">
+    <br/>
+    <button type="button" id="asyncSubmit">Отправить асинхронно</button>
+    <button type="button" id="syncSubmit">Отправить синхронно</button>
+  </form>
+
+  <div id="resultA"></div>
+  <div id="resultB"></div>
+</body>
+
+<script>
+  const formAB = document.getElementById('formAB');
+  const resultA = document.getElementById('resultA');
+  const resultB = document.getElementById('resultB');
+  const asyncSubmit = document.getElementById('asyncSubmit');
+  const syncSubmit = document.getElementById('syncSubmit');
+
+  asyncSubmit.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const x = document.getElementById('valueX').value;
+    const y = document.getElementById('valueY').value;
+    const n = document.getElementById('valueN').value;
+
+    const xhrA = new XMLHttpRequest();
+    xhrA.open('POST', '/calculate', true);
+    xhrA.setRequestHeader('Content-Type', 'text/plain');
+    xhrA.setRequestHeader('X-value-x', x);
+    xhrA.setRequestHeader('X-value-y', y);
+
+    xhrA.onload = function() {
+      if (xhrA.status === 200) {
+        resultA.textContent = "Результат: " + xhrA.getResponseHeader('X-value-z');
+      }
+    };
+
+    xhrA.send();
+
+    const xhrB = new XMLHttpRequest();
+    xhrB.open('POST', '/generate', true);
+    xhrB.setRequestHeader('Content-Type', 'application/json');
+    xhrB.setRequestHeader('X-rand-n', n);
+
+    xhrB.onload = function() {
+      if (this.readyState === 4 && xhrB.status === 200) {
+        const dataB = JSON.parse(xhrB.responseText);
+        resultB.textContent = 'Результат задания B: ' + dataB.numbers;
+      }
+    };
+
+    xhrB.send();
+  });
+
+  syncSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const x = document.getElementById('valueX').value;
+    const y = document.getElementById('valueY').value;
+    const n = document.getElementById('valueN').value;
+
+    const xhrA = new XMLHttpRequest();
+    xhrA.open('POST', '/calculate', false);
+    xhrA.setRequestHeader('Content-Type', 'text/plain');
+    xhrA.setRequestHeader('X-value-x', x);
+    xhrA.setRequestHeader('X-value-y', y);
+    xhrA.send();
+
+    if (xhrA.status === 200) {
+      resultA.textContent = "Результат: " + xhrA.getResponseHeader('X-value-z');
+    }
+
+    const xhrB = new XMLHttpRequest();
+    xhrB.open('POST', '/generate', false);
+    xhrB.setRequestHeader('Content-Type', 'application/json');
+    xhrB.setRequestHeader('X-rand-n', n);
+    xhrB.send();
+
+    if (this.readyState === 4 && xhrB.status === 200) {
+      const dataB = JSON.parse(xhrB.responseText);
+      resultB.textContent = 'Результат задания B: ' + dataB.numbers;
+    }
+  });
+</script>
+</html>

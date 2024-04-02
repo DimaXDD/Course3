@@ -2,7 +2,6 @@ const DB_controller = require('../dataBase/DB');
 const url = require('url');
 
 class auditoriumsAPI {
-
     async select(req, res) {
         let response;
         let DB = new DB_controller();
@@ -10,8 +9,8 @@ class auditoriumsAPI {
         try {
             response = await DB.prismaClient.aUDITORIUM.findMany();
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -39,8 +38,8 @@ class auditoriumsAPI {
                 }
             });
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -55,11 +54,11 @@ class auditoriumsAPI {
         try {
             response = await DB.prismaClient.aUDITORIUM.groupBy({
                 by: ['AUDITORIUM_TYPE', 'AUDITORIUM_CAPACITY'],
-                _count: true // Подсчитывает количество аудиторий с одинаковым типом и вместимостью
+                _count: true
             });
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -83,8 +82,8 @@ class auditoriumsAPI {
             });
             response = { message: 'Insert successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to insert auditorium' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -108,8 +107,8 @@ class auditoriumsAPI {
             });
             response = { message: 'Update successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to update auditorium' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -129,8 +128,8 @@ class auditoriumsAPI {
             });
             response = { message: 'Delete successful' };
         } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Failed to delete auditorium' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
@@ -144,7 +143,7 @@ class auditoriumsAPI {
     
         try {
             await db.prismaClient.$transaction(async (tx) => {
-                // Изменяем вместимость всех аудиторий на 100 (используя инкремент)
+                // Изменяем вместимость всех аудиторий на 100
                 await db.prismaClient.aUDITORIUM.updateMany({
                     data: {
                         AUDITORIUM_CAPACITY: {
@@ -155,34 +154,14 @@ class auditoriumsAPI {
                 throw new Error('Rollback changes');
             });
         } catch (e) {
-            console.error('Error executing transaction', e);
-            response = { error: 'Transaction failed' };
+            console.error('Ошибка выполнения запроса', e);
+            response = { error: 'Внутренняя ошибка сервера' };
             res.status(500).json(response);
             return;
         }
     
         res.status(200).json(response);
     }
-    /*
-    async selectScope(req,res){
-        let response;
-        let sequelize = new DB();
-
-        try {
-            await sequelize.client_connect();
-            response = await sequelize.auditorium.scope('capacityRange').findAll();
-        } catch (e) {
-            console.error('Error executing query', e);
-            response = { error: 'Internal Server Error' };
-            res.status(500).json(response);
-            return;
-        }
-        await sequelize.close_connection();
-        res.status(200).json(response);
-    }
-
-
-    */
 }
 
 module.exports = new auditoriumsAPI();

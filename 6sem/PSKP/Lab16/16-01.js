@@ -38,7 +38,7 @@ passport.use(new BasicStrategy((user, password, done) => {
 }))
 
 app.get('/login',
-    function(req, res, next) {
+    (req, res, next) => {
         console.log('preAuth');
         if (req.session.logout) {
             req.session.logout = false;
