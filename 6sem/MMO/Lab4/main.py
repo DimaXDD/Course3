@@ -6,8 +6,7 @@ import pydotplus
 table = pd.read_csv("heart.csv")
 print(table.head())
 
-
-# =============================== Задание 1(а) ===============================
+print("=============================== Задание 1(а) ===============================")
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
@@ -26,7 +25,12 @@ model.fit(X_train, y_train)
 print("Правильность на обучающем наборе: {:.2f}".format(model.score(X_train, y_train)))
 print("Правильность на тестовом наборе: {:.2f}".format(model.score(X_test, y_test)))
 
-# =============================== Задание 1(б) ===============================
+print("=============================== Задание 1(б) ===============================")
+# Регуляризация в статистике, машинном обучении — метод добавления
+# некоторых дополнительных ограничений к условию с целью решить
+# некорректно поставленную задачу или предотвратить переобучение. Эта
+# информация часто имеет вид штрафа за сложность модели.
+
 for C in [100, 0.01]:
     model = LogisticRegression(C=C)
     model.fit(X_train, y_train)
@@ -34,7 +38,10 @@ for C in [100, 0.01]:
     print("Правильность на обучающем наборе: {:.2f}".format(model.score(X_train, y_train)))
     print("Правильность на тестовом наборе: {:.2f}".format(model.score(X_test, y_test)))
 
-# =============================== Задание 1(в) ===============================
+# Вывод (обучаемый набор): При C=1 и C=100 модель показывает примерно одинаковую правильность (0.86),
+# что указывает на отсутствие переобучения.
+
+print("=============================== Задание 1(в) ===============================")
 # Добавление в модель L2-регуляризации
 model = LogisticRegression(penalty='l2', C=0.1)
 model.fit(X_train, y_train)
@@ -48,7 +55,7 @@ print("Точность: {:.2f}".format(precision_score(y_test, y_pred)))
 print("Матрица ошибок:")
 print(confusion_matrix(y_test, y_pred))
 
-# =============================== Задание 2(а) ===============================
+print("=============================== Задание 2(а) ===============================")
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 
@@ -60,7 +67,7 @@ model_SVC.fit(X_train, y_train)
 print("Правильность на обучающем наборе: {:.2f}".format(model_SVC.score(X_train, y_train)))
 print("Правильность на тестовом наборе: {:.2f}".format(model_SVC.score(X_test, y_test)))
 
-# =============================== Задание 2(б) ===============================
+print("=============================== Задание 2(б) ===============================")
 # GridSearchCV для нахождения наилучших параметров С и гамма
 SVC_params = {"C": [0.1, 1, 10], "gamma": [0.2,0.6, 1]}
 SVC_grid = GridSearchCV(model_SVC, SVC_params, cv=5, n_jobs=-1)
@@ -69,16 +76,20 @@ SVC_grid.fit(X_train, y_train)
 print("Наилучший результат GridSearchCV: {:.2f}".format(SVC_grid.best_score_))
 print("Наилучшие параметры: ", SVC_grid.best_params_)
 
+# При правильной настройке C и gamma можно добиться оптимального
+# результата, который построит более линейную гиперплоскость, игнорирующую
+# выбросы, и, следовательно, более обобщающую.
+
 # Модель с наилучшими параметрами
 best_model = SVC(**SVC_grid.best_params_)
 best_model.fit(X_train, y_train)
 
-# =============================== Задание 2(в) ===============================
+print("=============================== Задание 2(в) ===============================")
 # Точность этой модели на обучающих и тестовых данных
 print("\nПравильность на обучающем наборе: {:.2f}".format(best_model.score(X_train, y_train)))
 print("Правильность на тестовом наборе: {:.2f}".format(best_model.score(X_test, y_test)))
 
-# =============================== Задание 2(г) ===============================
+print("=============================== Задание 2(г) ===============================")
 # Метрики качества и матрицу ошибок для наилучшей модели
 y_pred = best_model.predict(X_test)
 print("\nМетрики качества для наилучшей модели SVC:")
@@ -88,7 +99,7 @@ print("Точность: {:.2f}".format(precision_score(y_test, y_pred)))
 print("Матрица ошибок:")
 print(confusion_matrix(y_test, y_pred))
 
-# =============================== Задание 3 ===============================
+print("=============================== Задание 3 ===============================")
 from sklearn.tree import DecisionTreeClassifier
 # Модель дерева решений
 model_tree = DecisionTreeClassifier()
@@ -107,7 +118,7 @@ model_knn.fit(X_train, y_train)
 print("Правильность на обучающем наборе (K-ближайших соседей): {:.2f}".format(model_knn.score(X_train, y_train)))
 print("Правильность на тестовом наборе (K-ближайших соседей): {:.2f}".format(model_knn.score(X_test, y_test)))
 
-# =============================== Задание 4 ===============================
+print("=============================== Задание 4 ===============================")
 from sklearn.metrics import RocCurveDisplay
 # Объекты для отображения ROC-кривых
 ax = plt.gca()
