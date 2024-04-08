@@ -102,7 +102,7 @@ print(confusion_matrix(y_test, y_pred))
 print("=============================== Задание 3 ===============================")
 from sklearn.tree import DecisionTreeClassifier
 # Модель дерева решений
-model_tree = DecisionTreeClassifier()
+model_tree = DecisionTreeClassifier(max_depth=3, random_state=0)
 model_tree.fit(X_train, y_train)
 
 # Точность на обучающих и тестовых данных

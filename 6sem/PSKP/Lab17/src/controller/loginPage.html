@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизоваться</title>
+
+    <style>
+        h1, input {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<form action ="/api/login" method="post">
+    <h1>E-mail</h1>
+    <input type="text" placeholder="username" name="username" required>
+    <h1>Pass</h1>
+    <input type="password" placeholder="password" name="password" required>
+    <button type="submit">Войти</button>
+    <button type="reset" class="cancelbtn">Отмена</button>
+</form>
+<a href="/api/register">Зарегистрироваться</a>
+</body>
+</html>

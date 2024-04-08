@@ -4,18 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WEB2C</title>
+  <style>
+    @keyframes rainbow {
+      0% { color: red; }
+      10% { color: orange; }
+      20% { color: yellow; }
+      30% { color: green; }
+      40% { color: blue; }
+      50% { color: indigo; }
+      60% { color: violet; }
+      70% { color: red; }
+      80% { color: orange; }
+      90% { color: yellow; }
+      100% { color: green; }
+    }
+
+    .rainbow-text {
+      animation: rainbow 3s infinite;
+    }
+  </style>
 </head>
 <body>
   <h1>C</h1>
   <form id="formAB">
-    <input type="text" id="valueX" name="valueX" placeholder="Введите значение для X">
+    <input type="text" id="valueX" name="valueX" placeholder="Введите значение для X" required>
     <br/>
-    <input type="text" id="valueY" name="valueY" placeholder="Введите значение для Y">
+    <input type="text" id="valueY" name="valueY" placeholder="Введите значение для Y" required>
     <br/>
-    <input type="text" id="valueN" name="valueN" placeholder="Введите значение для N">
+    <input type="text" id="valueN" name="valueN" placeholder="Введите значение для N" required>
     <br/>
-    <button type="button" id="asyncSubmit">Отправить асинхронно</button>
-    <button type="button" id="syncSubmit">Отправить синхронно</button>
+    <button type="button" id="asyncSubmit" class="rainbow-text">Отправить асинхронно</button>
+    <button type="button" id="syncSubmit" class="rainbow-text">Отправить синхронно</button>
   </form>
 
   <div id="resultA"></div>
@@ -43,7 +62,7 @@
     xhrA.setRequestHeader('X-value-y', y);
 
     xhrA.onload = function() {
-      if (xhrA.status === 200) {
+      if (this.readyState === 4 && xhrA.status === 200) {
         resultA.textContent = "Результат: " + xhrA.getResponseHeader('X-value-z');
       }
     };
@@ -79,7 +98,7 @@
     xhrA.setRequestHeader('X-value-y', y);
     xhrA.send();
 
-    if (xhrA.status === 200) {
+    if (this.readyState === 4 && xhrA.status === 200) {
       resultA.textContent = "Результат: " + xhrA.getResponseHeader('X-value-z');
     }
 

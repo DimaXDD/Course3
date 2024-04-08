@@ -1,27 +1,31 @@
-const express = require('express');
-const fs = require("fs");
+const Koa = require('koa');
+const Router = require('koa-router');
+const fs = require("fs").promises;
 const path = require("path");
 
-const app = express();
+const app = new Koa();
+const router = new Router();
 const port = 3000;
 
-app.use(express.json());
+app.use(require('koa-bodyparser')());
 
-app.get('/', (req, res) => {
-    fs.readFile(path.join(__dirname, 'WEB2A.html'), 'utf8', (err, text) => {
-        res.send(text);
-    });
+router.get('/', async (ctx) => {
+    const filePath = path.join(__dirname, 'WEB2A.html');
+    const text = await fs.readFile(filePath, 'utf8');
+    ctx.body = text;
 });
 
-app.post('/calculate', (req, res) => {
-    const x = parseInt(req.headers['x-value-x']);
-    const y = parseInt(req.headers['x-value-y']);
+router.post('/calculate', async (ctx) => {
+    const x = parseInt(ctx.request.header['x-value-x']);
+    const y = parseInt(ctx.request.header['x-value-y']);
 
     const z = x + y;
 
-    res.setHeader('X-Value-z', z.toString());
-    res.end();
+    ctx.set('X-Value-z', z.toString());
+    ctx.status = 200;
 });
 
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 app.listen(port, () => console.log(`Server is running at http://localhost:${port}`));

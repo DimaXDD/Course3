@@ -1,0 +1,21 @@
+{
+  "name": "lab18",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "node-telegram-bot-api": "^0.65.1",
+    "passport": "^0.4.1",
+    "passport-github": "^1.1.0",
+    "passport-telegram": "^1.0.0",
+    "passport-telegram-official": "^1.0.1"
+  }
+}
