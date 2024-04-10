@@ -25,10 +25,17 @@ SELECT
     END AS Месяц,
     'Год' AS Период,
     CASE
-        WHEN MONTH(Дата_и_время) BETWEEN 1 AND 6 THEN '1-й квартал'
-        WHEN MONTH(Дата_и_время) BETWEEN 7 AND 12 THEN '2-й квартал'
+        WHEN MONTH(Дата_и_время) BETWEEN 1 AND 3 THEN '1-й квартал'
+        WHEN MONTH(Дата_и_время) BETWEEN 4 AND 6 THEN '2-й квартал'
+        WHEN MONTH(Дата_и_время) BETWEEN 7 AND 9 THEN '3-й квартал'
+        WHEN MONTH(Дата_и_время) BETWEEN 10 AND 12 THEN '4-й квартал'
         ELSE NULL
     END AS Квартал,
+    CASE
+        WHEN MONTH(Дата_и_время) BETWEEN 1 AND 6 THEN '1-я половина'
+        WHEN MONTH(Дата_и_время) BETWEEN 7 AND 12 THEN '2-я половина'
+        ELSE NULL
+    END AS Половина_года,
     AVG(Итоговый_балл) AS Средний_балл
 FROM Результат_теста
 GROUP BY 
@@ -39,19 +46,27 @@ GROUP BY
             ELSE NULL
         END,
         CASE
-            WHEN MONTH(Дата_и_время) BETWEEN 1 AND 6 THEN '1-й квартал'
-            WHEN MONTH(Дата_и_время) BETWEEN 7 AND 12 THEN '2-й квартал'
+            WHEN MONTH(Дата_и_время) BETWEEN 1 AND 3 THEN '1-й квартал'
+            WHEN MONTH(Дата_и_время) BETWEEN 4 AND 6 THEN '2-й квартал'
+            WHEN MONTH(Дата_и_время) BETWEEN 7 AND 9 THEN '3-й квартал'
+            WHEN MONTH(Дата_и_время) BETWEEN 10 AND 12 THEN '4-й квартал'
+            ELSE NULL
+        END,
+        CASE
+            WHEN MONTH(Дата_и_время) BETWEEN 1 AND 6 THEN '1-я половина'
+            WHEN MONTH(Дата_и_время) BETWEEN 7 AND 12 THEN '2-я половина'
             ELSE NULL
         END),
         (YEAR(Дата_и_время)),
         (CASE
-            WHEN MONTH(Дата_и_время) BETWEEN 1 AND 6 THEN '1-й квартал'
-            WHEN MONTH(Дата_и_время) BETWEEN 7 AND 12 THEN '2-й квартал'
+            WHEN MONTH(Дата_и_время) BETWEEN 1 AND 6 THEN '1-я половина'
+            WHEN MONTH(Дата_и_время) BETWEEN 7 AND 12 THEN '2-я половина'
             ELSE NULL
         END)
     )
 HAVING COUNT(*) > 0
 ORDER BY Год, Месяц, Период, Квартал;
+
 
 -- Task 4
 -- Общее количество пройденных тестов пользователем за указанный период.
