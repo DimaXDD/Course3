@@ -5,7 +5,7 @@ namespace ASPCMVC07.Controllers
     [Route("it")]
     public class TAResearchController : Controller
     {
-        [HttpGet("n/{n:int:range(0, int.MaxValue)}/{str}")]
+        [HttpGet("n/{n:regex(^\\d+$)}/{str}")]
         public string M04(int n, string str)
         {
             return $"GET:M04:/{n}/{str}";

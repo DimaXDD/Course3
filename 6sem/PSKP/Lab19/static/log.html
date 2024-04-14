@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lab19</title>
+</head>
+
+<body>
+    <div>
+        <form action="/login" method="POST">
+            <label>
+                Username
+                <input  type="text" name="username" required />
+            </label>
+            <br />
+
+            <label>
+                Password
+                <input  type="password" name="password" required />
+            </label>
+            <br />
+            <br />
+
+            <button  type="submit">
+                Sign In
+            </button>
+            <button type="button" onclick="location.href = 'http://localhost:3000/register'">
+                Create account
+            </button>
+        </form>
+
+    </div>
+</body>
+
+</html>

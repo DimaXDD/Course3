@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lab19</title>
+</head>
+
+<body>
+    <div>
+        <form action="/register" method="POST">
+            <label>
+                Username
+                <input type="text" name="username" required  />
+            </label>
+            <br />
+
+            <label>
+                Email
+                <input  type="text" name="email" required  />
+            </label>
+            <br />
+
+            <label>
+                Password
+                <input type="password" name="password" required  />
+            </label>
+            <br />
+
+            <label>
+                Role
+                <select name="role" >
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                    <option value="guest">Guest</option>
+                </select>
+            </label>
+            <br />
+            <br />
+
+            <button type="submit">
+                Sign Up
+            </button>
+            <button type="button"
+                onclick="location.href = 'http://localhost:3000/login'">
+                Already have an account?
+            </button>
+        </form>
+    </div>
+</body>
+
+</html>
