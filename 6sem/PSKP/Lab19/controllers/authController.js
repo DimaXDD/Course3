@@ -1,18 +1,18 @@
 const { UsersCASL } = require('../models');
 const jwt = require('jsonwebtoken');
 
-const refreshKey = 'dimaxdd';
-const accessKey = 'dimaxdd';
+const refreshKey = 'dimas';
+const accessKey = 'dimas';
 
 let oldrefreshKeyCount = 0;
 
 class AbilityController {
     getLoginPage(req, res) {
-        res.sendFile( __dirname.replace(__dirname.split('\\').pop(), '') + 'static/login.html');
+        res.sendFile( __dirname.replace(__dirname.split('\\').pop(), '') + 'static/log.html');
     }
 
     getRegisterPage(req, res) {
-        res.sendFile(__dirname.replace(__dirname.split('\\').pop(), '') + 'static/register.html');
+        res.sendFile(__dirname.replace(__dirname.split('\\').pop(), '') + 'static/reg.html');
     }
 
     getResoursePage(req, res) {

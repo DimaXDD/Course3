@@ -4,32 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <title>Lab19</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .create-account-button {
+            margin-top: 10px;
+            background-color: #2196f3;
+        }
+
+        .create-account-button:hover {
+            background-color: #1e87db;
+        }
+    </style>
 </head>
 
 <body>
-    <div>
+    <div class="container">
+        <h1>Авторизация</h1>
         <form action="/login" method="POST">
             <label>
                 Username
-                <input  type="text" name="username" required />
+                <input type="text" name="username" required />
             </label>
             <br />
 
             <label>
                 Password
-                <input  type="password" name="password" required />
+                <input type="password" name="password" required />
             </label>
             <br />
             <br />
 
-            <button  type="submit">
-                Sign In
+            <button type="submit">
+                Войти
             </button>
-            <button type="button" onclick="location.href = 'http://localhost:3000/register'">
-                Create account
+            <button type="button" onclick="location.href = 'http://localhost:3000/register'" class="create-account-button">
+                Создать аккаунт
             </button>
         </form>
-
     </div>
 </body>
 

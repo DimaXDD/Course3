@@ -1,5 +1,5 @@
 {
-  "name": "lab18",
+  "name": "lab20",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,10 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cookie-parser": "^1.4.6",
-    "express": "^4.19.2",
-    "express-session": "^1.18.0",
-    "passport": "^0.4.1",
-    "passport-github": "^1.1.0"
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0"
   }
 }

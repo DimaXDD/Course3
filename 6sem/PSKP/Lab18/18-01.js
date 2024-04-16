@@ -45,12 +45,10 @@ app.get('/logout', (req, res) => {
             console.error('Error destroying session:', err);
             return next(err);
         }
-        res.clearCookie('connect.sid', { path: '/' }); // очистка куки
+        res.clearCookie('connect.sid', { path: '/' });
         res.redirect('/login');
     });
 });
-
-
 
 app.get('/resource', isAuthenticated, (req, res) => {
     res.send(`RESOURCE - User ID: ${req.user.id}, Username: ${req.user.username}`);
