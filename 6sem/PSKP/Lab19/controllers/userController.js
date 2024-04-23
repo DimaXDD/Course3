@@ -3,7 +3,7 @@ const { UsersCASL } = require('../models');
 class UserController {
     async getAllUsers(req, res) {
         try {
-            req.ability.throwUnlessCan('manage', 'all');
+            req.ability.throwUnlessCan('read', 'UsersCASL', 'all');
             const users = await UsersCASL.findAll({
                 attributes: ['id', 'username', 'email', 'role'],
             });
@@ -13,16 +13,18 @@ class UserController {
             res.status(403).send('You dont have permissions to view all users, or your token has expired.');
         }
     }
+    
 
     async getOneUser(req, res) {
         try {
-            req.ability.throwUnlessCan(
-                'read',
-                new UsersCASL({ id: Number(req.params.id) })
-            );
+            let userId = +req.payload.id;
+
+            if (req.payload.role === 'admin') {
+                userId = +req.query.id;
+            } 
             const user = await UsersCASL.findOne({
                 where: {
-                    id: req.params.id,
+                    id: userId,
                 },
                 attributes: ['id', 'username', 'email', 'role'],
             });

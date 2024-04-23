@@ -32,10 +32,8 @@ app.use((req, res, next) => {
 
                 switch (req.payload.role) {
                     case 'admin':
-                        can(['read', 'update'], ['Repos', 'Commits'], {
-                            authorId: req.payload.id,
-                        });
-                        can('read', 'UsersCASL', { id: req.payload.id });
+                        can(['read', 'update', 'delete'], ['Repos', 'Commits']);
+                        can('read', ['Repos', 'Commits', 'UsersCASL', 'ability', 'all']);
                         can('manage', 'all');
                         break;
 
@@ -43,7 +41,7 @@ app.use((req, res, next) => {
                         can(['read', 'create', 'update'], ['Repos', 'Commits'], {
                             authorId: req.payload.id,
                         });
-                        can('read', 'UsersCASL', { id: req.payload.id });
+                        //can('read', 'UsersCASL', { id: req.payload.id }); -- для просмотра всех ползователей
                         break;
 
                     case 'guest':

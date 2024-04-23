@@ -1,5 +1,5 @@
 {
-  "name": "lab20",
+  "name": "lab22",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fs": "^0.0.1-security",
-    "https": "^1.0.0"
+    "axios": "^1.6.8",
+    "node-cron": "^3.0.3",
+    "node-telegram-bot-api": "^0.65.1"
   }
 }

@@ -1,15 +1,27 @@
 const { Repos } = require('../models');
 
 class ReposController {
+    // async getAllRepos(req, res) {
+    //     try {
+    //         req.ability.throwUnlessCan('manage', 'all');
+    //         const repos = await Repos.findAll();
+    //         return res.status(200).end(JSON.stringify(repos, null, 4));
+    //     } catch (err) {
+    //         res.status(403).send('You dont have permissions to view all repos, or your token has expired.');
+    //     }
+    // }
+
+
     async getAllRepos(req, res) {
         try {
-            req.ability.throwUnlessCan('manage', 'all');
+            req.ability.throwUnlessCan('read', 'Repos');
             const repos = await Repos.findAll();
             return res.status(200).end(JSON.stringify(repos, null, 4));
         } catch (err) {
             res.status(403).send('You dont have permissions to view all repos, or your token has expired.');
         }
     }
+    
 
     async getOneRepo(req, res) {
         try {

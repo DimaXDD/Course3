@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api', routes);
+app.use(routes);
 
 app.use((req, res) => {
   res.status(404).send('404');

@@ -18,11 +18,11 @@ router.get('/resource',isAuthenticated, (req, res, next) => {
   });
 router.get('/logout', (req, res) => {
     req.logout(() => {});
-    res.redirect('/api/login');
+    res.redirect('/login');
   });
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/api/resource',
-    failureRedirect: '/api/login'
+    successRedirect: '/resource',
+    failureRedirect: '/login'
 }));
 
 module.exports = router;

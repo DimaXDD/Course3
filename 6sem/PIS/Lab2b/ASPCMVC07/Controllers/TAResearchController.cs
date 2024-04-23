@@ -5,7 +5,8 @@ namespace ASPCMVC07.Controllers
     [Route("it")]
     public class TAResearchController : Controller
     {
-        [HttpGet("n/{n:regex(^\\d+$)}/{str}")]
+        [HttpGet]
+        [Route("{n:regex(^\\d+$)}/{str}", Order = 1)]
         public string M04(int n, string str)
         {
             return $"GET:M04:/{n}/{str}";
@@ -21,7 +22,7 @@ namespace ASPCMVC07.Controllers
 
         [HttpGet]
         [HttpDelete]
-        [Route("{f:float}/{str:minlength(2):maxlength(5)}")]
+        [Route("{f:float}/{str:minlength(2):maxlength(5)}", Order=2)]
         public async Task<string> M06(float f, string str)
         {
             return $"{Request.Method}:M06:/{f}/{str}";
