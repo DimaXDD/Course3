@@ -42,7 +42,7 @@ router.get('/logout', (req, res) => {
     } else {
       res.clearCookie('access_token');
       res.clearCookie('refresh_token');
-      res.redirect('/api/login');
+      res.redirect('/login');
     }
   });
 });
@@ -115,7 +115,7 @@ router.get('/refresh-token', async (req, res) => {
         console.log('ADD refresh token in black list', bannedToken);
         console.log('NEW refreshToken ' + newRefreshToken);
 
-        res.redirect('/api/resource');
+        res.redirect('/resource');
       }
     });
   } else {
@@ -138,7 +138,7 @@ router.post('/login', (req, res) => {
             res.cookie('accessToken', accessToken, { httpOnly: true, sameSite: 'strict' });
             res.cookie('refreshToken', refreshToken, { httpOnly: true, sameSite: 'strict', path: '/' });
 
-            res.redirect('/api/resource');
+            res.redirect('/resource');
           } catch (error) {
             console.error('Error:', error);
             res.status(500).send('Internal Server Error');
