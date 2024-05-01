@@ -10,23 +10,24 @@ warnings.filterwarnings("ignore")
 
 
 print("=============================== Задание 1 ===============================")
+# У меня только 5 параметров, и то важные только два, берем их: Annual Income (k$),Spending Score (1-100)
 data = pd.read_csv('Mall_Customers.csv')
 print(data.head())
-X = data.iloc[:, [3, 4]].values  # Используем несколько параметров
+X = data.iloc[:, [3, 4]].values
 
 print("=============================== Задание 2 ===============================")
 missing_values = np.isnan(X).sum()
 print("Пропущенные значения в X:")
 print(missing_values)
 
-# Если в X есть категориальные данные, их можно закодировать с помощью различных методов,
-# например, методом One-Hot Encoding или Label Encoding.
-# Но в данном случае, поскольку X содержит только числовые столбцы (3 и 4),
+# В моем случае, поскольку X содержит только числовые столбцы (3 и 4),
 # кодирование категориальных данных не требуется.
 
 print("=============================== Задание 3 ===============================")
+# Если по простому, это наши точки, к примеру, они на графике в 5 задании и показаны
 scaler = MinMaxScaler()
 X_scaled = scaler.fit_transform(X)
+print(X_scaled)
 
 print("=============================== Задание 4 ===============================")
 inertia = []
@@ -37,9 +38,9 @@ for n_clusters in range(1, 11):
 
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, 11), inertia, marker='o')
-plt.xlabel('Number of clusters')
-plt.ylabel('Inertia')
-plt.title('Elbow Method (Задание 4)')
+plt.xlabel('Число кластеров')
+plt.ylabel('WCSS')
+plt.title('Метод локтя (Задание 4)')
 plt.show()
 
 # Из графика видно, что "локоть" находится при количестве кластеров равном 5
@@ -58,11 +59,12 @@ plt.show()
 print("=============================== Задание 6 ===============================")
 hc = AgglomerativeClustering(n_clusters=5)
 hc_labels = hc.fit_predict(X_scaled)
+print(hc_labels)
 
 
 plt.figure(figsize=(10, 6))
 dendrogram = hierarchy.dendrogram(hierarchy.linkage(X_scaled, method='ward'))
-plt.title('Dendrogram (Задание 6)')
+plt.title('Дендрограмма (Задание 6)')
 plt.xlabel('Samples')
 plt.ylabel('Distance')
 plt.show()
@@ -70,10 +72,16 @@ plt.show()
 print("=============================== Задание 7 ===============================")
 plt.figure(figsize=(10, 6))
 plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=hc_labels, cmap='viridis')
-plt.title('Hierarchical Clustering (Задание 7)')
+plt.title('Иерархическая кластеризация (Задание 7)')
 plt.xlabel('Annual Income (scaled)')
 plt.ylabel('Spending Score (scaled)')
 plt.colorbar(label='Cluster')
+
+# Добавление подписей групп
+for i, label in enumerate(hc_labels):
+    plt.text(X_scaled[i, 0], X_scaled[i, 1], str(label), fontsize=8, color='black',
+             ha='center', va='center')
+
 plt.show()
 
 print("=============================== Задание 8 ===============================")
@@ -87,10 +95,30 @@ chosen_index = 0  # Для примера выберем первого
 plt.figure(figsize=(10, 6))
 plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=hc_labels, cmap='viridis')
 plt.scatter(X_scaled[chosen_index, 0], X_scaled[chosen_index, 1], c='red', s=100, label='Chosen Object')
-plt.title('Hierarchical Clustering with Chosen Object (Задание 9)')
+plt.title('Иерархическая кластеризация с выбранным объектом (Задание 9)')
 plt.xlabel('Annual Income (scaled)')
 plt.ylabel('Spending Score (scaled)')
 plt.colorbar(label='Cluster')
 plt.legend()
 plt.show()
 
+
+"""
+1) Задачи кластеризации в машинном обучении решаются для группировки похожих объектов в одни кластеры.
+
+2) В методе K-means сначала случайно выбираются центры кластеров, 
+затем объекты присваиваются ближайшему центру, затем центры пересчитываются, 
+и процесс повторяется, пока центры не стабилизируются.
+
+3) Оптимальное количество кластеров в K-means можно выбрать по методу локтя или силуэту, 
+когда кривая перестает резко меняться.
+
+4) В иерархической кластеризации объекты постепенно объединяются в кластеры до тех пор, 
+пока все объекты не окажутся в одном кластере.
+
+5) Дендрограмма в методе иерархической кластеризации используется для визуализации 
+процесса объединения объектов в кластеры и выбора оптимального числа кластеров.
+
+6) Метрики, такие как силуэт и индекс Дэвиса-Болдуина, используются для 
+оценки качества кластеризации по мере разделения кластеров и их компактности.
+"""
