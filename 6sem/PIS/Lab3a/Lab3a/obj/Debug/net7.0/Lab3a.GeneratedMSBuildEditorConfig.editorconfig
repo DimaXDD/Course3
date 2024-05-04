@@ -1,0 +1,55 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Lab3a
+build_property.RootNamespace = Lab3a
+build_property.ProjectDir = E:\3course\6sem\PIS\Lab3a\Lab3a\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = E:\3course\6sem\PIS\Lab3a\Lab3a
+build_property._RazorSourceGeneratorDebug = 
+
+[E:/3course/6sem/PIS/Lab3a/Lab3a/Views/Calc/Calc.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsY1xDYWxjLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/3course/6sem/PIS/Lab3a/Lab3a/Views/Calc/Test.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsY1xUZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/3course/6sem/PIS/Lab3a/Lab3a/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/3course/6sem/PIS/Lab3a/Lab3a/Views/Shared/_Calc.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DYWxjLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/3course/6sem/PIS/Lab3a/Lab3a/Views/Shared/_CalcLink.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DYWxjTGluay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/3course/6sem/PIS/Lab3a/Lab3a/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/3course/6sem/PIS/Lab3a/Lab3a/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/3course/6sem/PIS/Lab3a/Lab3a/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/3course/6sem/PIS/Lab3a/Lab3a/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-6c89ygiqxo

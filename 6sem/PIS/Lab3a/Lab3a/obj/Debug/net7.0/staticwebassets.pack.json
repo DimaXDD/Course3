@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\3course\\6sem\\PIS\\Lab3a\\Lab3a\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Lab3a.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Lab3a.bundle.scp.css"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.Lab3a.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.Lab3a.props",
+      "PackagePath": "build\\Lab3a.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.Lab3a.props",
+      "PackagePath": "buildMultiTargeting\\Lab3a.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.Lab3a.props",
+      "PackagePath": "buildTransitive\\Lab3a.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
