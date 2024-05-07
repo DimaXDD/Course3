@@ -1,15 +1,15 @@
--- 1. Создайте отдельное табличное пространство для хранения LOB
+-- 1. РЎРѕР·РґР°Р№С‚Рµ РѕС‚РґРµР»СЊРЅРѕРµ С‚Р°Р±Р»РёС‡РЅРѕРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ LOB
 create tablespace lob_data
     datafile 'log.tb.dbf'
     size 1000m
     autoextend on next 100m;
 
--- 2. Создайте отдельную папку для хранения внешних WORD (или PDF) документов.
--- Папка C:/BFILE
--- Закидываем туда файлы, у меня это phono.png и test.docx
+-- 2. РЎРѕР·РґР°Р№С‚Рµ РѕС‚РґРµР»СЊРЅСѓСЋ РїР°РїРєСѓ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РІРЅРµС€РЅРёС… WORD (РёР»Рё PDF) РґРѕРєСѓРјРµРЅС‚РѕРІ.
+-- РџР°РїРєР° C:/BFILE
+-- Р—Р°РєРёРґС‹РІР°РµРј С‚СѓРґР° С„Р°Р№Р»С‹, Сѓ РјРµРЅСЏ СЌС‚Рѕ phono.png Рё test.docx
 
--- 3. Создайте пользователя lob_user с необходимыми привилегиями 
--- для вставки, обновления и удаления больших объектов.
+-- 3. РЎРѕР·РґР°Р№С‚Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ lob_user СЃ РЅРµРѕР±С…РѕРґРёРјС‹РјРё РїСЂРёРІРёР»РµРіРёСЏРјРё 
+-- РґР»СЏ РІСЃС‚Р°РІРєРё, РѕР±РЅРѕРІР»РµРЅРёСЏ Рё СѓРґР°Р»РµРЅРёСЏ Р±РѕР»СЊС€РёС… РѕР±СЉРµРєС‚РѕРІ.
 create user C##lob_user identified by 1111
     default tablespace lob_data
     temporary tablespace temp
@@ -23,13 +23,13 @@ GRANT CREATE TABLE TO C##lob_user;
 GRANT DROP ANY DIRECTORY TO C##lob_user;
 GRANT EXECUTE ON DBMS_LOB TO C##lob_user;
 
--- 4. Добавьте квоту на данное табличное пространство пользователю lob_user.
+-- 4. Р”РѕР±Р°РІСЊС‚Рµ РєРІРѕС‚Сѓ РЅР° РґР°РЅРЅРѕРµ С‚Р°Р±Р»РёС‡РЅРѕРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ lob_user.
 ALTER USER C##lob_user QUOTA 100M ON lob_data;
 
 
--- 5. Добавьте в какую-либо таблицу следующие столбцы:
--- FOTO BLOB: для хранения фотографии;
--- DOC (или PDF) BFILE: для хранения внешних WORD (или PDF) документов.
+-- 5. Р”РѕР±Р°РІСЊС‚Рµ РІ РєР°РєСѓСЋ-Р»РёР±Рѕ С‚Р°Р±Р»РёС†Сѓ СЃР»РµРґСѓСЋС‰РёРµ СЃС‚РѕР»Р±С†С‹:
+-- FOTO BLOB: РґР»СЏ С…СЂР°РЅРµРЅРёСЏ С„РѕС‚РѕРіСЂР°С„РёРё;
+-- DOC (РёР»Рё PDF) BFILE: РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РІРЅРµС€РЅРёС… WORD (РёР»Рё PDF) РґРѕРєСѓРјРµРЅС‚РѕРІ.
 CREATE TABLE lob_table (
     id NUMBER PRIMARY KEY
 );
@@ -38,9 +38,9 @@ ALTER TABLE lob_table ADD (doc BFILE);
 
 drop table lob_table;
 
--- 6. Добавьте (INSERT) фотографии и документы в таблицу.
+-- 6. Р”РѕР±Р°РІСЊС‚Рµ (INSERT) С„РѕС‚РѕРіСЂР°С„РёРё Рё РґРѕРєСѓРјРµРЅС‚С‹ РІ С‚Р°Р±Р»РёС†Сѓ.
 CREATE DIRECTORY HOME AS 'C:/BFILE';
-INSERT INTO lob_table (id, foto, doc) VALUES (9, BFILENAME('HOME', 'photo.png'), BFILENAME('HOME', 'test.docx'));
+INSERT INTO lob_table (id, foto, doc) VALUES (10, BFILENAME('HOME', 'photo.png'), BFILENAME('HOME', 'test.docx'));
 select * from lob_table;
 select * from all_directories;
 
