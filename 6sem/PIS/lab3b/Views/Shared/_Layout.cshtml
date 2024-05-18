@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - lab3b_vd</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lab3b_vd.styles.css" asp-append-version="true" />
+</head>
+<body class="min-vw-100 d-flex flex-column gap-5">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid d-flex justify-content-between">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">lab3b_vd</a>
+                <div class="d-flex gap-3 align-items-center">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <a class="btn-link" href="/Admin/CreateUser">Create User</a>
+                            <a class="btn-link" href="/Admin/DeleteUser">Delete User</a>
+                            <a class="btn-link" href="/Admin/CreateRole">Create Role</a>
+                            <a class="btn-link" href="/Admin/DeleteRole">Delete Role</a>
+                            <a class="btn-link" href="/Admin/Assign">Assign Role</a>
+                        }
+
+                        @if (User.IsInRole("Employee") || User.IsInRole("Master"))
+                        {
+                            <a class ="link link-primary" href="/Calc">Calc</a>
+                        }
+
+                        <a class="btn-link" href="/Admin/ChangePassword">Change password</a>
+
+                        <form action="/Admin/DeleteUser?_action=Index&_controller=Home" method="post">
+                            <button class="btn btn-danger" type="submit">Удалить свой аккаунт</button>
+                            <input style="visibility: hidden; position: absolute" name="username" value="@User.Identity?.Name" />
+                        </form>
+
+                        <a class="btn-link" href="/Admin/SignOut">Sign out</a>
+                    }
+                    else
+                    {
+                        <a class="btn-link" href="/Admin/SignIn">Login</a>
+                        <a class="btn-link" href="/Admin/Register">Register</a>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - lab3b_vd - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

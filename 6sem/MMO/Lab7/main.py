@@ -56,25 +56,25 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f'Точность модели случайного леса после отбора признаков с низкой дисперсией: {accuracy:.4f}')
 
 print("=============================== Задание 5-6 ===============================")
-# # Метод PCA с 3 главными компонентами
-# pca = PCA(n_components=3)
-# features_pca = pca.fit_transform(features)
-#
-# fig = plt.figure(figsize=(10, 8))
-# ax = fig.add_subplot(111, projection='3d')
-#
-# # Визуализация данных по целевому признаку для разных цветов точек
-# for target_value in data['diagnosis'].unique():
-#     mask = (target == target_value)
-#     ax.scatter(features_pca[mask, 0], features_pca[mask, 1], features_pca[mask, 2], label=target_value)
-#
-# ax.set_xlabel('Первая главная компонента')
-# ax.set_ylabel('Вторая главная компонента')
-# ax.set_zlabel('Третья главная компонента')
-#
-# ax.set_title('Трехмерная визуализация PCA')
-# ax.legend()
-# plt.show()
+# Метод PCA с 3 главными компонентами
+pca = PCA(n_components=3)
+features_pca = pca.fit_transform(features)
+
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+
+# Визуализация данных по целевому признаку для разных цветов точек
+for target_value in data['diagnosis'].unique():
+    mask = (target == target_value)
+    ax.scatter(features_pca[mask, 0], features_pca[mask, 1], features_pca[mask, 2], label=target_value)
+
+ax.set_xlabel('Первая главная компонента')
+ax.set_ylabel('Вторая главная компонента')
+ax.set_zlabel('Третья главная компонента')
+
+ax.set_title('Трехмерная визуализация PCA')
+ax.legend()
+plt.show()
 
 
 # Метод PCA с 2 главными компонентами

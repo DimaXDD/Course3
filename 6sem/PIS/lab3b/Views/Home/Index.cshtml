@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    @if (ViewBag.IsAuthorized == true)
+    {
+        <p>
+            Username: @ViewBag.Username
+        </p>
+        <p>
+            Roles: <span class="d-inline-flex gap-2">@foreach (var role in ViewBag.Roles)
+            {
+                <span class="btn-primary btn">@role</span>
+            }
+            </span>
+        </p>
+    }
+</div>

@@ -1,4 +1,4 @@
-﻿USE TESTING;
+USE TESTING;
 
 CREATE FUNCTION SelectAnswersByTestId
 (
