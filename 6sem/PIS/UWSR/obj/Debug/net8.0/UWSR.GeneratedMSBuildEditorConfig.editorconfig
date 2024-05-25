@@ -1,0 +1,83 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = UWSR
+build_property.RootNamespace = UWSR
+build_property.ProjectDir = C:\Users\dimat\Desktop\UWSR\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\dimat\Desktop\UWSR
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/UWSR/Uwsref.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVVdTUlxVd3NyZWYuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/UWSR/_AddCommentForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVVdTUlxfQWRkQ29tbWVudEZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/UWSR/_AddLinkForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVVdTUlxfQWRkTGlua0Zvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/UWSR/_CommentsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVVdTUlxfQ29tbWVudHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/UWSR/_DeleteCommentForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVVdTUlxfRGVsZXRlQ29tbWVudEZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/UWSR/_DeleteLinkForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVVdTUlxfRGVsZXRlTGlua0Zvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/UWSR/_EditCommentForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVVdTUlxfRWRpdENvbW1lbnRGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/UWSR/_EditLinkForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVVdTUlxfRWRpdExpbmtGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/UWSR/_OwnerView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVVdTUlxfT3duZXJWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dimat/Desktop/UWSR/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
