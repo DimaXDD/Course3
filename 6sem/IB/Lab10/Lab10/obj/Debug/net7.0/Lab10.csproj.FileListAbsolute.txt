@@ -1,0 +1,15 @@
+E:\3course\6sem\IB\Lab10\Lab10\bin\Debug\net7.0\Lab10.exe
+E:\3course\6sem\IB\Lab10\Lab10\bin\Debug\net7.0\Lab10.deps.json
+E:\3course\6sem\IB\Lab10\Lab10\bin\Debug\net7.0\Lab10.runtimeconfig.json
+E:\3course\6sem\IB\Lab10\Lab10\bin\Debug\net7.0\Lab10.dll
+E:\3course\6sem\IB\Lab10\Lab10\bin\Debug\net7.0\Lab10.pdb
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\Lab10.GeneratedMSBuildEditorConfig.editorconfig
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\Lab10.AssemblyInfoInputs.cache
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\Lab10.AssemblyInfo.cs
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\Lab10.csproj.CoreCompileInputs.cache
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\Lab10.sourcelink.json
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\Lab10.dll
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\refint\Lab10.dll
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\Lab10.pdb
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\Lab10.genruntimeconfig.cache
+E:\3course\6sem\IB\Lab10\Lab10\obj\Debug\net7.0\ref\Lab10.dll
